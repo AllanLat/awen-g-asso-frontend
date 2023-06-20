@@ -1,0 +1,28 @@
+.login-page {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--backgroundPrimary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-page h1 {
+    font-size: 2.5rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.login-form {
+    width: 100%;
+    padding-inline: 6.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+}
+
+.login-form button {
+    margin-top: 1rem;
+}

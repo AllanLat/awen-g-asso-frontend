@@ -27,6 +27,10 @@
 
 :root {
   --fontPrimary: #FFF;
+  --fontSecondary: #160B26;
+  --backgroundPrimary: #160B26;
+  --primaryButton: #633C7D;
+  --primaryButtonHover: #8D549A;
 }
 
 * {
@@ -36,6 +40,7 @@
   list-style: none;
   text-decoration: none;
   font-size: 62.5%;
+  line-height: 2rem;
 }
 
 body {
