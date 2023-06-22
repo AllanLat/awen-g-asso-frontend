@@ -14,9 +14,15 @@ const ModalMenu = ({ isMenuOpen, onMenuToggle }) => {
   };
   console.log(isMenuOpen);
 
+  const logout = () => {
+    sessionStorage.clear();
+    window.location.reload();
+  }
+
   return (
     <div className={`modal-menu ${isOpen ? 'open' : ''}`}>
       <div className="modal-header">
+        <h2 onClick={logout}>Se déconnecter</h2>
         <div className="cross" onClick={onClick}></div>
       </div>
 

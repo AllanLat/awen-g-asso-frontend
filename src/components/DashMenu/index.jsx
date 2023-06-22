@@ -4,7 +4,7 @@ const DashMenu = ({ count, title }) => {
     return (
         <div className="dash_menu">
             <div className="dash_menu_content">
-                {count && 
+                {(count || count === 0) && 
                 <div className="dash_menu_count">
                     {count}
                 </div>}
