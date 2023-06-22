@@ -1,9 +1,25 @@
 .modal-menu {
     position: fixed;
+    padding: 1.5rem;
     z-index: 999;
-    width: 100vw;
+    opacity: 0;
+    right: 0;
+    width: 0;
     height: 100vh;
     background-color: var(--modalMenuColor);
+    transform: translateX(100%);
+    transition: all 0.3s ease-in-out;
+}
+
+.open {
+    width: 100%;
+    opacity: 1;
+    transform: translateX(0%);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: end;
 }
 
 .cross {
@@ -13,32 +29,31 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    position: relative;
-  }
-  
-  .cross:before,
-  .cross:after {
+    position: relative;;
+}
+
+.cross:after,
+.cross:before {
     content: '';
     position: absolute;
     width: 100%;
     height: 0.3rem;
     background-color: #fff;
     transition: transform 0.3s ease;
-  }
-  
-  .cross:before {
-    transform: rotate(45deg);
-  }
-  
-  .cross:after {
+}
+
+.cross:after {
     transform: rotate(-45deg);
-  }
-  
-  .open:before {
-    transform: rotate(135deg);
-  }
-  
-  .open:after {
+}
+
+.cross:before {
+    transform: rotate(45deg);
+}
+
+.open:before {
     transform: rotate(-135deg);
-  }
-  
+}
+
+.open:after {
+    transform: rotate(135deg);
+}

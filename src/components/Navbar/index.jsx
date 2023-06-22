@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import logoImage from '../../assets/img/association_logo.png';
 import './index.css';
 
@@ -13,10 +13,6 @@ const Navbar = ({ title }) => {
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
-  useEffect(() => {
-    setIsMenuOpen(isMenuOpen); // Synchronize the state with the prop value
-  }, [isMenuOpen]);
 
   return (
     <>

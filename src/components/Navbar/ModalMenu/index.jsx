@@ -4,18 +4,22 @@ import { useState, useEffect } from 'react';
 const ModalMenu = ({ isMenuOpen, onMenuToggle }) => {
   const [isOpen, setIsOpen] = useState(isMenuOpen);
 
-  const onClick = () => {
-    setIsOpen(!isOpen);
-    onMenuToggle(); // Call the onMenuToggle function to update isMenuOpen in Navbar
-  };
-
   useEffect(() => {
-    setIsOpen(isMenuOpen); // Update the state when the prop value changes
+    setIsOpen(isMenuOpen);
   }, [isMenuOpen]);
 
+  const onClick = () => {
+    setIsOpen(!isOpen);
+    onMenuToggle();
+  };
+  console.log(isMenuOpen);
+
   return (
-    <div className="modal-menu" style={{ display: isOpen ? 'block' : 'none' }}>
-      <div className="cross" onClick={onClick}></div>
+    <div className={`modal-menu ${isOpen ? 'open' : ''}`}>
+      <div className="modal-header">
+        <div className="cross" onClick={onClick}></div>
+      </div>
+
     </div>
   );
 };
