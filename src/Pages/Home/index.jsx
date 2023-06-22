@@ -1,13 +1,17 @@
-import React from 'react'
+import Navbar from '../../components/Navbar';
 
 const Home = () => {
-  const userId = sessionStorage.getItem('userId')
-  const associationId = sessionStorage.getItem('associationId')
-  const userLvl = sessionStorage.getItem('userLvl')
-  const userToken = sessionStorage.getItem('token')
-  console.log(userId, associationId, userLvl, userToken)
+  const user = {
+    id: sessionStorage.getItem('userId'),
+    association: sessionStorage.getItem('associationId'),
+    lvl: sessionStorage.getItem('userLvl'),
+    token: sessionStorage.getItem('token')
+  }
+  console.log(user)
+
+
   return (
-    <h1>Home</h1>
+    <Navbar title="Tableau de bord" />
   )
 }
 

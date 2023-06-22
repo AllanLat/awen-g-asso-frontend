@@ -21,6 +21,7 @@ const Login = () => {
             })
             const result = await response.json();
             if (response.status === 200) {
+                sessionStorage.setItem('isLoggedIn', 'true');
                 sessionStorage.setItem('token', result.token);
                 sessionStorage.setItem('userId', parseInt(result.userId));
                 sessionStorage.setItem('associationId', result.associationId);

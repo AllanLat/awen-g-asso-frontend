@@ -31,6 +31,7 @@
   --backgroundPrimary: #160B26;
   --primaryButton: #633C7D;
   --primaryButtonHover: #8D549A;
+  --navbarColor: rgba(99, 60, 125, 0.5);
 }
 
 * {
