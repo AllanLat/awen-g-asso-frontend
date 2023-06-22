@@ -1,0 +1,58 @@
+.dash_menu {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 15.5rem;
+    background-color: var(--dashMenuColor);
+    border-radius: 16px;
+    border: 1px solid var(--dashMenuBorder);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.dash_menu_content {
+    width: calc(100% - 8rem);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4rem;
+    align-items: center;
+    text-align: center;
+}
+
+.dash_menu_count {
+    font-size: 7.2rem;
+    font-weight: 700;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 25);
+    -webkit-text-stroke: 2px var(--primaryButton);
+}
+
+.dash_menu_title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 25);
+}
+
+
+.arrow_cta {
+    background-color: var(--primaryButton);
+    background-image: url('../../assets/img/arrow.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 8rem;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all ease-in-out 0.3s;
+}
+
+.dash_menu:hover .arrow_cta {
+    background-color: var(--primaryButtonHover);
+}
+
+
+

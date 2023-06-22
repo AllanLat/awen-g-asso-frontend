@@ -33,6 +33,8 @@
   --primaryButtonHover: #8D549A;
   --navbarColor: rgba(99, 60, 125, 0.5);
   --modalMenuColor: #633C7D;
+  --dashMenuColor: rgba(255, 255, 255, 0.05);
+  --dashMenuBorder: rgba(255, 255, 255, 0.30);
 }
 
 * {

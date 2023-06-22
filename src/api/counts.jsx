@@ -9,7 +9,7 @@ const getMembersCount = async (token) => {
         });
         const result = await response.json();
         if (response.status === 200) {
-            return result
+            return result.members_count
         }
     } catch (error) {
         console.log(error);
@@ -27,7 +27,7 @@ const getDayGroupsCount = async (token) => {
         });
         const result = await response.json();
         if (response.status === 200) {
-            return result
+            return result.day_groups_count
         }
     } catch (error) {
         console.log(error);
