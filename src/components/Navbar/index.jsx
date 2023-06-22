@@ -1,10 +1,28 @@
+import { useState } from 'react';
+import logoImage from '../../assets/img/association_logo.png';
+import './index.css';
+
+import Logo from '../Logo';
+import Burger from '../Burger';
+import ModalMenu from '../ModalMenu';
 
 
-const Navbar = ({title}) => {
-    
-  return (
-    <div>{title}</div>
-  )
-}
+const Navbar = ({ title }) => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const logoImg = logoImage;
+    const handleMenuToggle = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+    return (
+        <>
+            <nav className="navbar">
+                <Logo img={logoImg} />
+                <h1 className="title">{title}</h1>
+                <Burger isOpen={isMenuOpen} onClick={handleMenuToggle} />
+            </nav>
+            <ModalMenu isMenuOpen={isMenuOpen} />
+        </>
+    );
+};
 
-export default Navbar
+export default Navbar;

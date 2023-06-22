@@ -32,6 +32,7 @@
   --primaryButton: #633C7D;
   --primaryButtonHover: #8D549A;
   --navbarColor: rgba(99, 60, 125, 0.5);
+  --modalMenuColor: #633C7D;
 }
 
 * {
@@ -49,7 +50,7 @@ body {
   overflow: overlay;
   font-family: 'Lato', sans-serif;
   color: var(--fontPrimary);
-  background-image: url('../public/img/circle-scatter-haikei.svg');
+  background-image: url('./assets/img/circle-scatter-haikei.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
