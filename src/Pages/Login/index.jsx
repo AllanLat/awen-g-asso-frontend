@@ -6,11 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import login from '../../api/login';
 
 const Login = () => {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
 
-    const onSubmit = async(data) => {
-       login(data, navigate);
+    const onSubmit = async (data) => {
+        login(data, navigate);
+        reset();
     }
 
     return (
