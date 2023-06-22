@@ -1,8 +1,8 @@
 import './index.css';
 
-const Burger = ({ isOpen, onClick }) => {
+const Burger = ({ onClick }) => {
     return (
-        <div className={`burger ${isOpen ? 'open' : ''}`} onClick={onClick}>
+        <div className="burger" onClick={onClick}>
             <span className="bar"></span>
             <span className="bar"></span>
             <span className="bar"></span>

@@ -12,23 +12,23 @@ function App() {
   // commande pour raz la session
   /* sessionStorage.clear(); */
 
-
-  
   useEffect(() => {
-    // Vérifier si l'utilisateur est connecté et s'il n'est pas déjà sur la page d'accueil
     if (!isLoggedIn) {
       navigate('/login');
+    }
+    if (isLoggedIn) {
+      navigate('/home');
     }
   }, [isLoggedIn, navigate]);
 
   return (
-    
+
     <div className="App">
-        <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<h1>Erreur 404</h1>} /> {/* à créer en page */}
-        </Routes>
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<h1>Erreur 404</h1>} /> {/* à créer en page */}
+      </Routes>
     </div>
   );
 }
