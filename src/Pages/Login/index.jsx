@@ -15,7 +15,6 @@ const Login = () => {
     }
 
     return (
-
         <div className="login-page">
             <form className='login-form' onSubmit={handleSubmit(onSubmit)}>
                 <h1>Connectez-vous</h1>
@@ -24,7 +23,6 @@ const Login = () => {
                 <FormButton type='submit' text='Se connecter' />
             </form>
         </div>
-
     )
 }
 

@@ -1,7 +1,10 @@
 import './index.css';
 import { useState, useEffect } from 'react';
+import { toast, Slide } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const ModalMenu = ({ isMenuOpen, onMenuToggle }) => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(isMenuOpen);
 
   useEffect(() => {
@@ -12,17 +15,18 @@ const ModalMenu = ({ isMenuOpen, onMenuToggle }) => {
     setIsOpen(!isOpen);
     onMenuToggle();
   };
-  console.log(isMenuOpen);
 
-  const logout = () => {
+  const logout = (event) => {
+    event.stopPropagation();
     sessionStorage.clear();
-    window.location.reload();
+    toast.success('Vous êtes déconnecté', {transition: Slide, position: 'bottom-center', className: 'myCustomToast'});
+    navigate('/login');
   }
 
   return (
     <div className={`modal-menu ${isOpen ? 'open' : ''}`}>
       <div className="modal-header">
-        <h2 onClick={logout}>Se déconnecter</h2>
+      <h2 onClick={(event) => logout(event)}>Se déconnecter</h2>
         <div className="cross" onClick={onClick}></div>
       </div>
 

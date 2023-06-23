@@ -25,6 +25,22 @@
 }
 /* #endregion */
 
+/* region gestion de toastify */
+.myCustomToast {
+  background-color: var(--primaryButton) !important; /* Remplacez par la couleur de votre choix */
+  background: var(--primaryButton) !important;
+  color: #FFF !important; 
+  font-size: 3.6rem !important; 
+  font-weight: 700 !important;
+  font-family: 'Lato', sans-serif !important;
+  text-align: center;
+}
+
+.myCustomToast .Toastify__close-button {
+  color: #FFF !important; /* Remplacez #your_color par la couleur que vous souhaitez pour la croix */
+}
+/* endregion */
+
 :root {
   --fontPrimary: #FFF;
   --fontSecondary: #160B26;
