@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getMembersCount, getDayGroupsCount } from '../../api/counts';
+import { Link } from 'react-router-dom';
 
 import Navbar from '../../components/Navbar';
 import DashMenu from '../../components/DashMenu';
@@ -33,8 +34,8 @@ const Home = () => {
     <>
       <Navbar title="Tableau de bord" />
       <div className="home">
-          <DashMenu count={members_count} title='Adhérents' />
-          <DashMenu count={day_groups_count} title='Groupes du jour' />
+          <Link to='/members'><DashMenu count={members_count} title='Adhérents' /></Link>
+          <Link to='/groups'><DashMenu count={day_groups_count} title='Groupes du jour' /></Link>
       </div>
     </>
   )

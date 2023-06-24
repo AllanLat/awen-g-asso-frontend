@@ -7,6 +7,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import Login from './Pages/Login';
 import Home from './Pages/Home';
+import Members from './Pages/Members';
+import Groups from './Pages/Groups';
+import Error from './Pages/Error';
 
 function App() {
   const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
@@ -16,18 +19,17 @@ function App() {
     if (!isLoggedIn) {
       navigate('/login');
     }
-    if (isLoggedIn) {
-      navigate('/home');
-    }
   }, [isLoggedIn, navigate]);
 
   return (
 
     <div className="App">
       <Routes>
-        <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="*" element={<h1>Erreur 404</h1>} /> {/* à créer en page */}
+        <Route path="/home" element={<Home />} />
+        <Route path="/members" element={<Members />} />
+        <Route path="/groups" element={<Groups />} />
+        <Route path="*" element={<Error />} /> {/* à créer en page */}
       </Routes>
       <ToastContainer  autoClose={2000}/>
     </div>
