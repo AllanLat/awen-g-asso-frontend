@@ -25,7 +25,7 @@
 }
 /* #endregion */
 
-/* region gestion de toastify */
+/* css de toastify */
 .myCustomToast {
   background-color: var(--primaryButton) !important; /* Remplacez par la couleur de votre choix */
   background: var(--primaryButton) !important;
@@ -37,9 +37,26 @@
 }
 
 .myCustomToast .Toastify__close-button {
-  color: #FFF !important; /* Remplacez #your_color par la couleur que vous souhaitez pour la croix */
+  color: #FFF !important; 
 }
-/* endregion */
+
+/* css de loading ClipLoader */
+.loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--navbarColor);
+  color : var(--fontPrimary)
+}
+
+
+
 
 :root {
   --fontPrimary: #FFF;

@@ -13,7 +13,6 @@ const Home = () => {
     lvl: sessionStorage.getItem('userLvl'),
     token: sessionStorage.getItem('token')
   }
-  console.log(user)
 
   const [members_count, setMembers_count] = useState(0);
   const [day_groups_count, setDay_groups_count] = useState(0);
@@ -29,10 +28,6 @@ const Home = () => {
   
     fetchData();
   }, [user.token]);
-  
-  
-
-  console.log(members_count, day_groups_count)
 
   return (
     <>

@@ -1,7 +1,7 @@
-import { toast, Zoom, Slide } from 'react-toastify';
+import { toast, Slide } from 'react-toastify';
 
 const login = async (data, navigate) => {
-    // transform data to json
+  
     const body = JSON.stringify(data);
     try {
       const response = await fetch('http://localhost:8080/api/v1/login', {
@@ -35,6 +35,8 @@ const login = async (data, navigate) => {
         className: 'myCustomToast'
       });
     }
+ 
+    
   };
   
   export default login;
