@@ -39,5 +39,5 @@ const login = async (data, navigate) => {
     
   };
   
-  export default login;
+  export { login };
   
