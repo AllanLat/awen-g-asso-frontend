@@ -1,6 +1,5 @@
 .modal-menu {
     position: fixed;
-    padding: 1.5rem;
     z-index: 999;
     opacity: 0;
     right: 0;
@@ -9,6 +8,10 @@
     background-color: var(--modalMenuColor);
     transform: translateX(100%);
     transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .open {
@@ -18,6 +21,8 @@
 }
 
 .modal-header {
+    padding: 1.5rem;
+    width: 100%;
     display: flex;
     justify-content: flex-end;
 }
@@ -56,4 +61,14 @@
 
 .open:after {
     transform: rotate(135deg);
+}
+
+.modal-footer {
+    width: 100%;
+    display: flex;
+}
+
+.modal-footer > *:last-child {
+    border-right: none; /* Supprime la bordure sur le dernier élément */
+    margin-right: 0; /* Supprime la marge sur le dernier élément */
 }

@@ -2,6 +2,8 @@ import './index.css';
 import { useState, useEffect } from 'react';
 import { toast, Slide } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import GlassButton from '../../GlassButton';
+import { Link } from 'react-router-dom';
 
 const ModalMenu = ({ isMenuOpen, onMenuToggle }) => {
   const navigate = useNavigate();
@@ -26,10 +28,16 @@ const ModalMenu = ({ isMenuOpen, onMenuToggle }) => {
   return (
     <div className={`modal-menu ${isOpen ? 'open' : ''}`}>
       <div className="modal-header">
-      <h2 onClick={(event) => logout(event)}>Se déconnecter</h2>
-        <div className="cross" onClick={onClick}></div>
+      
+      <div className="cross" onClick={onClick}/>
       </div>
+      <div className="modal-body">
 
+      </div>
+      <div className="modal-footer">
+        <Link to="/disclaimer"><GlassButton  text="Mentions Légales" /></Link>
+        <GlassButton onClick={logout} text="Se déconnecter" />
+      </div>
     </div>
   );
 };
