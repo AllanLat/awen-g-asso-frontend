@@ -5,9 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import GlassButton from '../../GlassButton';
 import { Link } from 'react-router-dom';
 
+import logoImage from '../../../assets/img/association_logo.png';
+import Logo from '../../Logo';
+
 const ModalMenu = ({ isMenuOpen, onMenuToggle }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(isMenuOpen);
+  const logoImg = logoImage;
 
   useEffect(() => {
     setIsOpen(isMenuOpen);
@@ -27,12 +31,20 @@ const ModalMenu = ({ isMenuOpen, onMenuToggle }) => {
 
   return (
     <div className={`modal-menu ${isOpen ? 'open' : ''}`}>
+      
       <div className="modal-header">
       
       <div className="cross" onClick={onClick}/>
       </div>
+      
       <div className="modal-body">
-
+      
+        <ul className='menus'>
+          <li className='menu'><Link to="/home" onClick={onClick}>Accueil</Link></li>
+          <li className='menu'><Link to="/members" onClick={onClick}>Adhérents</Link></li>
+          <li className='menu'><Link to="/groups" onClick={onClick}>Groupes</Link></li>
+        </ul>
+        <Logo img={logoImg} size="12rem" />
       </div>
       <div className="modal-footer">
         <Link to="/disclaimer"><GlassButton  text="Mentions Légales" /></Link>

@@ -1,8 +1,12 @@
 import './index.css';
 
+import Navbar from '../../components/Navbar';
+
 const Groups = () => {
   return (
-    <h1>Groups</h1>
+    <>
+      <Navbar title="Groupes" />
+    </>
   )
 }
 

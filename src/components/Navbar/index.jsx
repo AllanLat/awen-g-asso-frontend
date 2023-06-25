@@ -20,7 +20,7 @@ const Navbar = ({ title }) => {
     <>
       <ModalMenu isMenuOpen={isMenuOpen} onMenuToggle={handleMenuToggle} />
       <nav className="navbar">
-        <Link to="/home"><Logo img={logoImg} /></Link>
+        <Link to="/home"><Logo img={logoImg} size="6rem" /></Link>
         <h1 className="title">{title}</h1>
         <Burger isOpen={isMenuOpen} onClick={handleMenuToggle} />
       </nav>
