@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getMembersCount, getDayGroupsCount } from '../../api/counts';
 import { Link } from 'react-router-dom';
+import { ClipLoader } from 'react-spinners';
 
 import Navbar from '../../components/Navbar';
 import DashMenu from '../../components/DashMenu';
@@ -17,14 +18,17 @@ const Home = () => {
 
   const [members_count, setMembers_count] = useState(0);
   const [day_groups_count, setDay_groups_count] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const membersCount = await getMembersCount(user.token);
       setMembers_count(membersCount);
   
       const dayGroupsCount = await getDayGroupsCount(user.token);
       setDay_groups_count(dayGroupsCount);
+      setLoading(false);
     };
   
     fetchData();
@@ -37,6 +41,11 @@ const Home = () => {
           <Link to='/members'><DashMenu count={members_count} title='Adhérents' /></Link>
           <Link to='/groups'><DashMenu count={day_groups_count} title='Groupes du jour' /></Link>
       </div>
+      {loading && (
+        <div className="loader-container">
+          <ClipLoader color='#fff' loading={loading} size={75} speedMultiplier={0.8}/>
+        </div>
+      )}
     </>
   )
 }

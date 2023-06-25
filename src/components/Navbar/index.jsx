@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import logoImage from '../../assets/img/association_logo.png';
 import './index.css';
 
@@ -18,7 +20,7 @@ const Navbar = ({ title }) => {
     <>
       <ModalMenu isMenuOpen={isMenuOpen} onMenuToggle={handleMenuToggle} />
       <nav className="navbar">
-        <Logo img={logoImg} />
+        <Link to="/home"><Logo img={logoImg} /></Link>
         <h1 className="title">{title}</h1>
         <Burger isOpen={isMenuOpen} onClick={handleMenuToggle} />
       </nav>

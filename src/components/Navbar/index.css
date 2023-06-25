@@ -18,6 +18,10 @@
     transform: translateX(-50%);
 }
 
+.navbar a {
+    width: auto;
+}
+
 
   
  
