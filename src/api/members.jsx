@@ -15,4 +15,4 @@ const getMembers = async (token) => {
     }
   };
   
-  export { getMembers };
+export { getMembers };

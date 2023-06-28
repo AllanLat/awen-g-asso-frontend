@@ -4,5 +4,53 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    padding-inline: 2rem;
+}
+
+.search-bar {
+    width: 100%;
+    height: 4rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    background-color:  var(--dashMenuColor);
+    border-radius: 16px;
+    border: 1px solid #fff;
+}
+
+.search-input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 1.6rem;
+    background-color: transparent;
+    color: var(--fontPrimary);
+    text-transform: uppercase;
+    font-size: 1.8rem;
+}
+
+.search-input::placeholder {
+    color: var(--fontPlaceholder);
+    text-transform: uppercase;
+}
+
+.search-button {
+   width: 2rem;
+   height: 2rem; 
+   border: none;
+   outline: none;
+   background-color: transparent; 
+   background-image: url('../../assets/img/magnifying-glass.png');
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: contain;
+   cursor: pointer;
+   transition: all 0.3s ease-in-out;
+}
+
+.search-button:hover {
+    transform: scale(1.1);
 }

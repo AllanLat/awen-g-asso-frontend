@@ -31,9 +31,9 @@ function App() {
         <Route path="/members" element={<Members />} />
         <Route path="/groups" element={<Groups />} />
         <Route path="/disclaimer" element={<Disclaimer />} />
-        <Route path="*" element={<Error />} /> {/* à créer en page */}
+        <Route path="*" element={<Error />} />
       </Routes>
-      <ToastContainer  autoClose={1500}/>
+      <ToastContainer autoClose={1500} />
     </div>
   );
 }
