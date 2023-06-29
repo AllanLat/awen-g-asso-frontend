@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ClipLoader } from 'react-spinners';
 import { getMembers } from '../../api/members';
+
+import MemberCard from '../../components/MemberCard';
+import GlassButton from '../../components/GlassButton';
 import Navbar from '../../components/Navbar';
 import './index.css';
 
@@ -18,7 +21,7 @@ const Members = () => {
       setLoading(false);
     };
     fetchMembers();
-  }, [token]); 
+  }, [token]);
 
   const handleInputChange = (e) => {  // Ajouté
     setSearchValue(e.target.value);
@@ -27,24 +30,27 @@ const Members = () => {
   return (
     <>
       <Navbar title="Adhérents" />
-      <div className='members-page'>
+      <div className="search-bar-container">
         <div className="search-bar">
-          <input 
-            className='search-input' 
-            type="text" 
+          <input
+            className='search-input'
+            type="text"
             placeholder="Trouver un adhérent"
             onChange={handleInputChange}  // Ajouté
           />
           <button className='search-button' type="submit"></button>
-        </div>     
+        </div>
+      </div>
+      <div className='members-page'>
+
         {members && (
           <ul className="members-list">
             {members
               .filter(member => member.lastname.toLowerCase().includes(searchValue.toLowerCase()))  // Affiche seulement les members dont le nom contient la recherche
               .sort((memberA, memberB) => memberA.lastname.localeCompare(memberB.lastname))
               .map((member) => (
-                <li className="member" key={member.id}><h1>{member.lastname}</h1></li>
-            ))}
+                <MemberCard key={member.id} member={member} />
+              ))}
           </ul>
         )
         }
@@ -54,6 +60,10 @@ const Members = () => {
             <ClipLoader color='#fff' loading={loading} size={75} speedMultiplier={0.8} />
           </div>
         )}
+        <div className="members-footer">
+          <GlassButton text="Retour" />
+          <GlassButton text="Nouvel Adhérent" />
+        </div>
       </div>
     </>
   );

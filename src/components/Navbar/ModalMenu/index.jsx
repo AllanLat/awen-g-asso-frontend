@@ -17,8 +17,7 @@ const ModalMenu = ({ isMenuOpen, onMenuToggle }) => {
     setIsOpen(isMenuOpen);
   }, [isMenuOpen]);
 
-  const onClick = () => {
-    setIsOpen(!isOpen);
+  const onClose = () => {
     onMenuToggle();
   };
 
@@ -34,15 +33,15 @@ const ModalMenu = ({ isMenuOpen, onMenuToggle }) => {
       
       <div className="modal-header">
       
-      <div className="cross" onClick={onClick}/>
+      <div className="cross" onClick={onClose}/>
       </div>
       
       <div className="modal-body">
       
         <ul className='menus'>
-          <li className='menu'><Link to="/home" onClick={onClick}>Accueil</Link></li>
-          <li className='menu'><Link to="/members" onClick={onClick}>Adhérents</Link></li>
-          <li className='menu'><Link to="/groups" onClick={onClick}>Groupes</Link></li>
+          <li className='menu'><Link to="/home" onClick={onClose}>Accueil</Link></li>
+          <li className='menu'><Link to="/members" onClick={onClose}>Adhérents</Link></li>
+          <li className='menu'><Link to="/groups" onClick={onClose}>Groupes</Link></li>
         </ul>
         <Logo img={logoImg} size="12rem" />
       </div>

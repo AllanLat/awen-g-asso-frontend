@@ -1,20 +1,31 @@
 .members-page {
-    padding-top: 6rem;
-    min-height: 100vh;
-    display: flex;
+    height: calc(100vh - 20rem);
     flex-direction: column;
     align-items: center;
     padding-inline: 2rem;
+    margin-top: 14rem;
+    overflow: scroll;
+}
+
+.search-bar-container {
+    position: fixed;
+    top: 6rem;
+    width: 100%;
+    height: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .search-bar {
-    width: 100%;
+    width: calc(100vw - 4rem);
     height: 4rem;
     padding: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 2rem;
     background-color:  var(--dashMenuColor);
     border-radius: 16px;
     border: 1px solid #fff;
@@ -53,4 +64,25 @@
 
 .search-button:hover {
     transform: scale(1.1);
+}
+
+.members-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-block: 2rem;
+}
+
+.members-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+}
+
+.members-footer > *:last-child {
+    border-right: none; /* Supprime la bordure sur le dernier élément */
+    margin-right: 0; /* Supprime la marge sur le dernier élément */
 }

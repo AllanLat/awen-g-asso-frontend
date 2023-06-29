@@ -1,0 +1,17 @@
+.member {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.card-picture {
+    width: 10rem;
+    height: 10rem;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.card-content p {
+    font-size: 1.4rem;
+}
