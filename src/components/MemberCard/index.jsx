@@ -2,7 +2,6 @@ import './index.css';
 import placeholderImage from '../../assets/img/placeholder.png';
 
 const index = ({ member }) => {
-  console.log(member.photo)
   return (
     <li className="member">
       <div className="card-content">

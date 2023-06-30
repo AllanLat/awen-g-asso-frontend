@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Login from './Pages/Login';
 import Home from './Pages/Home';
 import Members from './Pages/Members';
+import Member from './Pages/Member';
 import Groups from './Pages/Groups';
 import Error from './Pages/Error';
 import Disclaimer from './Pages/Disclaimer';
@@ -29,6 +30,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/members" element={<Members />} />
+        <Route path="/member/:member_id" element={<Member />} />
         <Route path="/groups" element={<Groups />} />
         <Route path="/disclaimer" element={<Disclaimer />} />
         <Route path="*" element={<Error />} />

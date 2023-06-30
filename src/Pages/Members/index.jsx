@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ClipLoader } from 'react-spinners';
 import { getMembers } from '../../api/members';
+import { Link } from 'react-router-dom';
 
 import MemberCard from '../../components/MemberCard';
 import GlassButton from '../../components/GlassButton';
@@ -49,7 +50,7 @@ const Members = () => {
               .filter(member => member.lastname.toLowerCase().includes(searchValue.toLowerCase()))  // Affiche seulement les members dont le nom contient la recherche
               .sort((memberA, memberB) => memberA.lastname.localeCompare(memberB.lastname))
               .map((member) => (
-                <MemberCard key={member.id} member={member} />
+                <Link to={`/member/${member.id}`}  key={member.id}><MemberCard key={member.id} member={member} /></Link>
               ))}
           </ul>
         )

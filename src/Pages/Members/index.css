@@ -4,7 +4,7 @@
     align-items: center;
     padding-inline: 2rem;
     margin-top: 14rem;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .search-bar-container {
@@ -80,7 +80,6 @@
     left: 0;
     width: 100%;
     display: flex;
-    
 }
 
 .members-footer > *:last-child {
