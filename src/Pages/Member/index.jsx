@@ -8,10 +8,12 @@ import "./index.css";
 
 import Navbar from "../../components/Navbar";
 import GlassButton from "../../components/GlassButton";
+import SingleMemberCard from "../../components/SingleMemberCard";
 
 import placeholderImage from '../../assets/img/placeholder.png';
 
 const Member = () => {
+    const userLvl = sessionStorage.getItem('userLvl');
     const { member_id } = useParams();
     const token = sessionStorage.getItem('token');
     const [member, setMember] = useState({});
@@ -37,17 +39,29 @@ const Member = () => {
                 firstname: member.firstname.charAt(0).toUpperCase() + member.firstname.slice(1),
                 birthday: dateConverter(member.member_detail.birthday),
                 birthplace: member.member_detail.birthplace,
-                photo: member.photo
+                photo: member.photo,
+
+                city: member.address.city,
+                postal_code: member.address.postal_code,
+                street: member.address.street,
+                living_with: member.member_detail.living_with,
+                
+                mail: member.member_detail.mail,
+                phone: member.member_detail.phone_number,
+                image_rights_signature: member.member_detail.image_rights_signature,
+                contraindication: member.member_detail.contraindication,
+
+                paid: member.paid,
+                subscription: member.subscription
             };
 
             setMember(formattedMember);
+            console.log(member);
             setLoading(false);
         };
 
         fetchMember();
     }, [token, member_id]);
-
-
 
     return (
         <>
@@ -63,13 +77,33 @@ const Member = () => {
                         <div className="member-picture" style={{ backgroundImage: member.photo ? `url(${member.photo})` : `url(${placeholderImage})` }}></div>
                     </div>
                 </div>
+                <div className="member-page-body">
+                    <div className="card member-address">
+                        <h2>Adresse :</h2>
+                        <p>{member.street}</p>
+                        <p>{member.postal_code} {member.city}</p>
+                        {member.living_with && <p>{member.living_with}</p>}
+                    </div>
+                    <div className="card member-contacts">
+                        <h2>Contacts :</h2>
+                        <p>{member.mail}</p>
+                        <p>{member.phone}</p>
+                    </div>
+                    <div className="card member-infos">
+                        <h2 className="image-rights">Droits à l'image : {member.image_rights_signature ? "Oui" : "Non"} </h2>
+                        <h2>Contre-indication(s) :</h2> 
+                        <p>{member.contraindication ? member.contraindication : "Non"}</p>
+                    </div>
+                    {userLvl > 0 && <SingleMemberCard title="Paiement" paid={member.paid} subscription={member.subscription} /> }
+                    <SingleMemberCard title="Pièces jointes" />
+                </div>
 
 
             </div>
             <div className="member-footer">
                 <Link to="/members"><GlassButton text="Retour" /></Link>
-                <GlassButton text="Modifier" />
-                <GlassButton text="Supprimer" />
+                {userLvl > 0 && <GlassButton text="Modifier" />}
+                {userLvl > 0 && <GlassButton text="Supprimer" />}
             </div>
             {loading && (
                 <div className="loader-container">

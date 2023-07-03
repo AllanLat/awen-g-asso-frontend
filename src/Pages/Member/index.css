@@ -8,7 +8,7 @@
 }
 
 .member-page-header {
-    position: fixed;
+    width:  100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -39,15 +39,15 @@
 .member-picture {
     /* arrondi */
 
-    /* width: 10rem;
+    width: 10rem;
     height: 10rem;
-    border-radius: 16px; */
+    border-radius: 16px;
 
     /* rond */
 
-    width: 10rem;
+    /* width: 10rem;
     height: 10rem;
-    border-radius: 50%;
+    border-radius: 50%; */
 
     /* carré */
 
@@ -57,6 +57,46 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.member-page-body {
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.member-page-body .card {
+    min-height: 16rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 16px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 25);
+    border: 1px solid var(--dashMenuBorder);
+    background-color: var(--dashMenuColor);
+    padding: 1.5rem;
+}
+
+.member-page-body .card h2 {
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 25);
+    font-size: 2.4rem;
+}
+.member-page-body .card p {
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 25);
+    font-size: 2.4rem;
+    font-weight: 400;
+}
+
+.member-infos {
+    gap: 1rem;
+}
+
+.image-rights {
+    margin-bottom: 2rem;
 }
 
 .member-footer {

@@ -10,6 +10,7 @@ import './index.css';
 
 const Members = () => {
   const token = sessionStorage.getItem('token');
+  const userLvl = sessionStorage.getItem('userLvl');
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchValue, setSearchValue] = useState('');  // Ajouté
@@ -63,7 +64,7 @@ const Members = () => {
         )}
         <div className="members-footer">
           <GlassButton text="Retour" />
-          <GlassButton text="Nouvel Adhérent" />
+          {userLvl > 0 && <GlassButton text="Nouvel Adhérent" />}
         </div>
       </div>
     </>
