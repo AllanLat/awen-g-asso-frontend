@@ -48,6 +48,7 @@ const Member = () => {
                 
                 mail: member.member_detail.mail,
                 phone: member.member_detail.phone_number,
+                emergency_number: member.member_detail.emergency_number,
                 image_rights_signature: member.member_detail.image_rights_signature,
                 contraindication: member.member_detail.contraindication,
 
@@ -76,6 +77,9 @@ const Member = () => {
                     <div className="member-page-picture">
                         <div className="member-picture" style={{ backgroundImage: member.photo ? `url(${member.photo})` : `url(${placeholderImage})` }}></div>
                     </div>
+                </div>
+                <div className="emergency-number">
+                    <a href={`tel:${member.emergency_number}`}>En cas d'urgence : {member.emergency_number}</a>
                 </div>
                 <div className="member-page-body">
                     <div className="card member-address">
