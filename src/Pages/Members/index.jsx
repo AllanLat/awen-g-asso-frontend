@@ -13,8 +13,8 @@ const Members = () => {
   const userLvl = sessionStorage.getItem('userLvl');
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchValue, setSearchValue] = useState('');  // Ajouté
-
+  const [searchValue, setSearchValue] = useState('');
+  
   useEffect(() => {
     const fetchMembers = async () => {
       setLoading(true);
@@ -25,7 +25,7 @@ const Members = () => {
     fetchMembers();
   }, [token]);
 
-  const handleInputChange = (e) => {  // Ajouté
+  const handleInputChange = (e) => {
     setSearchValue(e.target.value);
   };
 
@@ -62,8 +62,9 @@ const Members = () => {
             <ClipLoader color='#fff' loading={loading} size={75} speedMultiplier={0.8} />
           </div>
         )}
+
         <div className="members-footer">
-          <GlassButton text="Retour" />
+          <Link to="/home"><GlassButton text="Retour" /></Link>
           {userLvl > 0 && <GlassButton text="Nouvel Adhérent" />}
         </div>
       </div>
