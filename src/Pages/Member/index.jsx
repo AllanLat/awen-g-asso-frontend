@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { getMemberById } from "../../api/members.jsx";
 import { useEffect, useState } from "react";
 import { ClipLoader } from "react-spinners";
@@ -19,6 +19,8 @@ const Member = () => {
     const [member, setMember] = useState({});
     const [loading, setLoading] = useState(true);
 
+    const navigate = useNavigate();
+
     const toOneInitial = (firstname) => {
         return firstname.charAt(0).toUpperCase() + '.'
     }
@@ -30,35 +32,43 @@ const Member = () => {
     useEffect(() => {
         const fetchMember = async () => {
             setLoading(true);
-            const member = await getMemberById(token, member_id);
-
-            // Mettre en forme les données ici
-            const formattedMember = {
-                ...member,
-                lastname: member.lastname.toUpperCase(),
-                firstname: member.firstname.charAt(0).toUpperCase() + member.firstname.slice(1),
-                birthday: dateConverter(member.member_detail.birthday),
-                birthplace: member.member_detail.birthplace,
-                photo: member.photo,
-
-                city: member.address.city,
-                postal_code: member.address.postal_code,
-                street: member.address.street,
-                living_with: member.member_detail.living_with,
+            try {
+                const member = await getMemberById(token, member_id);
                 
-                mail: member.member_detail.mail,
-                phone: member.member_detail.phone_number,
-                emergency_number: member.member_detail.emergency_number,
-                image_rights_signature: member.member_detail.image_rights_signature,
-                contraindication: member.member_detail.contraindication,
-
-                paid: member.paid,
-                subscription: member.subscription
-            };
-
-            setMember(formattedMember);
-            console.log(member);
-            setLoading(false);
+                // Mettre en forme les données ici
+                const formattedMember = {
+                    ...member,
+                    lastname: member.lastname.toUpperCase(),
+                    firstname: member.firstname.charAt(0).toUpperCase() + member.firstname.slice(1),
+                    birthday: dateConverter(member.member_detail.birthday),
+                    birthplace: member.member_detail.birthplace,
+                    photo: member.photo,
+    
+                    city: member.address.city,
+                    postal_code: member.address.postal_code,
+                    street: member.address.street,
+                    living_with: member.member_detail.living_with,
+                    
+                    mail: member.member_detail.mail,
+                    phone: member.member_detail.phone_number,
+                    emergency_number: member.member_detail.emergency_number,
+                    image_rights_signature: member.member_detail.image_rights_signature,
+                    contraindication: member.member_detail.contraindication,
+    
+                    paid: member.paid,
+                    subscription: member.subscription
+                };
+    
+                setMember(formattedMember);
+                console.log(member);
+                setLoading(false);
+            } catch (error) {
+                if (error === 'Not found') {
+                    navigate('/error');
+                } else {
+                    console.error(error);
+                }
+            }
         };
 
         fetchMember();

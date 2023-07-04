@@ -15,21 +15,30 @@ const getMembers = async (token) => {
   }
 };
 
-const getMemberById = async (token, id) => {
-  try {
-    const response = await fetch(`http://localhost:8080/api/v1/members/${id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+const getMemberById = (token, id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/v1/members/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      if (response.status === 200) {
+        const data = await response.json();
+        resolve(data);
+      } else if (response.status === 404) {
+        reject('Not found');
+      } else {
+        reject('Error');
       }
-    });
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
+    } catch (error) {
+      reject(error);
+    }
+  });
 }
+
 
 export { getMembers, getMemberById };
