@@ -1,11 +1,13 @@
 import './index.css';
+
 import { useForm } from 'react-hook-form';
-import Input from '../../components/Input';
-import FormButton from '../../components/FormButton';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../api/login';
 import { useState } from 'react';
 import { ClipLoader } from 'react-spinners';
+
+import Input from '../../components/Input';
+import FormButton from '../../components/FormButton';
 
 const Login = () => {
 

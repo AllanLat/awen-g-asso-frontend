@@ -10,42 +10,35 @@ import './customConfirm.css'
 
 import Navbar from '../../components/Navbar';
 import GlassButton from '../../components/GlassButton';
+import MemberForm from '../../components/MemberForm';
 
 const CreateMember = () => {
-  const navigate = useNavigate();
-  const token = sessionStorage.getItem('token');
+    const navigate = useNavigate();
+    const token = sessionStorage.getItem('token');
 
-  const cancel = () => {
-    confirmAlert({
-      message: 'Voulez-vous vraiment annuler ?',
-      closeOnClickOutside: false,
-      buttons: [
-        {
-          label: 'Oui',
-          onClick: () => {
-            navigate('/members');
-          }
-        },
-        {
-          label: 'Non',
-          onClick: () => {
-            return;
-          }
-        }
-      ]
-    })
-  };
+    const cancel = () => {
+        confirmAlert({
+            message: 'Voulez-vous vraiment annuler ?',
+            closeOnClickOutside: false,
+            buttons: [
+                { label: 'Oui', onClick: () => { navigate('/members'); } },
+                { label: 'Non', onClick: () => { return; } }
+            ]
+        })
+    };
 
-  return (
-    <>
-      <Navbar title="Nouvel adhérent" />
-      <div className="create-member-page"></div>
-      <div className="create-member-footer">
-        <GlassButton onClick={cancel} text="Annuler" />
-        <GlassButton text="Ajouter" />
-      </div>
-    </>
-  );
+    return (
+        <>
+            <Navbar title="Nouvel adhérent" />
+            <div className="create-member-page">
+                <MemberForm/>
+            </div>
+            <div className="create-member-footer">
+                <GlassButton onClick={cancel} text="Annuler" />
+                <GlassButton text="Ajouter" />
+            </div>
+        </>
+    );
 };
 
 export default CreateMember;

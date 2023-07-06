@@ -4,7 +4,7 @@ const Input = ({ value, type, text, register, required }) => {
 
     return (
         <div className='input-group'>
-            <label htmlFor={value}>{text} :</label>
+            <label className={type==='file' && 'custom-file-upload'} htmlFor={value}>{type==='file' ? text : text + ' :'}</label>
             <input type={type} required={required} id={value} name={value} {...register(value)}/>
         </div>
     )
