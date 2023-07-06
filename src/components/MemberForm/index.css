@@ -12,3 +12,12 @@
     font-size: 2rem;
 }
 
+.member-photo {
+    margin-top: 2rem;
+    width: 20rem;
+    height: 20rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}

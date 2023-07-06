@@ -11,12 +11,23 @@ import './customConfirm.css'
 import Navbar from '../../components/Navbar';
 import GlassButton from '../../components/GlassButton';
 import MemberForm from '../../components/MemberForm';
+import { useEffect } from 'react';
+
+
 
 const CreateMember = () => {
     const navigate = useNavigate();
     const token = sessionStorage.getItem('token');
+    const userLvl = sessionStorage.getItem('userLvl');
 
-    const cancel = () => {
+
+    useEffect(() => {
+        if (userLvl < 1) {
+            navigate('/error');
+        }
+    }, [navigate, userLvl]);
+
+    const cancel = (e) => {
         confirmAlert({
             message: 'Voulez-vous vraiment annuler ?',
             closeOnClickOutside: false,
@@ -31,7 +42,7 @@ const CreateMember = () => {
         <>
             <Navbar title="Nouvel adhérent" />
             <div className="create-member-page">
-                <MemberForm/>
+                <MemberForm />
             </div>
             <div className="create-member-footer">
                 <GlassButton onClick={cancel} text="Annuler" />

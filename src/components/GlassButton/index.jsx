@@ -1,8 +1,8 @@
 import './index.css';
 
-const GlassButton = ({onClick, text}) => {
+const GlassButton = ({onClick, text, type}) => {
   return (
-    <button onClick={onClick} className='glass-button'>{text}</button>
+    <button onClick={onClick} type={type} className='glass-button'>{text}</button>
   )
 }
 

@@ -11,6 +11,7 @@ const login = async (data, navigate) => {
         },
         body: body
       });
+      console.log(body)
       const result = await response.json();
       if (response.status === 200) {
         sessionStorage.setItem('isLoggedIn', 'true');

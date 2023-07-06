@@ -3,6 +3,7 @@
     z-index: 900;
     opacity: 0;
     top: 0;
+    right: 0;
     width: 0;
     height: 100vh;
     background-color: var(--modalMenuColor);
@@ -26,6 +27,9 @@
 
 .open img {
     display: block;
+}
+.open .modal-footer {
+    display: flex;
 }
 
 .modal-header {
@@ -115,7 +119,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    display: flex;
+    display: none;
 }
 
 .modal-footer > *:last-child {
