@@ -25,7 +25,33 @@ const getMemberById = (token, id) => {
           'Authorization': `Bearer ${token}`
         }
       });
-      
+
+      if (response.status === 200) {
+        const data = await response.json();
+        resolve(data);
+      } else if (response.status === 404) {
+        reject('Not found');
+      } else {
+        reject('Error');
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
+const createMember = async (token, data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/v1/members`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+      });
+
       if (response.status === 200) {
         const data = await response.json();
         resolve(data);
@@ -41,4 +67,5 @@ const getMemberById = (token, id) => {
 }
 
 
-export { getMembers, getMemberById };
+
+export { getMembers, getMemberById, createMember };

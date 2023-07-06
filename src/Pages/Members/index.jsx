@@ -14,7 +14,7 @@ const Members = () => {
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchValue, setSearchValue] = useState('');
-  
+
   useEffect(() => {
     const fetchMembers = async () => {
       setLoading(true);
@@ -51,7 +51,7 @@ const Members = () => {
               .filter(member => member.lastname.toLowerCase().includes(searchValue.toLowerCase()))  // Affiche seulement les members dont le nom contient la recherche
               .sort((memberA, memberB) => memberA.lastname.localeCompare(memberB.lastname))
               .map((member) => (
-                <Link to={`/member/${member.id}`}  key={member.id}><MemberCard key={member.id} member={member} /></Link>
+                <Link to={`/member/${member.id}`} key={member.id}><MemberCard key={member.id} member={member} /></Link>
               ))}
           </ul>
         )
@@ -65,7 +65,7 @@ const Members = () => {
 
         <div className="members-footer">
           <Link to="/home"><GlassButton text="Retour" /></Link>
-          {userLvl > 0 && <GlassButton text="Nouvel Adhérent" />}
+          {userLvl > 0 && <Link to="/member/new"><GlassButton text="Nouvel Adhérent" /></Link>}
         </div>
       </div>
     </>

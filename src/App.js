@@ -12,6 +12,7 @@ import Member from './Pages/Member';
 import Groups from './Pages/Groups';
 import Error from './Pages/Error';
 import Disclaimer from './Pages/Disclaimer';
+import CreateMember from './Pages/CreateMember';
 
 function App() {
   const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
@@ -31,6 +32,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/members" element={<Members />} />
         <Route path="/member/:member_id" element={<Member />} />
+        <Route path="/member/new" element={<CreateMember />} />
         <Route path="/groups" element={<Groups />} />
         <Route path="/disclaimer" element={<Disclaimer />} />
         <Route path="*" element={<Error />} />

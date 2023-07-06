@@ -60,7 +60,6 @@ const Member = () => {
                 };
     
                 setMember(formattedMember);
-                console.log(member);
                 setLoading(false);
             } catch (error) {
                 if (error === 'Not found') {
