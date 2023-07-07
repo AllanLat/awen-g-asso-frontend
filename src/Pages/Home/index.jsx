@@ -39,7 +39,9 @@ const Home = () => {
       <Navbar title="Tableau de bord" />
       <div className="home">
           <Link to='/members'><DashMenu count={members_count} title='Adhérents' /></Link>
+          <Link to='/account'><DashMenu title='Solde du compte' /></Link>
           <Link to='/groups'><DashMenu count={day_groups_count} title='Groupes du jour' /></Link>
+
       </div>
       {loading && (
         <div className="loader-container">

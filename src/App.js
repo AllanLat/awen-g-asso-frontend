@@ -11,6 +11,7 @@ import Members from './Pages/Members';
 import Groups from './Pages/Groups';
 import Error from './Pages/Error';
 import Disclaimer from './Pages/Disclaimer';
+import Account from './Pages/account';
 
 function App() {
   const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
@@ -31,6 +32,7 @@ function App() {
         <Route path="/members" element={<Members />} />
         <Route path="/groups" element={<Groups />} />
         <Route path="/disclaimer" element={<Disclaimer />} />
+        <Route path="/account" element={<Account />} />
         <Route path="*" element={<Error />} /> {/* à créer en page */}
       </Routes>
       <ToastContainer  autoClose={1500}/>

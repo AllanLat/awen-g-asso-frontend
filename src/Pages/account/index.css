@@ -1,0 +1,26 @@
+.footer-account
+{
+    position: fixed;
+    bottom: 0;
+    left:0;
+    display: flex;
+    width: 100%;
+}
+
+.global-amount
+{
+    position: fixed;
+    margin-top: 6.2rem;
+    width: 100%;
+}
+
+.transaction-cards
+{
+    width: 100vw;
+    height: 100vh;
+    padding-top: 14rem;
+    padding-bottom: 6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
