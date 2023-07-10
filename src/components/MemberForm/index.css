@@ -12,12 +12,16 @@
     font-size: 2rem;
 }
 
-.member-photo {
-    margin-top: 2rem;
-    width: 20rem;
-    height: 20rem;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-attachment: fixed;
+
+.member-form h2 {
+    align-self: flex-start;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 25);
+    -webkit-text-stroke: 1px var(--primaryButton);
+    margin-block: 1rem;
+}
+
+.member-form h2:first-of-type {
+    align-self: center;
 }

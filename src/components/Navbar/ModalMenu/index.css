@@ -15,7 +15,7 @@
     justify-content: space-between;
 }
 
-.modal-menu img {
+.modal-menu .logo {
     display: none;
 }
 
@@ -25,10 +25,11 @@
     transform: translateX(0%);
 }
 
-.open img {
+.open .logo {
     display: block;
+    align-self: start;
 }
-.open .modal-footer {
+.open .modal-footer, .open .modal-body {
     display: flex;
 }
 
@@ -84,6 +85,7 @@
     height: calc(100vh - 6rem);
     width: 100%;
     position: absolute;
+    display: none;
 }
 
 .modal-body .logo {
