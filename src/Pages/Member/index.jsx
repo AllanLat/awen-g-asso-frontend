@@ -42,7 +42,7 @@ const Member = () => {
                     firstname: member.firstname.charAt(0).toUpperCase() + member.firstname.slice(1),
                     birthday: dateConverter(member.member_detail.birthday),
                     birthplace: member.member_detail.birthplace,
-                    photo: member.photo,
+                    photo: "data:image/jpeg;base64,"+ member.photo,
     
                     city: member.address.city,
                     postal_code: member.address.postal_code,
@@ -71,20 +71,22 @@ const Member = () => {
         };
 
         fetchMember();
-    }, [token, member_id]);
+    }, [token, member_id, navigate]);
 
     return (
         <>
             <Navbar title={member.lastname && member.lastname + " " + toOneInitial(member.firstname)} />
             <div className='member-page'>
                 <div className="member-page-header">
+                
                     <div className="member-page-header-content">
                         <p className="member-name">{member.lastname}</p>
                         <p className="member-firstname">{member.firstname}</p>
                         <p className="member-birthday">Né(e) le {member.birthday} à {member.birthplace}</p>
                     </div>
                     <div className="member-page-picture">
-                        <div className="member-picture" style={{ backgroundImage: member.photo ? `url(${member.photo})` : `url(${placeholderImage})` }}></div>
+                        <div className="member-picture" style={{ backgroundImage: member.photo ?  `url(${member.photo})`  : `url(${placeholderImage})` }}></div>
+                        
                     </div>
                 </div>
                 <div className="emergency-number">
