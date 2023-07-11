@@ -18,9 +18,11 @@ const MemberForm = () => {
     const [image_rights_signatureBlob, setImage_rights_signatureBlob] = useState(null);
 
     const onSubmit = (data) => {
+        if (data.contraindication === "" ) {data.contraindication = null;}
         data.photo = photoBlob;
         data.image_rights_signature = image_rights_signatureBlob;
-        createMember(token, data);
+        console.log(token, data)
+        /* createMember(token, data); */
     }
 
     const handlePhotoName = (e) => {
@@ -66,7 +68,7 @@ const MemberForm = () => {
             <Input value='city' text='Ville' type='text' required register={register} />
             <h2>Contacts :</h2>
             <Input value='mail' text='Adresse mail' type='email' required register={register} />
-            <Input value='phone' text='N° de téléphone' type='number' required register={register} />
+            <Input value='phone_number' text='N° de téléphone' type='number' required register={register} />
             <Input value='emergency_number' text="Numéro en cas d'urgence" type='number' required register={register} />
             <h2>Informations :</h2>
             <Input value='image_rights_signature' text={image_rights_signatureName === '' ? "Ajouter autorisation signée de droit à l'image" : image_rights_signatureName}  onChange={handleImage_rights_signatureName}  type='file' register={register} />
