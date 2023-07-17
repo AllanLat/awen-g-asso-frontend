@@ -42,7 +42,7 @@ const CreateMember = () => {
         <>
             <Navbar title="Nouvel adhérent" />
             <div className="create-member-page">
-                <MemberForm />
+                <MemberForm method="post" />
             </div>
             <div className="create-member-footer">
                 <GlassButton onClick={cancel} text="Annuler" />
