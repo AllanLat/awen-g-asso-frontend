@@ -13,6 +13,7 @@ const MemberForm = ({method}) => {
     const { register, handleSubmit, reset } = useForm();
 
     const [photoName, setPhotoName] = useState('');
+    const [photo, setPhoto] = useState('');
     const [image_rights_signatureName, setImage_rights_signatureName] = useState('');
    
 
@@ -27,11 +28,11 @@ const MemberForm = ({method}) => {
         data.subscription = 0
         data.paid = 0
         
-        console.log(data.photo)
+        console.log(photo)
 
         const formData = new FormData();
 
-        formData.append('photo', data.photo);
+        formData.append('photo', photo);
 
         console.log(formData)
 
@@ -46,6 +47,8 @@ const MemberForm = ({method}) => {
 
     const handlePhotoName = (e) => {
         e.target.files[0].name && setPhotoName(e.target.files[0].name);
+        e.target.files[0].name && setPhoto(e.target.files[0]);
+        
     }
 
     const handleImage_rights_signatureName = (e) => {
