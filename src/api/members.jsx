@@ -40,32 +40,26 @@ const getMemberById = (token, id) => {
   });
 }
 
-const createMember = async (token, data) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const response = await fetch(`http://localhost:8080/api/v1/members`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(data)
-      });
+const createMember = async (token, newMember) => {
 
-      if (response.status === 200) {
-        const data = await response.json();
-        resolve(data);
-      } else if (response.status === 404) {
-        reject('Not found');
-      } else {
-        reject('Error');
-      }
-    } catch (error) {
-      reject(error);
-    }
-  });
+  // les données sont bien récupérées
+  console.log(newMember.get('data'));
+  console.log(newMember.get('photo'));
+  console.log(newMember.get('image_rights_signature'));
+
+  
+
+  const response = await fetch(`http://localhost:8080/api/v1/members`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    },
+    body: newMember
+  })
+
+
 }
 
 
 
-export { getMembers, getMemberById, createMember };
+export { getMembers, getMemberById, createMember };      
