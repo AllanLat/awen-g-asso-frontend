@@ -1,7 +1,7 @@
 import './index.css';
 import placeholderImage from '../../assets/img/placeholder.png';
 
-const index = ({ member }) => {
+const MemberCard = ({ member }) => {
   const photoConverted = "data:image/png;base64,"+ member.photo
   return (
     <li className="member">
@@ -15,4 +15,4 @@ const index = ({ member }) => {
   );
 };
 
-export default index;
+export default MemberCard;

@@ -11,7 +11,7 @@
     cursor: pointer;
 }
 
-.card-content {
+.member .card-content {
     flex: flex-start;
     width: calc(100% - 18rem);
     height: 10rem;
@@ -22,11 +22,11 @@
     gap: 1rem;
 }
 
-.card-content p {
+.member .card-content p {
     font-size: 1.4rem;
 }
 
-.card-picture {
+.member .card-picture {
     width: 10rem;
     height: 10rem;
     background-size: cover;
@@ -36,7 +36,7 @@
 
 
 
-.card-button {
+.member .card-button {
     background-color: var(--primaryButton);
     background-image: url('../../assets/img/arrow.png');
     background-repeat: no-repeat;

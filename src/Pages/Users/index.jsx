@@ -74,7 +74,7 @@ const Users = () => {
 
                 <div className="users-footer">
                     <Link to="/home"><GlassButton text="Retour" /></Link>
-                    <Link to="/member/new"><GlassButton text="Nouvel Adhérent" /></Link>
+                    <Link to="/user/new"><GlassButton text="Nouveau professeur" /></Link>
                 </div>
             </div>
         </>
