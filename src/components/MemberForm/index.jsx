@@ -5,6 +5,9 @@ import { useState } from 'react';
 import { createMember } from '../../api/members';
 
 import { useNavigate } from 'react-router-dom';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import '../../Pages/CreateMember/customConfirm.css'
 
 import Input from '../Input';
 import FormButton from '../FormButton';
@@ -12,6 +15,7 @@ import FormButton from '../FormButton';
 const token = sessionStorage.getItem('token');
 
 const MemberForm = ({ method }) => {
+
     const { register, handleSubmit, setValue } = useForm();
 
     const navigate = useNavigate();
@@ -20,63 +24,75 @@ const MemberForm = ({ method }) => {
     const [image_rights_signatureName, setImage_rights_signatureName] = useState('');
 
     const onSubmit = (data) => {
-        // on construit ici la data simple pour créer un nouveau membre
-        const newData = {
-            "street": data.street,
-            "postal_code": data.postal_code,
-            "city": data.city,
-            "mail": data.mail,
-            "birthday": data.birthday,
-            "contraindication": data.contraindication,
-            "phone_number": data.phone_number,
-            "emergency_number": data.emergency_number,
-            "birthplace": data.birthplace,
-            "living_with": data.living_with,
-            "firstname": data.firstname,
-            "lastname": data.lastname,
-            "file_status": 0,
-            "payment_status": 0,
-            "certificate": null,
-            "subscription": 0,
-            "paid": 0
-        }
-        
+        confirmAlert({
+            message: 'Voulez-vous vraiment soumettre ce formulaire ?',
+            closeOnClickOutside: false,
+            buttons: [
+                {
+                    label: 'Oui', onClick: () => {
+                        // on construit ici la data simple pour créer un nouveau membre
+                        const newData = {
+                            "street": data.street,
+                            "postal_code": data.postal_code,
+                            "city": data.city,
+                            "mail": data.mail,
+                            "birthday": data.birthday,
+                            "contraindication": data.contraindication,
+                            "phone_number": data.phone_number,
+                            "emergency_number": data.emergency_number,
+                            "birthplace": data.birthplace,
+                            "living_with": data.living_with,
+                            "firstname": data.firstname,
+                            "lastname": data.lastname,
+                            "file_status": 0,
+                            "payment_status": 0,
+                            "certificate": null,
+                            "subscription": 0,
+                            "paid": 0
+                        }
 
-        // on construit ici les formData pour les fichiers s'ils existent
-        const formData = new FormData();
 
-        if (data.photo.name) {
-            formData.append('photo', data.photo);
-        }
+                        // on construit ici les formData pour les fichiers s'ils existent
+                        const formData = new FormData();
 
-        if (data.image_rights_signature.name) {
-            formData.append('image_rights_signature', data.image_rights_signature);
-        } 
+                        if (data.photo.name) {
+                            formData.append('photo', data.photo);
+                        }
 
-        
-        // on transforme la data en JSON
-        const jsonData = JSON.stringify(newData);
+                        if (data.image_rights_signature.name) {
+                            formData.append('image_rights_signature', data.image_rights_signature);
+                        }
 
-        // on crée un nouveau formData avec le tout
-        const newMember = new FormData();
 
-        // on ajoute les données JSON au formData
-        newMember.append('data', jsonData);
+                        // on transforme la data en JSON
+                        const jsonData = JSON.stringify(newData);
 
-        // on ajoute les fichiers au formData
-        formData.forEach((file, index) => {
-            newMember.append(index, file);
+                        // on crée un nouveau formData avec le tout
+                        const newMember = new FormData();
+
+                        // on ajoute les données JSON au formData
+                        newMember.append('data', jsonData);
+
+                        // on ajoute les fichiers au formData
+                        formData.forEach((file, index) => {
+                            newMember.append(index, file);
+                        })
+                        if (method === 'post') {
+                            createMember(token, newMember)
+                                .then((insertId) => {
+                                    navigate('/member/' + insertId);
+                                })
+                                .catch((error) => {
+                                    console.log(error);
+                                });
+                        }
+                    }
+                },
+                { label: 'Non', onClick: () => { return; } }
+            ]
         })
-        if (method === 'post') {
-            createMember(token, newMember)
-                .then((insertId) => {
-                    navigate('/member/' + insertId);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-        
+
+
     }
 
     const handlePhotoName = (e) => {
@@ -90,7 +106,7 @@ const MemberForm = ({ method }) => {
     }
 
     return (
-        <form className='member-form' action="" onSubmit={handleSubmit(onSubmit)} >
+        <form id='member-form' className='member-form' action="" onSubmit={handleSubmit(onSubmit)} >
             <h2>Ajouter un adhérent</h2>
             <Input value='lastname' text='Nom' type='text' required register={register} />
             <Input value='firstname' text='Prénom' type='text' required register={register} />

@@ -37,7 +37,6 @@ const getMemberById = async (token, id) => {
 
 
 const createMember = async (token, newMember) => {
-
   const response = await fetch(`http://localhost:8080/api/v1/members`, {
     method: 'POST',
     headers: {

@@ -1,7 +1,6 @@
 import './index.css';
 
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -17,7 +16,6 @@ import { useEffect } from 'react';
 
 const CreateMember = () => {
     const navigate = useNavigate();
-    const token = sessionStorage.getItem('token');
     const userLvl = sessionStorage.getItem('userLvl');
 
 
@@ -46,7 +44,7 @@ const CreateMember = () => {
             </div>
             <div className="create-member-footer">
                 <GlassButton onClick={cancel} text="Annuler" />
-                <GlassButton text="Ajouter" />
+                <GlassButton form='member-form' type="submit" text="Ajouter" />
             </div>
         </>
     );
