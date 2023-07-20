@@ -57,6 +57,24 @@ const createMember = async (token, newMember) => {
 
 }
 
+const updateMember = async (token, memberId, newMember) => {
+   const response = await fetch(`http://localhost:8080/api/v1/members/${memberId}`, {
+     method: 'PUT',
+     headers: {
+       'Authorization': `Bearer ${token}`
+     },
+     body: newMember 
+   })
+   const result = await response.json();
+   if (response.status === 200) {
+     toast.success('Membre modifié', {transition: Slide, position: 'bottom-center', className: 'myCustomToast'});
+     return result;
+   } else {
+     toast.error('Une erreur est survenue', {transition: Slide, position: 'bottom-center', className: 'myCustomToast'});
+     return null;
+   }
+}
 
 
-export { getMembers, getMemberById, createMember };      
+
+export { getMembers, getMemberById, createMember, updateMember };      

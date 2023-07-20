@@ -124,6 +124,10 @@
     display: none;
 }
 
+.modal-footer .glass-button {
+    box-shadow: none;
+}
+
 .modal-footer > *:last-child {
     border-right: none; /* Supprime la bordure sur le dernier élément */
     margin-right: 0; /* Supprime la marge sur le dernier élément */

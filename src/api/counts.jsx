@@ -16,6 +16,24 @@ const getMembersCount = async (token) => {
     }
 }
 
+const getUsersCount = async (token) => {
+    try {
+        const response = await fetch('http://localhost:8080/api/v1/users/count', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        });
+        const result = await response.json();
+        if (response.status === 200) {
+            return result.users_count
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const getDayGroupsCount = async (token) => {
     try {
         const response = await fetch('http://localhost:8080/api/v1/groups/day_groups/count', {
@@ -34,4 +52,4 @@ const getDayGroupsCount = async (token) => {
     }
 }
 
-export { getMembersCount, getDayGroupsCount }
+export { getMembersCount, getDayGroupsCount, getUsersCount }

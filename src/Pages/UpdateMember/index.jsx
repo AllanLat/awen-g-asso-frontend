@@ -9,11 +9,19 @@ import '../../utils/css/customConfirm.css'
 import Navbar from '../../components/Navbar';
 import GlassButton from '../../components/GlassButton';
 import MemberForm from '../../components/MemberForm';
+import { useEffect } from 'react';
 
 const UpdateMember = () => {
 
     const navigate = useNavigate();
     const { member_id } = useParams();
+    const userLvl = sessionStorage.getItem('userLvl');
+
+    useEffect(() => {
+        if (userLvl < 1) {
+            navigate('/error');
+        }
+    }, [navigate, userLvl]);
 
     const cancel = (e) => {
         confirmAlert({
