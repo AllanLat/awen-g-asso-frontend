@@ -52,7 +52,7 @@ const Members = () => {
           <ul className="members-list" ref={membersListRef}>
             {members
               .filter(member => member.lastname.toLowerCase().includes(searchValue.toLowerCase()))  // Affiche seulement les members dont le nom contient la recherche
-              .sort((memberA, memberB) => memberA.lastname.localeCompare(memberB.lastname))
+              .sort((memberA, memberB) => memberA.lastname.localeCompare(memberB.lastname)) // Trie les membres par nom
               .map((member) => (
                 <Link to={`/member/${member.id}`} key={member.id}><MemberCard key={member.id} member={member} /></Link>
               ))}

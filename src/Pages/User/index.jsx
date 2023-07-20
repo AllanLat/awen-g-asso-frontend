@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { getUserById } from '../../api/users';
+import { getUserById, getGroupByUser } from '../../api/users';
 import { useEffect, useState } from 'react';
 import { ClipLoader } from 'react-spinners';
 import { Link } from 'react-router-dom';
@@ -8,6 +8,7 @@ import './index.css';
 
 import Navbar from '../../components/Navbar';
 import GlassButton from '../../components/GlassButton';
+import GroupCard from '../../components/GroupCard';
 
 
 const User = () => {
@@ -15,6 +16,7 @@ const User = () => {
     const { user_id } = useParams();
     const token = sessionStorage.getItem('token');
     const [user, setUser] = useState({});
+    const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const navigate = useNavigate();
@@ -45,11 +47,27 @@ const User = () => {
     }, [token, user_id, navigate]);
     console.log(user)
 
+    useEffect(() => {
+        const fetchGroups = async () => {
+            setLoading(true);
+            try {
+                const groups = await getGroupByUser(token, user_id);
+                setGroups(groups);
+                setLoading(false);
+            } catch (error) {
+                console.error(error);
+                return [];
+            }
+        };
+        fetchGroups();
+    }, [token, user_id, navigate]);
+    console.log(groups)
+
     return (
-        
+
         <>
             <Navbar title={user.lastname && user.lastname.toUpperCase() + " " + toOneInitial(user.firstname)} />
-            <div className='user-page'>   
+            <div className='user-page'>
                 <div className='user-page-header'>
                     <div className="user-page-header-content">
                         <p className="user-name">{user.lastname && user.lastname.toUpperCase()}</p>
@@ -61,9 +79,19 @@ const User = () => {
                     <div className="phonecall-number">
                         <a href={`tel:${user.phone_number}`}>Appeler : {user.phone_number}</a>
                     </div>
-                    <div className="card user-groups">
-                        <h2>Groupes :</h2>
-                    </div>
+                    <h2>Groupes :</h2>
+                    {groups && (
+                        <ul className="groups-list">
+                            {groups
+                                 .sort((groupA, groupB) => groupA.start_time.localeCompare(groupB.start_time)) // Tri les groupes de 00:00 à 23:59
+                                .sort((groupA, groupB) => groupA.group_day - groupB.group_day) // Tri les groupes du lundi au dimanche
+                                .map((group) => (
+                                    <Link to={`/group/${group.id}`} key={group.id}><GroupCard key={group.id} group={group} /></Link>
+                                ))}
+                        </ul>
+                    )}
+
+
                 </div>
             </div>
             <div className="user-footer">
