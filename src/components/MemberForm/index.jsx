@@ -1,20 +1,19 @@
 import './index.css';
 
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
-import { createMember } from '../../api/members';
+import { useState, useEffect } from 'react';
+import { createMember, getMemberById } from '../../api/members';
 
 import { useNavigate } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import '../../Pages/CreateMember/customConfirm.css'
+import '../../utils/css/customConfirm.css'
 
 import Input from '../Input';
-import FormButton from '../FormButton';
 
 const token = sessionStorage.getItem('token');
 
-const MemberForm = ({ method }) => {
+const MemberForm = ({ method, memberId }) => {
 
     const { register, handleSubmit, setValue } = useForm();
 
@@ -22,6 +21,49 @@ const MemberForm = ({ method }) => {
 
     const [photoName, setPhotoName] = useState('');
     const [image_rights_signatureName, setImage_rights_signatureName] = useState('');
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+      };
+
+    // on utilise la fonction getMemberById pour récupérer le membre si on est en update pour afficher les données
+    useEffect(() => {
+        const fetchMemberData = async () => {
+            try {
+                const memberData = await getMemberById(token, memberId);
+                
+                setValue('lastname', memberData.lastname);
+                setValue('firstname', memberData.firstname);
+                setValue('birthday', formatDate(memberData.member_detail.birthday));
+                setValue('birthplace', memberData.member_detail.birthplace);
+
+                setValue('living_with', memberData.member_detail.living_with);
+                setValue('street', memberData.address.street);
+                setValue('postal_code', memberData.address.postal_code);
+                setValue('city', memberData.address.city);
+
+                setValue('mail', memberData.member_detail.mail);
+                setValue('phone_number', memberData.member_detail.phone_number);
+                setValue('emergency_number', memberData.member_detail.emergency_number);
+
+                setValue('contraindication', memberData.member_detail.contraindication);
+
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        if (memberId) {
+            fetchMemberData();
+        }
+    }, [memberId]);
+    
+    
+
+    
 
     const onSubmit = (data) => {
         confirmAlert({
@@ -107,12 +149,12 @@ const MemberForm = ({ method }) => {
 
     return (
         <form id='member-form' className='member-form' action="" onSubmit={handleSubmit(onSubmit)} >
-            <h2>Ajouter un adhérent</h2>
+            <h2>{method === 'post' ? 'Ajouter un membre' : 'Modifier un membre'}</h2>
             <Input value='lastname' text='Nom' type='text' required register={register} />
             <Input value='firstname' text='Prénom' type='text' required register={register} />
             <Input value='birthday' text='Né(e) le' type='date' required register={register} />
             <Input value='birthplace' text='Lieu de naissance' type='text' required register={register} />
-            <Input value='photo' text={photoName === '' ? 'Ajouter une photo' : photoName} onChange={handlePhotoName} type='file' register={register} />
+            <Input value='photo' text={photoName === '' ? method === 'post'? 'Ajouter une photo': 'Modifier la photo' : photoName} onChange={handlePhotoName} type='file' register={register} />
             <h2>Adresse :</h2>
             <Input value='living_with' text='Vit chez (facultatif)' type='text' placeholder='ex : sa mère' register={register} />
             <Input value='street' text='Numéro et nom de la rue' type='text' required register={register} />
@@ -123,9 +165,8 @@ const MemberForm = ({ method }) => {
             <Input value='phone_number' text='N° de téléphone' type='number' required register={register} />
             <Input value='emergency_number' text="Numéro en cas d'urgence" type='number' required register={register} />
             <h2>Informations :</h2>
-            <Input value='image_rights_signature' text={image_rights_signatureName === '' ? "Ajouter autorisation signée de droit à l'image" : image_rights_signatureName} onChange={handleImage_rights_signatureName} type='file' register={register} />
+            <Input value='image_rights_signature' text={image_rights_signatureName === '' ? method==='post' ? "Ajouter autorisation signée de droit à l'image" : "Modifier l'autorisation signée de droit à l'image" : image_rights_signatureName} onChange={handleImage_rights_signatureName} type='file' register={register} />
             <Input value='contraindication' text='Contraintes médicales (laisser vide si aucune)' type='text' register={register} />
-            <FormButton type='submit' text='Valider' />
         </form>
     )
 }

@@ -117,7 +117,7 @@ const Member = () => {
             </div>
             <div className="member-footer">
                 <Link to="/members"><GlassButton text="Retour" /></Link>
-                {userLvl > 0 && <GlassButton text="Modifier" />}
+                {userLvl > 0 && <Link to={`/member/update/${member_id}`}><GlassButton text="Modifier" /></Link>}
             </div>
             {loading && (
                 <div className="loader-container">
