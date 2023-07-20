@@ -1,9 +1,24 @@
 import './index.css';
+import { useEffect, useState } from 'react';
+import { getLogo } from '../../api/association';
 
-const Logo = ({img, size}) => {
+const Logo = ({size}) => {
+  const [logo, setLogo] = useState();
+  const token = sessionStorage.getItem('token');
+  const associationId = sessionStorage.getItem('associationId');
+
+  useEffect(() => {
+    const fetchLogo = async () => {
+      const logo = await getLogo(token, associationId);
+      console.log(logo)
+      setLogo("data:image/png;base64,"+ logo);
+    };
+    fetchLogo();
+  }, [associationId, token]);
+
   return (
     <div className='logo'>
-      <img src={img} style={{width: size, height: size}} alt="logo" />
+      <img src={logo} style={{width: size, height: size}} alt="logo" />
     </div>
   )
 }

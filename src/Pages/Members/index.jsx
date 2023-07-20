@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { ClipLoader } from 'react-spinners';
 import { getMembers } from '../../api/members';
 import { Link } from 'react-router-dom';
@@ -15,6 +15,8 @@ const Members = () => {
   const [loading, setLoading] = useState(true);
   const [searchValue, setSearchValue] = useState('');
 
+  const membersListRef = useRef();
+
   useEffect(() => {
     const fetchMembers = async () => {
       setLoading(true);
@@ -27,6 +29,7 @@ const Members = () => {
 
   const handleInputChange = (e) => {
     setSearchValue(e.target.value);
+    membersListRef.current.scrollIntoView();
   };
 
   return (
@@ -46,7 +49,7 @@ const Members = () => {
       <div className='members-page'>
 
         {members && (
-          <ul className="members-list">
+          <ul className="members-list" ref={membersListRef}>
             {members
               .filter(member => member.lastname.toLowerCase().includes(searchValue.toLowerCase()))  // Affiche seulement les members dont le nom contient la recherche
               .sort((memberA, memberB) => memberA.lastname.localeCompare(memberB.lastname))
