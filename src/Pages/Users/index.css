@@ -1,4 +1,4 @@
-.members-page {
+.users-page {
     height: calc(100vh - 20rem);
     flex-direction: column;
     align-items: center;
@@ -66,7 +66,7 @@
     transform: scale(1.1);
 }
 
-.members-list {
+.users-list {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -74,7 +74,7 @@
     padding-block: 2rem;
 }
 
-.members-footer {
+.users-footer {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -82,7 +82,7 @@
     display: flex;
 }
 
-.members-footer > *:last-child button {
+.users-footer > *:last-child button {
     border-right: none; /* Supprime la bordure sur le dernier élément */
     margin-right: 0; /* Supprime la marge sur le dernier élément */
 }

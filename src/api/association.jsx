@@ -9,7 +9,6 @@ const getLogo = async (token, id) => {
         })
         const result = await response.json();
         if (response.status === 200) {
-            console.log(result)
             return result
         }
     } catch (error) {

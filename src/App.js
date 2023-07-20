@@ -7,13 +7,18 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import Login from './Pages/Login';
 import Home from './Pages/Home';
+
 import Members from './Pages/Members';
 import Member from './Pages/Member';
-import Groups from './Pages/Groups';
-import Error from './Pages/Error';
-import Disclaimer from './Pages/Disclaimer';
 import CreateMember from './Pages/CreateMember';
 import UpdateMember from './Pages/UpdateMember';
+
+import Users from './Pages/Users';
+
+import Groups from './Pages/Groups';
+
+import Error from './Pages/Error';
+import Disclaimer from './Pages/Disclaimer';
 
 function App() {
   const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
@@ -34,7 +39,8 @@ function App() {
         <Route path="/members" element={<Members />} />
         <Route path="/member/:member_id" element={<Member />} />
         <Route path="/member/new" element={<CreateMember />} />
-        <Route path="member/update/:member_id" element={<UpdateMember />} />
+        <Route path="/member/update/:member_id" element={<UpdateMember />} />
+        <Route path="/users" element={<Users />} />
         <Route path="/groups" element={<Groups />} />
         <Route path="/disclaimer" element={<Disclaimer />} />
         <Route path="*" element={<Error />} />

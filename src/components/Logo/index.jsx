@@ -10,7 +10,6 @@ const Logo = ({size}) => {
   useEffect(() => {
     const fetchLogo = async () => {
       const logo = await getLogo(token, associationId);
-      console.log(logo)
       setLogo("data:image/png;base64,"+ logo);
     };
     fetchLogo();

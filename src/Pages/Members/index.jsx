@@ -41,7 +41,7 @@ const Members = () => {
             className='search-input'
             type="text"
             placeholder="Trouver un adhérent"
-            onChange={handleInputChange}  // Ajouté
+            onChange={handleInputChange}
           />
           <button className='search-button' type="submit"></button>
         </div>

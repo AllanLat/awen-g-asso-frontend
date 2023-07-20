@@ -10,6 +10,7 @@ import Logo from '../../Logo';
 const ModalMenu = ({ isMenuOpen, onMenuToggle }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(isMenuOpen);;
+  const userLvl = sessionStorage.getItem('userLvl');
 
   useEffect(() => {
     setIsOpen(isMenuOpen);
@@ -25,7 +26,7 @@ const ModalMenu = ({ isMenuOpen, onMenuToggle }) => {
     toast.success('Vous êtes déconnecté', {transition: Slide, position: 'bottom-center', className: 'myCustomToast'});
     navigate('/login');
   }
-
+  
   return (
     <div className={`modal-menu ${isOpen ? 'open' : ''}`}>
       
@@ -39,6 +40,7 @@ const ModalMenu = ({ isMenuOpen, onMenuToggle }) => {
         <ul className='menus'>
           <li className='menu'><Link to="/home" onClick={onClose}>Accueil</Link></li>
           <li className='menu'><Link to="/members" onClick={onClose}>Adhérents</Link></li>
+          {userLvl > 0 && <li className='menu'><Link to="/users" onClick={onClose}>Professeurs</Link></li>}
           <li className='menu'><Link to="/groups" onClick={onClose}>Groupes</Link></li>
         </ul>
         <Logo size="12rem" />
