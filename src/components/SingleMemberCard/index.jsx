@@ -9,7 +9,7 @@ const SingleMemberCard = ({ title, paid, subscription }) => {
                 </div>
 
 
-                {paid &&
+                {(paid || paid === 0) &&
 
 
                     <div className="single_member_card_count">

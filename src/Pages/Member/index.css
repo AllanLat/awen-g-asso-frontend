@@ -106,7 +106,7 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 25);
     border: 1px solid var(--dashMenuBorder);
     background-color: var(--dashMenuColor);
-    padding: 1.5rem;
+    padding: 2rem;
 }
 
 .member-page-body .card h2 {
@@ -117,6 +117,11 @@
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 25);
     font-size: 2.4rem;
     font-weight: 400;
+}
+
+.member-living-with {
+    text-transform: lowercase;
+    font-style: italic;
 }
 
 .member-infos {

@@ -2,7 +2,7 @@ import './index.css';
 import placeholderImage from '../../assets/img/placeholder.png';
 
 const index = ({ member }) => {
-  const photoConverted = "data:image/jpeg;base64,"+ member.photo
+  const photoConverted = "data:image/png;base64,"+ member.photo
   return (
     <li className="member">
       <div className="card-content">

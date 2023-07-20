@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { createMember } from '../../api/members';
 
+import { useNavigate } from 'react-router-dom';
+
 import Input from '../Input';
 import FormButton from '../FormButton';
 
@@ -11,6 +13,8 @@ const token = sessionStorage.getItem('token');
 
 const MemberForm = ({ method }) => {
     const { register, handleSubmit, setValue } = useForm();
+
+    const navigate = useNavigate();
 
     const [photoName, setPhotoName] = useState('');
     const [image_rights_signatureName, setImage_rights_signatureName] = useState('');
@@ -33,8 +37,8 @@ const MemberForm = ({ method }) => {
             "file_status": 0,
             "payment_status": 0,
             "certificate": null,
-            "subscription": 200,
-            "paid": 150
+            "subscription": 0,
+            "paid": 0
         }
         
 
@@ -63,8 +67,16 @@ const MemberForm = ({ method }) => {
         formData.forEach((file, index) => {
             newMember.append(index, file);
         })
-
-        createMember(token, newMember);
+        if (method === 'post') {
+            createMember(token, newMember)
+                .then((insertId) => {
+                    navigate('/member/' + insertId);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+        
     }
 
     const handlePhotoName = (e) => {

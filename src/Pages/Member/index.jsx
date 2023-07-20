@@ -94,10 +94,10 @@ const Member = () => {
                 </div>
                 <div className="member-page-body">
                     <div className="card member-address">
-                        <h2>Adresse :</h2>
+                        <h2>Adresse {member.living_with && <span className="member-living-with">(vit chez {member.living_with})</span>} :</h2>
                         <p>{member.street}</p>
                         <p>{member.postal_code} {member.city}</p>
-                        {member.living_with && <p>{member.living_with}</p>}
+
                     </div>
                     <div className="card member-contacts">
                         <h2>Contacts :</h2>
