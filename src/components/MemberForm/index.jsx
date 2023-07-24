@@ -56,7 +56,7 @@ const MemberForm = ({ method, memberId }) => {
             }
         };
         fetchMemberData();
-    }, [memberId, setValue]);
+    }, [memberId, token, setValue]);
         
     // on utilise la fonction getMemberById pour récupérer le membre si on est en update pour afficher les données
    

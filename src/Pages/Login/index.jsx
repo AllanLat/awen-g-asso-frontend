@@ -28,6 +28,9 @@ const Login = () => {
     return (
         <div className="login-page">
             <form className='login-form' onSubmit={handleSubmit(onSubmit)}>
+                <div className="g-asso-logo">
+                    <img src="../g_asso.png" alt="G-asso" />
+                </div>
                 <h1>Connectez-vous</h1>
                 <Input value='login' text='Login' type='text' required register={register} />
                 <Input value='password' text='Mot de passe' type='password' required register={register} />
