@@ -11,10 +11,10 @@ import '../../utils/css/customConfirm.css'
 
 import Input from '../Input';
 
-const token = sessionStorage.getItem('token');
+
 
 const MemberForm = ({ method, memberId }) => {
-
+    const token = sessionStorage.getItem('token');
     const { register, handleSubmit, setValue } = useForm();
 
     const navigate = useNavigate();
