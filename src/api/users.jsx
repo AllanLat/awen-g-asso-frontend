@@ -75,13 +75,14 @@ const updateUser = async (token, id, newUser) => {
     const response = await fetch(`http://localhost:8080/api/v1/users/${id}`, {
         method: 'PUT',
         headers: {
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        body: newUser
+        body: JSON.stringify(newUser) 
     });
 
     const result = await response.json();
-    if (response.status === 201) {
+    if (response.status === 200) {
         toast.success('Professeur modifié', {transition: Slide, position: 'bottom-center', className: 'myCustomToast'});
         return result;
     } else {

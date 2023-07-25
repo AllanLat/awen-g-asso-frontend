@@ -1,7 +1,7 @@
 import './index.css';
 
 import { useForm } from 'react-hook-form';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { createUser, getUserById, updateUser } from '../../api/users';
 
 import { useNavigate } from 'react-router-dom';
@@ -30,6 +30,7 @@ const UserForm = ({ method, userId }) => {
                 setValue('mail', userData.mail);
                 setValue('phone_number', userData.phone_number);
                 setValue('login', userData.login);
+                setValue('password', userData.password);
             } catch (error) {
                 console.log(error);
             }
@@ -86,8 +87,8 @@ const UserForm = ({ method, userId }) => {
             <Input value='firstname' text='Prénom' type='text' required register={register} />
             <Input value='mail' text='Adresse mail' type='email' required register={register} />
             <Input value='phone_number' text='N° de téléphone' type='tel' required register={register} />
-            <Input value='login' text='Login' type='text' required register={register} />
-            <Input value='password' text='Mot de passe' type='password' required register={register} />
+            {method === 'post' && <Input value='login' text='Login' type='text' required register={register} />}
+            {method === 'post' && <Input value='password' text='Mot de passe' type='password' required register={register} />}
         </form>
     )
 }
