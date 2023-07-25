@@ -2,10 +2,12 @@ import './index.css';
 
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { ClipLoader } from 'react-spinners';
 
 import Navbar from '../../components/Navbar';
 import DaySelector from '../../components/DaySelector';
 import GlassButton from '../../components/GlassButton';
+import GroupCard from '../../components/GroupCard';
 
 import { getGroupsByDayId } from '../../api/groups';
 
@@ -42,13 +44,18 @@ const Groups = () => {
         {groups && (
           <ul className="groups-list" ref={groupsListRef}>
             {groups.map((group) => (
-              <li key={group.id} className="groups-item">
-                <Link to={`/group/${group.id}`}>{group.name}</Link>
-              </li>
+              <Link to={`/group/${group.id}`} ><GroupCard key={group.id} group={group} /></Link>
             ))}
           </ul>
         )}
       </div>
+
+      {loading && (
+        <div className="loader-container">
+          <ClipLoader color='#fff' loading={loading} size={75} speedMultiplier={0.8} />
+        </div>
+      )}
+
       <div className="groups-footer">
         <Link to="/home"><GlassButton text="Retour" /></Link>
         <Link to="/group/new"><GlassButton text="Ajouter un groupe" /></Link>
