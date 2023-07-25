@@ -1,3 +1,5 @@
+
+
 .footer-account
 {
     position: fixed;
@@ -9,18 +11,17 @@
 
 .global-amount
 {
-    position: fixed;
-    margin-top: 6.2rem;
+    margin-top: 6rem;
     width: 100%;
 }
 
 .transaction-cards
 {
+    padding-top: 2rem;
     width: 100vw;
-    height: 100vh;
-    padding-top: 14rem;
-    padding-bottom: 6rem;
+    height: calc(100vh - 18rem);
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: auto;
 }

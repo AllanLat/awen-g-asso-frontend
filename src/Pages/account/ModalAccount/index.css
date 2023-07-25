@@ -61,6 +61,28 @@
     width: 100%;
     font-size: 1.2rem;
     height: 3rem;
+    margin-bottom: 5rem;
+    border-radius: 20px;
+    padding-left: 1rem;
+}
+
+
+.select-deb-cred
+{
+    width: 100%;
+    font-size: 1.2rem;
+    height: 3rem;
+    margin-top: 10px;
+    border-radius: 20px;
+    padding-left: 1rem;
+}
+
+.enregistrer
+{
+    position: fixed;
+    bottom: 60px;
+    left: 0;
+    width: 100%;
 }
 
 .radio-button
@@ -111,11 +133,23 @@ label
     font-size: 1.2rem;
 }
 
-.footer-modal-account
-{
-    /* position: fixed; */
+.footer-modal-account {
+    position: fixed;
     bottom: 0;
-    left:0;
-    display: flex;
+    left: 0;
     width: 100%;
+    display: none;
+}
+
+.open-account .footer-modal-account  {
+    display: flex;
+}
+
+.footer-modal-account .glass-button {
+    box-shadow: none;
+}
+
+.footer-modal-account > *:last-child {
+    border-right: none; /* Supprime la bordure sur le dernier élément */
+    margin-right: 0; /* Supprime la marge sur le dernier élément */
 }
