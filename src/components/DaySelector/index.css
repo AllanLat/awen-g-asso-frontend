@@ -2,18 +2,57 @@
     position: fixed;
     top: 6rem;
     width: 100%;
-    height: 4rem;
+    min-height: 4rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: transparent;
+    background: var(--dashMenuColor);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     color: var(--fontPrimary);
     font-size: 2.4rem;
     text-transform: uppercase;
     text-align: center;
     font-weight: 700;
+    margin-bottom: 2rem;
+    border: none;
+    border-top: 1px solid var(--dashMenuBorder);
+    border-bottom: 1px solid var(--dashMenuBorder);
+    cursor: pointer;
+    line-height: 1.5;
+    font-family: 'Lato', sans-serif;
+    -moz-appearance: none;
+    /* Firefox */
+    -webkit-appearance: none;
+    /* Safari and Chrome */
+    appearance: none;
+    background-image: url('../../assets/img/arrowDown.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-position-x: calc(100vw - 4rem);
+
 }
+
+.day-selector option {
+    align-items: center;
+    text-align: center;
+    font-size: 2.4rem;
+    background: var(--primaryButton);
+    color: var(--fontPrimary);
+
+}
+
+.day-selector option:checked {
+    color: var(--fontPrimaryHover);
+    background: var(--primaryButtonHover);
+}
+
+.day-selector option:hover {
+    color: var(--fontPrimaryHover);
+    background: var(--primaryButtonHover);
+}
+
+
 
 .day-button {
     margin-top: 10rem;

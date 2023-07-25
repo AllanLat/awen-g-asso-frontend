@@ -1,19 +1,19 @@
 import './index.css';
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from 'react';
 
 const DaySelector = ({ onDayNumberChange }) => {
-  
+
   const [selectedDay, setSelectedDay] = useState('');
 
- 
+
   const daysOfWeek = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
-  
+
   const handleDayChange = (event) => {
     setSelectedDay(event.target.value);
   };
 
-  
+
   useEffect(() => {
     const dayIndex = daysOfWeek.indexOf(selectedDay);
     const dayNumber = dayIndex + 1;
@@ -22,7 +22,7 @@ const DaySelector = ({ onDayNumberChange }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedDay, onDayNumberChange]);
 
-  
+
   useEffect(() => {
     const todayIndex = new Date().getDay();
     setSelectedDay(daysOfWeek[todayIndex - 1]);

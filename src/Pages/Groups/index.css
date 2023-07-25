@@ -1,7 +1,17 @@
 .groups-page {
-    height: calc(100vh - 16rem);
-    margin-top: 10rem;
-    padding: 2rem;
+    height: calc(100vh - 18rem);
+    flex-direction: column;
+    align-items: center;
+    margin-top: 12rem;
+    padding-inline: 2rem;
+    overflow: auto;
+}
+
+.groups-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .groups-footer {

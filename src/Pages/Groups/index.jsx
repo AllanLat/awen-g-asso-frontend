@@ -43,11 +43,14 @@ const Groups = () => {
       <div className="groups-page">
         {groups && (
           <ul className="groups-list" ref={groupsListRef}>
-            {groups.map((group) => (
-              <Link to={`/group/${group.id}`} ><GroupCard key={group.id} group={group} /></Link>
+            {groups
+            .sort((groupA, groupB) => groupA.start_time.localeCompare(groupB.start_time)) // Tri les groupes de 00:00 à 23:59
+            .map((group) => (
+              <Link to={`/group/${group.id}`} key={group.id}><GroupCard  group={group}/></Link>
             ))}
           </ul>
         )}
+        
       </div>
 
       {loading && (
