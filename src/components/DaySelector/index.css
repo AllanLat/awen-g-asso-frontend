@@ -1,5 +1,5 @@
 .day-selector {
-    position: fixed;
+    position: relative;
     top: 6rem;
     width: 100%;
     min-height: 4rem;
@@ -13,7 +13,6 @@
     text-transform: uppercase;
     text-align: center;
     font-weight: 700;
-    margin-bottom: 2rem;
     border: none;
     border-top: 1px solid var(--dashMenuBorder);
     border-bottom: 1px solid var(--dashMenuBorder);
@@ -21,17 +20,40 @@
     line-height: 1.5;
     font-family: 'Lato', sans-serif;
     -moz-appearance: none;
-    /* Firefox */
     -webkit-appearance: none;
-    /* Safari and Chrome */
     appearance: none;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+.selector-arrow {
+    z-index: -1;
+    position: absolute;
+    top: 6rem;
+    right: 0;
     background-image: url('../../assets/img/arrowDown.png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    background-position-x: calc(100vw - 4rem);
-
+    width: 4rem;
+    height: 4rem;
+    background-color: var(--primaryButton);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
+
+.selector-arrow:hover {
+    background-color: var(--primaryButtonHover);
+}
+
+.day-selector:hover {
+    background-color: var(--dashMenuColorHover);
+}
+
+.day-selector:hover .selector-arrow {
+    background-color: var(--primaryButtonHover);
+}
+
 
 .day-selector option {
     align-items: center;
@@ -50,10 +72,4 @@
 .day-selector option:hover {
     color: var(--fontPrimaryHover);
     background: var(--primaryButtonHover);
-}
-
-
-
-.day-button {
-    margin-top: 10rem;
 }

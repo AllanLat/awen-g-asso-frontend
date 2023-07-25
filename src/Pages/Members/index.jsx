@@ -29,7 +29,7 @@ const Members = () => {
 
   const handleInputChange = (e) => {
     setSearchValue(e.target.value);
-    membersListRef.current.scrollIntoView();
+    membersListRef.current.scrollIntoView( { behavior: 'smooth' } );
   };
 
   return (

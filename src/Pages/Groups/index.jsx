@@ -23,6 +23,7 @@ const Groups = () => {
   // Fonction de rappel pour mettre à jour dayNumber à partir de DaySelector
   const handleDayNumberChange = (number) => {
     setDayNumber(number);
+    groupsListRef.current.scrollIntoView( { behavior: 'smooth' } );
   };
 
   useEffect(() => {

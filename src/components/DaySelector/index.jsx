@@ -30,6 +30,7 @@ const DaySelector = ({ onDayNumberChange }) => {
   }, []);
 
   return (
+    <>
     <select className='day-selector' value={selectedDay} onChange={handleDayChange}>
       {daysOfWeek.map((day, index) => (
         <option key={index} value={day}>
@@ -37,6 +38,8 @@ const DaySelector = ({ onDayNumberChange }) => {
         </option>
       ))}
     </select>
+    <div className="selector-arrow"/>
+    </>
   );
 };
 

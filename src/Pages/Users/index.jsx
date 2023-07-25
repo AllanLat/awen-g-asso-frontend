@@ -36,7 +36,7 @@ const Users = () => {
 
     const handleInputChange = (e) => {
         setSearchValue(e.target.value);
-        usersListRef.current.scrollIntoView();
+        usersListRef.current.scrollIntoView( { behavior: 'smooth' } );
     };
 
     return (
