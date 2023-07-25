@@ -47,7 +47,7 @@ const createMember = async (token, newMember) => {
 
   const result = await response.json();
   if (response.status === 201) {
-    toast.success('Membre créé', {transition: Slide, position: 'bottom-center', className: 'myCustomToast'});
+    toast.success('Adhérent créé', {transition: Slide, position: 'bottom-center', className: 'myCustomToast'});
     return result.insertId;
   } else {
     toast.error('Une erreur est survenue', {transition: Slide, position: 'bottom-center', className: 'myCustomToast'});
@@ -67,7 +67,7 @@ const updateMember = async (token, memberId, newMember) => {
    })
    const result = await response.json();
    if (response.status === 200) {
-     toast.success('Membre modifié', {transition: Slide, position: 'bottom-center', className: 'myCustomToast'});
+     toast.success('Adhérent modifié', {transition: Slide, position: 'bottom-center', className: 'myCustomToast'});
      return result;
    } else {
      toast.error('Une erreur est survenue', {transition: Slide, position: 'bottom-center', className: 'myCustomToast'});

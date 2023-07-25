@@ -15,6 +15,7 @@ import UpdateMember from './Pages/UpdateMember';
 
 import Users from './Pages/Users';
 import User from './Pages/User';
+import CreateUser from './Pages/CreateUser';
 
 import Groups from './Pages/Groups';
 
@@ -43,6 +44,7 @@ function App() {
         <Route path="/member/update/:member_id" element={<UpdateMember />} />
         <Route path="/users" element={<Users />} />
         <Route path="/user/:user_id" element={<User />} />
+        <Route path="/user/new" element={<CreateUser />} />
         <Route path="/groups" element={<Groups />} />
         <Route path="/disclaimer" element={<Disclaimer />} />
         <Route path="*" element={<Error />} />

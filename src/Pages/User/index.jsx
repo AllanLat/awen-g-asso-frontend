@@ -45,7 +45,7 @@ const User = () => {
         };
         fetchUser();
     }, [token, user_id, navigate]);
-    console.log(user)
+    
 
     useEffect(() => {
         const fetchGroups = async () => {
@@ -61,7 +61,7 @@ const User = () => {
         };
         fetchGroups();
     }, [token, user_id, navigate]);
-    console.log(groups)
+    
 
     return (
 

@@ -32,6 +32,9 @@ const MemberForm = ({ method, memberId }) => {
     
     
     useEffect(() => {
+        if (method === 'post') {
+            return
+        }
         const fetchMemberData = async () => {
             try {
                 const memberData = await getMemberById(token, memberId);
@@ -56,17 +59,10 @@ const MemberForm = ({ method, memberId }) => {
             }
         };
         fetchMemberData();
-    }, [memberId, token, setValue]);
+    }, [method, memberId, token, setValue]);
         
     // on utilise la fonction getMemberById pour récupérer le membre si on est en update pour afficher les données
    
-
-       
-    
-
-
-
-
 
     const onSubmit = (data) => {
         confirmAlert({
@@ -133,7 +129,7 @@ const MemberForm = ({ method, memberId }) => {
                         }
                         if (method === 'put') {
                             updateMember(token, memberId, newMember)
-                                .then((insertId) => {
+                                .then(() => {
                                     navigate('/member/' + memberId);
                                 })
                                 .catch((error) => {
@@ -174,8 +170,8 @@ const MemberForm = ({ method, memberId }) => {
             <Input value='city' text='Ville' type='text' required register={register} />
             <h2>Contacts :</h2>
             <Input value='mail' text='Adresse mail' type='email' required register={register} />
-            <Input value='phone_number' text='N° de téléphone' type='number' required register={register} />
-            <Input value='emergency_number' text="Numéro en cas d'urgence" type='number' required register={register} />
+            <Input value='phone_number' text='N° de téléphone' type='tel' required register={register} />
+            <Input value='emergency_number' text="Numéro en cas d'urgence" type='tel' required register={register} />
             <h2>Informations :</h2>
             <Input value='image_rights_signature' text={image_rights_signatureName === '' ? method === 'post' ? "Ajouter autorisation signée de droit à l'image" : "Modifier l'autorisation signée de droit à l'image" : image_rights_signatureName} onChange={handleImage_rights_signatureName} type='file' register={register} />
             <Input value='contraindication' text='Contraintes médicales (laisser vide si aucune)' type='text' register={register} />
