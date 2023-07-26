@@ -1,0 +1,31 @@
+.disclaimer {
+    height: 100vh;
+    padding-top: 6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.disclaimer-body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    font-size: 2rem;
+    margin-bottom: 6rem;
+    overflow: auto;
+}
+
+.disclaimer-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+}
+
+.disclaimer-footer .glass-button {
+    border-right: none; 
+    margin-right: 0; 
+}

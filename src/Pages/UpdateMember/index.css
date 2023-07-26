@@ -1,0 +1,18 @@
+.update-member-page {
+    height: calc(100vh - 12rem);
+    margin-top: 6rem;
+    padding: 2rem;
+}
+
+.update-member-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+}
+
+.update-member-footer > *:last-child {
+    border-right: none; /* Supprime la bordure sur le dernier élément */
+    margin-right: 0; /* Supprime la marge sur le dernier élément */
+}

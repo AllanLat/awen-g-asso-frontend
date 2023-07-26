@@ -1,0 +1,134 @@
+.modal-menu {
+    position: fixed;
+    z-index: 900;
+    opacity: 0;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 100vh;
+    background-color: var(--modalMenuColor);
+    transform: translateX(100%);
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-menu .logo {
+    display: none;
+}
+
+.open {
+    width: 100%;
+    opacity: 1;
+    transform: translateX(0%);
+}
+
+.open .logo {
+    display: block;
+    align-self: start;
+}
+.open .modal-footer, .open .modal-body {
+    display: flex;
+}
+
+.modal-header {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    padding: 1.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.cross {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;;
+}
+
+.cross:after,
+.cross:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 0.3rem;
+    background-color: #fff;
+    transition: transform 0.3s ease;
+}
+
+.cross:after {
+    transform: rotate(-45deg);
+}
+
+.cross:before {
+    transform: rotate(45deg);
+}
+
+.open:before {
+    transform: rotate(-135deg);
+}
+
+.open:after {
+    transform: rotate(135deg);
+}
+
+.modal-body {
+    padding-top: 6rem;
+    height: calc(100vh - 6rem);
+    width: 100%;
+    position: absolute;
+    display: none;
+}
+
+.modal-body .logo {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.menus {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8rem;
+    position: absolute;
+}
+
+.menu {
+    font-size: 4rem;
+    font-weight: 700;
+    transition: all 0.3s ease-in-out;
+    color: var(--fontPrimary);
+}
+
+.menu:hover {
+    scale: 1.4;
+}
+
+.modal-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: none;
+}
+
+.modal-footer .glass-button {
+    box-shadow: none;
+}
+
+.modal-footer > *:last-child {
+    border-right: none; /* Supprime la bordure sur le dernier élément */
+    margin-right: 0; /* Supprime la marge sur le dernier élément */
+}
