@@ -62,7 +62,7 @@ const Groups = () => {
 
       <div className="groups-footer">
         <Link to="/home"><GlassButton text="Retour" /></Link>
-        <Link to="/group/new"><GlassButton text="Ajouter un groupe" /></Link>
+        {userLvl > 0 && <Link to="/group/new"><GlassButton text="Ajouter un groupe" /></Link>}
       </div>
     </>
   );
