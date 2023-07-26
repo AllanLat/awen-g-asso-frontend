@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getMembersCount, getDayGroupsCount } from '../../api/counts';
+import { getMembersCount, getDayGroupsCount, getUsersCount } from '../../api/counts';
 import { Link } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 
@@ -17,6 +17,7 @@ const Home = () => {
   }
 
   const [members_count, setMembers_count] = useState(0);
+  const [users_count, setUsers_count] = useState(0);
   const [day_groups_count, setDay_groups_count] = useState(0);
   const [loading, setLoading] = useState(true);
 
@@ -25,6 +26,11 @@ const Home = () => {
       setLoading(true);
       const membersCount = await getMembersCount(user.token);
       setMembers_count(membersCount);
+
+      if (user.lvl > 0) {
+        const usersCount = await getUsersCount(user.token);
+        setUsers_count(usersCount);
+      }
   
       const dayGroupsCount = await getDayGroupsCount(user.token);
       setDay_groups_count(dayGroupsCount);
@@ -32,7 +38,7 @@ const Home = () => {
     };
   
     fetchData();
-  }, [user.token]);
+  }, [user.token, user.lvl]);
 
   return (
     <>
@@ -40,6 +46,7 @@ const Home = () => {
       <div className="home">
           <Link to='/members'><DashMenu count={members_count} title='Adhérents' /></Link>
           <Link to='/account'><DashMenu title='Solde du compte' /></Link>
+          {user.lvl > 0 && <Link to='/users'><DashMenu count={users_count} title='Professeurs' /></Link>}
           <Link to='/groups'><DashMenu count={day_groups_count} title='Groupes du jour' /></Link>
 
       </div>

@@ -5,20 +5,18 @@ import { useNavigate } from 'react-router-dom';
 import GlassButton from '../../GlassButton';
 import { Link } from 'react-router-dom';
 
-import logoImage from '../../../assets/img/association_logo.png';
 import Logo from '../../Logo';
 
 const ModalMenu = ({ isMenuOpen, onMenuToggle }) => {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(isMenuOpen);
-  const logoImg = logoImage;
+  const [isOpen, setIsOpen] = useState(isMenuOpen);;
+  const userLvl = sessionStorage.getItem('userLvl');
 
   useEffect(() => {
     setIsOpen(isMenuOpen);
   }, [isMenuOpen]);
 
-  const onClick = () => {
-    setIsOpen(!isOpen);
+  const onClose = () => {
     onMenuToggle();
   };
 
@@ -28,23 +26,24 @@ const ModalMenu = ({ isMenuOpen, onMenuToggle }) => {
     toast.success('Vous êtes déconnecté', {transition: Slide, position: 'bottom-center', className: 'myCustomToast'});
     navigate('/login');
   }
-
+  
   return (
     <div className={`modal-menu ${isOpen ? 'open' : ''}`}>
       
       <div className="modal-header">
       
-      <div className="cross" onClick={onClick}/>
+      <div className="cross" onClick={onClose}/>
       </div>
       
       <div className="modal-body">
       
         <ul className='menus'>
-          <li className='menu'><Link to="/home" onClick={onClick}>Accueil</Link></li>
-          <li className='menu'><Link to="/members" onClick={onClick}>Adhérents</Link></li>
-          <li className='menu'><Link to="/groups" onClick={onClick}>Groupes</Link></li>
+          <li className='menu'><Link to="/home" onClick={onClose}>Accueil</Link></li>
+          <li className='menu'><Link to="/members" onClick={onClose}>Adhérents</Link></li>
+          {userLvl > 0 && <li className='menu'><Link to="/users" onClick={onClose}>Professeurs</Link></li>}
+          <li className='menu'><Link to="/groups" onClick={onClose}>Groupes</Link></li>
         </ul>
-        <Logo img={logoImg} size="12rem" />
+        <Logo size="12rem" />
       </div>
       <div className="modal-footer">
         <Link to="/disclaimer"><GlassButton  text="Mentions Légales" /></Link>
