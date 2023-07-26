@@ -1,7 +1,7 @@
 
 
 const getPaymentsAsso = async (token) => {
-
+    
     try {
         const reponse = await fetch ('http://localhost:8080/api/v1/paiement/views', {
             method: 'GET',
@@ -10,7 +10,6 @@ const getPaymentsAsso = async (token) => {
                 'Authorization': 'Bearer ' + token
             }
         })
-
         const dataPayments = await reponse.json()
         if(reponse.status === 200){
             return dataPayments
@@ -24,7 +23,7 @@ const getPaymentsAsso = async (token) => {
 const createNewTransac = async (token, formValue) => {
     
     try{
-        await fetch('http://192.168.1.29:8080/api/v1/paiement', {
+        await fetch('http://localhost:8080/api/v1/paiement', {
             'method': 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -32,7 +31,6 @@ const createNewTransac = async (token, formValue) => {
             },
             body: JSON.stringify(formValue)
         })
-
     } catch (err) {
        console.log({error: err})
     }
@@ -41,7 +39,7 @@ const createNewTransac = async (token, formValue) => {
 const getBalanceAsso = async (token) => {
 
     try {
-        const response = await fetch('http://192.168.1.29:8080/api/v1/paiement/view/balance', {
+        const response = await fetch('http://localhost:8080/api/v1/paiement/view/balance', {
             method : 'GET',
             headers: {
                 'Content-type': 'application/json',

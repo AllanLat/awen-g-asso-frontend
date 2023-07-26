@@ -39,7 +39,6 @@ const ModalAccount = ({isOpen, toggleOpen, total}) => {
             data.balance = tot
     
             delete data.amount
-            console.log(data)
             await createNewTransac(token, data)
             reset()     
             onCloseAccount()
@@ -55,21 +54,21 @@ const ModalAccount = ({isOpen, toggleOpen, total}) => {
                 <div className='global-form'>
                     <form id="account-form" className='form' onSubmit={handleSubmit(onSubmit)}>
                     
-                        <label for="date" className='label'>Date</label>
+                        <label htmlFor="date" className='label'>Date</label>
                         <input type="date" className='date' {...register("payment_date", {required: true})}/>
 
-                        <label for="description" className='label'>Intitulé</label>
-                        <input type="text" id="description" {...register("description", {required: true})} />
+                        <label htmlFor="description" className='label'>Intitulé</label>
+                        <input type="text" id="description" maxLength="40" {...register("description", {required: true})} />
 
-                        <label for="montant" className='label'>Montant</label>
-                        <input type='text' id='montant' {...register('amount', {required: true})}/>
+                        <label htmlFor="montant" className='label'>Montant</label>
+                        <input type='number' step="0.01"  id='montant' {...register('amount', {required: true})}/>
 
                         <select id='sens' {...register('credOrDeb', {required: true})} className='select-deb-cred'>
                             <option value="Crédit" className='opto-pay'>Crédit</option>
                             <option value="Débit" className='opto-pay'>Débit</option>
                         </select>
 
-                        <label for='moyen' className='label'>Moyen de paiement</label>
+                        <label htmlFor='moyen' className='label'>Moyen de paiement</label>
                         <select id='moyen' {...register('payment_method', {required: true})} className='select'>
                             <option value="cb" className='opto-pay'>CB</option>
                             <option value="cheque" className='opto-pay'>Chèque</option>

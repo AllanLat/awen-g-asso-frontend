@@ -9,6 +9,11 @@
     width: 100%;
 }
 
+.footer-account > *:last-child {
+    border-right: none; /* Supprime la bordure sur le dernier élément */
+    margin-right: 0; /* Supprime la marge sur le dernier élément */
+}
+
 .global-amount
 {
     margin-top: 6rem;

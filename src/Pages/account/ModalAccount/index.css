@@ -31,11 +31,26 @@
     font-size: 1.7rem;
 }
 
-.form input 
+.form input  
 {
+    font-size: 1.8rem;
+    padding: 1rem;
     width: 100%;
     border-radius: 2rem;
     height: 3rem;
+}
+
+.form select
+{
+    font-size: 1.8rem;
+    width: 100%;
+    border-radius: 2rem;
+    height: 3rem; 
+}
+
+.form select option
+{
+    font-size: 1.8rem;
 }
 
 .global-form
