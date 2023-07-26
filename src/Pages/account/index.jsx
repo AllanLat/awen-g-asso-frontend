@@ -1,5 +1,4 @@
 import './index.css'
-import "react-datepicker/dist/react-datepicker.css"
 import { Link } from 'react-router-dom'
 import { getPaymentsAsso, getBalanceAsso } from '../../api/payments'
 
