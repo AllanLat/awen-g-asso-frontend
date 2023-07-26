@@ -45,7 +45,7 @@ const Home = () => {
       <Navbar title="Tableau de bord" />
       <div className="home">
           <Link to='/members'><DashMenu count={members_count} title='Adhérents' /></Link>
-          <Link to='/account'><DashMenu title='Solde du compte' /></Link>
+           {user.lvl > 0 && <Link to='/account'><DashMenu title='Solde du compte' /></Link>}
           {user.lvl > 0 && <Link to='/users'><DashMenu count={users_count} title='Professeurs' /></Link>}
           <Link to='/groups'><DashMenu count={day_groups_count} title='Groupes du jour' /></Link>
 
