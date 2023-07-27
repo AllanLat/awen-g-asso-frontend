@@ -19,7 +19,7 @@ import CreateUser from './Pages/CreateUser';
 import UpdateUser from './Pages/UpdateUser';
 
 import Groups from './Pages/Groups';
-
+import Group from './Pages/Group';
 import CreateGroup from './Pages/CreateGroup';
 
 import Error from './Pages/Error';
@@ -53,7 +53,7 @@ function App() {
         <Route path="/user/update/:user_id" element={<UpdateUser />} />
 
         <Route path="/groups" element={<Groups />} />
-        
+        <Route path="/group/:group_id" element={<Group />} />
         <Route path="/group/new" element={<CreateGroup />} />
 
         <Route path="/disclaimer" element={<Disclaimer />} />
