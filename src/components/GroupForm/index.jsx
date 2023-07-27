@@ -26,11 +26,11 @@ const GroupForm = ({ method, groupId }) => {
             try {
                 const groupData = await getGroupById(token, groupId);
 
-                setValue('name', fetchGroupData.name);
-                setValue('group_day', fetchGroupData.group_day);
-                setValue('start_time', fetchGroupData.start_time);
-                setValue('end_time', fetchGroupData.end_time);
-                setValue('members_max', fetchGroupData.members_max);
+                setValue('name', groupData.name);
+                setValue('group_day', groupData.group_day);
+                setValue('start_time', groupData.start_time);
+                setValue('end_time', groupData.end_time);
+                setValue('members_max', groupData.members_max);
             } catch (error) {
                 console.log(error);
             }

@@ -31,6 +31,27 @@ const getGroupById = async (token, groupId) => {
         if (response.status === 200) {
             return result
         }
+        if (response.status === 403) {
+            return []
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const getUsersByGroupId = async (token, groupId) => {
+    try {
+        const response = await fetch(`http://localhost:8080/api/v1/groups/${groupId}/users`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        });
+        const result = await response.json();
+        if (response.status === 200) {
+            return result
+        }
     } catch (error) {
         console.log(error);
     }
@@ -78,4 +99,4 @@ const updateGroup = async (token, id, newGroup) => {
     }
 }
 
-export { getGroupsByDayId, createGroup, updateGroup, getGroupById };
+export { getGroupsByDayId, createGroup, updateGroup, getGroupById, getUsersByGroupId };
