@@ -10,6 +10,7 @@ import Home from './Pages/Home';
 
 import Members from './Pages/Members';
 import Member from './Pages/Member';
+import MemberPayments from './Pages/MemberPayments';
 import CreateMember from './Pages/CreateMember';
 import UpdateMember from './Pages/UpdateMember';
 
@@ -42,6 +43,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/members" element={<Members />} />
         <Route path="/member/:member_id" element={<Member />} />
+        <Route path="/member/:member_id/payments" element={<MemberPayments />} />
         <Route path="/member/new" element={<CreateMember />} />
         <Route path="/member/update/:member_id" element={<UpdateMember />} />
         <Route path="/users" element={<Users />} />
