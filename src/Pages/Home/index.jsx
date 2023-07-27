@@ -46,7 +46,7 @@ const Home = () => {
       <div className="home">
           <Link to='/members'><DashMenu count={members_count} title='Adhérents' /></Link>
           {user.lvl > 0 && <Link to='/users'><DashMenu count={users_count} title='Professeurs' /></Link>}
-          <Link to='/groups'><DashMenu count={day_groups_count} title='Groupes du jour' /></Link>
+          <Link to='/groups'><DashMenu count={user.lvl > 0 &&day_groups_count} title={user.lvl > 0 ?'Groupes du jour' : 'Mes groupes'} /></Link>
       </div>
       {loading && (
         <div className="loader-container">

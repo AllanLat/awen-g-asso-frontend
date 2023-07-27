@@ -20,6 +20,8 @@ import UpdateUser from './Pages/UpdateUser';
 
 import Groups from './Pages/Groups';
 
+import CreateGroup from './Pages/CreateGroup';
+
 import Error from './Pages/Error';
 import Disclaimer from './Pages/Disclaimer';
 
@@ -39,15 +41,21 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
+
         <Route path="/members" element={<Members />} />
         <Route path="/member/:member_id" element={<Member />} />
         <Route path="/member/new" element={<CreateMember />} />
         <Route path="/member/update/:member_id" element={<UpdateMember />} />
+
         <Route path="/users" element={<Users />} />
         <Route path="/user/:user_id" element={<User />} />
         <Route path="/user/new" element={<CreateUser />} />
         <Route path="/user/update/:user_id" element={<UpdateUser />} />
+
         <Route path="/groups" element={<Groups />} />
+        
+        <Route path="/group/new" element={<CreateGroup />} />
+
         <Route path="/disclaimer" element={<Disclaimer />} />
         <Route path="*" element={<Error />} />
       </Routes>
