@@ -21,6 +21,7 @@ import UpdateUser from './Pages/UpdateUser';
 import Groups from './Pages/Groups';
 import Group from './Pages/Group';
 import CreateGroup from './Pages/CreateGroup';
+import UpdateGroup from './Pages/UpdateGroup';
 
 import Error from './Pages/Error';
 import Disclaimer from './Pages/Disclaimer';
@@ -55,6 +56,8 @@ function App() {
         <Route path="/groups" element={<Groups />} />
         <Route path="/group/:group_id" element={<Group />} />
         <Route path="/group/new" element={<CreateGroup />} />
+        <Route path="/group/update/:group_id" element={<UpdateGroup />} />
+        
 
         <Route path="/disclaimer" element={<Disclaimer />} />
         <Route path="*" element={<Error />} />

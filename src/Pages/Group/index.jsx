@@ -154,7 +154,8 @@ const Group = () => {
             )}
             <div className="users-footer">
                 <Link to="/groups"><GlassButton text="Retour" /></Link>
-                {userLvl > 0 && <Link to="/group/update/:group_id"><GlassButton text="Modifier le groupe" /></Link>}
+                <Link to={`/group/${group_id}/presences`}><GlassButton text="Valider les présences" /></Link>
+                {userLvl > 0 && <Link to={`/group/update/${group_id}`}><GlassButton text="Modifier le groupe" /></Link>}
             </div>
         </>
     )
