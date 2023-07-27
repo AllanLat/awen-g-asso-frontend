@@ -21,8 +21,15 @@ const AddUsersToGroup = () => {
     const [groupName, setGroupName] = useState('');
     const [usersToDisplay, setUsersToDisplay] = useState([]);
     const token = sessionStorage.getItem('token');
+    const userLvl = sessionStorage.getItem('userLvl');
     
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (userLvl < 1) {
+            navigate('/error');
+        }
+    }, [navigate, userLvl]);
 
     useEffect(() => {
         const fetchGroup = async () => {

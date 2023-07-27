@@ -21,9 +21,8 @@ const Group = () => {
     const [loading, setLoading] = useState(true);
     const [isUserInGroup, setIsUserInGroup] = useState(true);
     const navigate = useNavigate();
-
     
-
+    
     useEffect(() => {
         const fetchGroupUsers = async () => {
             setLoading(true);
@@ -38,6 +37,7 @@ const Group = () => {
                 groupUsers.forEach(user => {
                     if (user.id === parseInt(userId)) {
                         setIsUserInGroup(true);
+                        return
                     } else {
                         setIsUserInGroup(false);
                     }
@@ -84,11 +84,11 @@ const Group = () => {
         fetchGroup();
     }, [token, group_id]);
 
-    useEffect(() => {
+    /* useEffect(() => {
         if (!isUserInGroup && userLvl < 1) {
             navigate('/error');
         }
-    }, [navigate, isUserInGroup, userLvl]);
+    }, [navigate, isUserInGroup, userLvl]); */
 
     function dayNumberToDayName(dayNumber) {
         switch (dayNumber) {
