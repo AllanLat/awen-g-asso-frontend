@@ -1,0 +1,26 @@
+.group-page-time {
+    position: relative;
+    top: 6rem;
+    width: 100%;
+    min-height: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 2rem;
+    background: var(--dashMenuColor);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    color: var(--fontPrimary);
+    font-size: 3.2rem;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 700;
+    border: none;
+    border-top: 1px solid var(--dashMenuBorder);
+    border-bottom: 1px solid var(--dashMenuBorder);
+    line-height: 1.5;
+}
+
+.group-page-hours {
+    display: flex;
+
+}

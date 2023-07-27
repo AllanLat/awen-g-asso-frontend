@@ -49,7 +49,7 @@ const Groups = () => {
       }
     };
     fetchGroups();
-  }, [token, dayNumber, userLvl]);
+  }, [token, dayNumber, userLvl, userId]);
 
   return (
     <>
