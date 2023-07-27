@@ -1,4 +1,4 @@
-import { useFetcher, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getGroupById, getUsersByGroupId, getMembersByGroupId } from '../../api/groups'
 import { useEffect, useState } from 'react';
 import { ClipLoader } from 'react-spinners';
@@ -9,7 +9,6 @@ import './index.css'
 import Navbar from '../../components/Navbar';
 import GlassButton from '../../components/GlassButton';
 import MemberCard from '../../components/MemberCard';
-import FormButton from '../../components/FormButton';
 
 const Group = () => {
     const userLvl = sessionStorage.getItem('userLvl');
@@ -22,6 +21,8 @@ const Group = () => {
     const [loading, setLoading] = useState(true);
     const [isUserInGroup, setIsUserInGroup] = useState(true);
     const navigate = useNavigate();
+
+    
 
     useEffect(() => {
         const fetchGroupUsers = async () => {
@@ -49,7 +50,7 @@ const Group = () => {
             }
         }
         fetchGroupUsers();
-    }, [token, group_id, userId]);
+    }, [token, group_id, userId, navigate]);
 
     useEffect(() => {
         const fetchGroupMembers = async () => {
@@ -141,7 +142,9 @@ const Group = () => {
             </div>
             <div className="group-page-members">
                 <ul className="group-members-list">
-                    {GroupMembers.map(member => {
+                    {GroupMembers
+                    .sort((a, b) => a.lastname.localeCompare(b.lastname))
+                    .map(member => {
                         return <Link to ={`/member/${member.id}`} key={member.id}><MemberCard  member={member} /></Link>
                     })}
                 </ul>
