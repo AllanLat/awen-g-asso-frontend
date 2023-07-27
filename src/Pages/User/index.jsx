@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { getUserById, getGroupByUser } from '../../api/users';
+import { getUserById, getGroupsByUserId } from '../../api/users';
 import { useEffect, useState } from 'react';
 import { ClipLoader } from 'react-spinners';
 import { Link } from 'react-router-dom';
@@ -55,7 +55,7 @@ const User = () => {
         const fetchGroups = async () => {
             setLoading(true);
             try {
-                const groups = await getGroupByUser(token, user_id);
+                const groups = await getGroupsByUserId(token, user_id);
                 setGroups(groups);
                 setLoading(false);
             } catch (error) {

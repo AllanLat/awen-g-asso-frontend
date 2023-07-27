@@ -10,10 +10,12 @@ import GlassButton from '../../components/GlassButton';
 import GroupCard from '../../components/GroupCard';
 
 import { getGroupsByDayId } from '../../api/groups';
+import { getGroupsByUserId } from '../../api/users';
 
 const Groups = () => {
   const token = sessionStorage.getItem('token');
   const userLvl = sessionStorage.getItem('userLvl');
+  const userId = sessionStorage.getItem('userId');
   const [dayNumber, setDayNumber] = useState(null);
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -29,12 +31,25 @@ const Groups = () => {
   useEffect(() => {
     const fetchGroups = async () => {
       setLoading(true);
-      const groups = await getGroupsByDayId(token, dayNumber);
-      setGroups(groups);
-      setLoading(false);
+      try {
+        const groups = await getGroupsByDayId(token, dayNumber);
+        
+        const userGroups = await getGroupsByUserId(token, userId);
+        
+        if (userLvl < 1) {
+          // ne garder dans groups que les group qui font partie de userGroups
+          setGroups(groups.filter(group => userGroups.some(userGroup => userGroup.id === group.id)))
+        } else {
+          setGroups(groups);
+        } 
+      } catch (error) {
+        console.log('Error while fetching groups:', error);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchGroups();
-  }, [token, dayNumber]);
+  }, [token, dayNumber, userLvl]);
 
   return (
     <>

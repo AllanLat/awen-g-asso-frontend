@@ -52,6 +52,9 @@ const getUsersByGroupId = async (token, groupId) => {
         if (response.status === 200) {
             return result
         }
+        if (response.status === 403) {
+            return []
+        }
     } catch (error) {
         console.log(error);
     }
