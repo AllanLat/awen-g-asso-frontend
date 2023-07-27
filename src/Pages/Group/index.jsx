@@ -100,7 +100,7 @@ const Group = () => {
             <div className="group-page-time">
                 <p className="group-page-day">{dayNumberToDayName(group.group_day)}</p>
                 <p className="group-page-hours">
-                    {toTimeWithourSeconds(group.start_time)} - {toTimeWithourSeconds(group.end_time)}
+                    {group.start_time && toTimeWithourSeconds(group.start_time)} - {group.end_time && toTimeWithourSeconds(group.end_time)}
                 </p>
 
             </div>
