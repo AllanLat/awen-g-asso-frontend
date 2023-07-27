@@ -5,6 +5,7 @@ import TransactionCard from "../../components/TransactionCard";
 import GlobalAmount from "../../components/GlobalAmount";
 import { Link, useParams } from 'react-router-dom';
 import { getMemberById } from "../../api/members"
+import { getMemberPayments } from "../../api/userPayments";
 import "./index.css"
 
 const MemberPayments  = () => {
@@ -12,8 +13,9 @@ const MemberPayments  = () => {
     const token = sessionStorage.getItem('token')
     const {member_id} = useParams()
     const [member, setMember] = useState({})
+    const [paymentMember, setPaymentsMember] = useState([])
      
-    console.log(member_id)
+    
 
     useEffect(() => {
         const fetchName = async () => {
@@ -28,9 +30,21 @@ const MemberPayments  = () => {
                 console.log(err)
             }
         }  
-        fetchName()       
+        fetchName()  
+        
+        const fetchPayments = async () => {
+            try{
+                const getPayments = await getMemberPayments(token, member_id)
+                setPaymentsMember(getPayments)
+            }catch(err){
+                console.log(err)
+            }
+        }
+        fetchPayments()
+
     }, [token, member_id])
     
+    console.log(paymentMember)
 
     return (
         <div>

@@ -2,7 +2,7 @@ import './index.css'
 
 const GlobalAmount = ({amount}) => {
 
-    console.log(amount)
+    
     const isNegative = amount <= 0
     return(
         <div className='amount'>
