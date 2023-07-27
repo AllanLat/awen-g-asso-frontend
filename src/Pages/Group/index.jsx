@@ -1,5 +1,5 @@
 import { useFetcher, useNavigate, useParams } from 'react-router-dom';
-import { getGroupById, getUsersByGroupId } from '../../api/groups'
+import { getGroupById, getUsersByGroupId, getMembersByGroupId } from '../../api/groups'
 import { useEffect, useState } from 'react';
 import { ClipLoader } from 'react-spinners';
 import { Link } from 'react-router-dom';
@@ -8,6 +8,8 @@ import './index.css'
 
 import Navbar from '../../components/Navbar';
 import GlassButton from '../../components/GlassButton';
+import MemberCard from '../../components/MemberCard';
+import FormButton from '../../components/FormButton';
 
 const Group = () => {
     const userLvl = sessionStorage.getItem('userLvl');
@@ -16,6 +18,7 @@ const Group = () => {
     const token = sessionStorage.getItem('token');
     const [group, setGroup] = useState({});
     const [GroupUsers, setGroupUsers] = useState([]);
+    const [GroupMembers, setGroupMembers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isUserInGroup, setIsUserInGroup] = useState(true);
     const navigate = useNavigate();
@@ -47,6 +50,23 @@ const Group = () => {
         }
         fetchGroupUsers();
     }, [token, group_id, userId]);
+
+    useEffect(() => {
+        const fetchGroupMembers = async () => {
+            setLoading(true);
+            try {
+                const groupMembers = await getMembersByGroupId(token, group_id);
+                setGroupMembers(groupMembers);
+                setLoading(false);
+            } catch (error) {
+                console.error(error);
+                return [];
+            }
+        }
+        fetchGroupMembers();
+    }, [token, group_id]);
+
+
 
     useEffect(() => {
         const fetchGroup = async () => {
@@ -92,7 +112,7 @@ const Group = () => {
 
     function toTimeWithourSeconds(time) {
         return time.split(':').slice(0, 2).join(':');
-      }
+    }
 
     return (
         <>
@@ -102,10 +122,39 @@ const Group = () => {
                 <p className="group-page-hours">
                     {group.start_time && toTimeWithourSeconds(group.start_time)} - {group.end_time && toTimeWithourSeconds(group.end_time)}
                 </p>
-
             </div>
-            <div className="group-page">
+            <div className="group-page-users">
+                <div className="group-page-users-title">
+                    <p>Professeurs : </p>
+                    {userLvl > 0 && <Link to={`/group/${group_id}/addusers`}>Ajouter un professeur</Link>}
+                </div>
+                <div className="users">
+                    {GroupUsers.map(user => {
+                        return <p className='group-page-user' key={user.id}>{user.lastname} {user.firstname}</p>
+                    })}
+                </div>
+            </div>
 
+            <div className="group-page-members-title">
+                <p>Adhérents : </p>
+                <Link to={`/group/${group_id}/addmembers`}>Ajouter un adhérent</Link>
+            </div>
+            <div className="group-page-members">
+                <ul className="group-members-list">
+                    {GroupMembers.map(member => {
+                        return <Link to ={`/member/${member.id}`} key={member.id}><MemberCard  member={member} /></Link>
+                    })}
+                </ul>
+            </div>
+
+            {loading && (
+                <div className="loader-container">
+                    <ClipLoader color='#fff' loading={loading} size={75} speedMultiplier={0.8} />
+                </div>
+            )}
+            <div className="users-footer">
+                <Link to="/groups"><GlassButton text="Retour" /></Link>
+                {userLvl > 0 && <Link to="/group/update/:group_id"><GlassButton text="Modifier le groupe" /></Link>}
             </div>
         </>
     )
