@@ -28,3 +28,17 @@
     margin-top: 6rem;
     width: 100%;
 }
+
+.cotisation
+{
+    display: flex;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-top: 0.5rem;
+}
+
+.cotisation > strong
+{
+    font-size: 1.8rem;
+    margin-left: 3px;
+}

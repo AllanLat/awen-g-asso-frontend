@@ -18,7 +18,7 @@ const TransactionCard = ({date, intitule, moyen, credOrDeb, amount, isCredOrDeb}
         </div>
 
         <div className='total-view'>
-            <p>{amount} €</p>
+            <p>{amount}</p>
         </div>
     </div>
     )

@@ -1,14 +1,15 @@
 
+
 const getMemberPayments = async(token, id) => {
 
     try{
+
         const pay = await fetch(`http://localhost:8080/api/v1/userpayment/${id}`,{
             method : 'GET',
             headers: {
                 'Content-type': 'application/json',
                 'Authorization': 'Bearer ' + token
-            },
-            
+            },    
         })
        
         const response = await pay.json()
@@ -23,4 +24,8 @@ const getMemberPayments = async(token, id) => {
     }
 }
 
-export {getMemberPayments}
+
+
+export {
+    getMemberPayments
+}
