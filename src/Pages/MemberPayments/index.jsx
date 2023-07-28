@@ -15,8 +15,7 @@ const MemberPayments  = () => {
     const {member_id} = useParams()
     const [member, setMember] = useState({})
     const [paymentMember, setPaymentsMember] = useState([])
-    // const [totalPayments, setTotalPayments] = useState(0)
-     
+    const [isModalOpen, setIsModalOpen] = useState(false)
     
 
     useEffect(() => {
@@ -65,6 +64,10 @@ const MemberPayments  = () => {
     const totalPayments = total.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue)
 
 
+    const handleModal = () => {
+        setIsModalOpen(!isModalOpen)
+    }
+
     return (
         <div>
             <Navbar title={member.lastname + " " + member.firstname}/>
@@ -89,7 +92,7 @@ const MemberPayments  = () => {
 
             <div className="footer-member-payments">
                 <Link to={`/member/${member_id}`}><GlassButton text={"Retour"} /></ Link>
-                <GlassButton text={"Ajouter paiement"} />
+                <GlassButton text={"Ajouter paiement"} onClick={handleModal} />
             </div>
         </div>
     )
