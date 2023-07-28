@@ -9,7 +9,7 @@ import { getGroupById, getMembersByGroupId, addMembersToGroup } from '../../api/
 import { getMembers } from '../../api/members';
 
 import Navbar from '../../components/Navbar';
-import MemberCard from '../../components/UserCard';
+import MemberCard from '../../components/MemberCard';
 import GlassButton from '../../components/GlassButton';
 
 import { confirmAlert } from 'react-confirm-alert';
@@ -80,8 +80,8 @@ const AddMembersToGroup = () => {
                     <div className="add-members-members">
                         {membersToDisplay
                         .sort((a, b) => a.lastname.localeCompare(b.lastname))
-                        .map(user => (
-                            <MemberCard onClick={() => onCardClick(user.id)} key={user.id} user={user} />
+                        .map(member => (
+                            <MemberCard onClick={() => onCardClick(member.id)} key={member.id} member={member} />
                         ))}
                     </div>
                 </div>
