@@ -30,7 +30,8 @@ const MemberPayments  = () => {
                 const setObject = {
                     firstname: memberFetch.firstname.charAt(0).toUpperCase() + ".",
                     lastname: memberFetch.lastname.toUpperCase(),
-                    subscription: memberFetch.subscription
+                    subscription: memberFetch.subscription,
+                    paid: memberFetch.paid
                 }
                 setMember(setObject)
             } catch(err){
@@ -60,24 +61,6 @@ const MemberPayments  = () => {
         fetchBalance()
     }, [isModalOpen, token])
     
-    let totalMemberPayments = [];
-    
-
-    function arrayPayment() {
-       
-        for(let i = 0; i<paymentMember.length; i++){   
-            totalMemberPayments.push(parseFloat(paymentMember[i].credit))
-            totalMemberPayments.push(-parseFloat(paymentMember[i].debit))
-        }
-        
-    }
-    
-    
-    arrayPayment();
-
-    const initialValue = 0;
-    const totalPayments = totalMemberPayments.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue)
-
 
     const handleModal = () => {
         setIsModalOpen(!isModalOpen)
@@ -88,7 +71,7 @@ const MemberPayments  = () => {
             <Navbar title={member.lastname + " " + member.firstname}/>
 
             <div className="member-global-amount">
-                <GlobalAmount amount={totalPayments} />
+                <GlobalAmount amount={member.paid} />
                 <p className="cotisation">Cotisation à  <strong>{member.subscription}€</strong></p>
             </div>
             <div className="member-transaction-cards">
