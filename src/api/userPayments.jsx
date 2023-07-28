@@ -17,6 +17,7 @@ const getMemberPayments = async(token, id) => {
         if(pay.status === 200){
             return response
         }
+        
     }catch(err){
         console.log(err)
     }

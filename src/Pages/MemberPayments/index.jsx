@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar"
 import GlassButton from "../../components/GlassButton";
 import TransactionCard from "../../components/TransactionCard";
 import GlobalAmount from "../../components/GlobalAmount";
+import ModalAccount from "../account/ModalAccount";
 import { Link, useParams } from 'react-router-dom';
 import { getMemberById } from "../../api/members"
 import { getMemberPayments } from "../../api/userPayments";
@@ -14,6 +15,7 @@ const MemberPayments  = () => {
     const {member_id} = useParams()
     const [member, setMember] = useState({})
     const [paymentMember, setPaymentsMember] = useState([])
+    // const [totalPayments, setTotalPayments] = useState(0)
      
     
 
@@ -23,7 +25,8 @@ const MemberPayments  = () => {
                 const memberFetch = await getMemberById(token, member_id)
                 const setObject = {
                     firstname: memberFetch.firstname.charAt(0).toUpperCase() + ".",
-                    lastname: memberFetch.lastname.toUpperCase()
+                    lastname: memberFetch.lastname.toUpperCase(),
+                    subscription: memberFetch.subscription
                 }
                 setMember(setObject)
             } catch(err){
@@ -44,18 +47,45 @@ const MemberPayments  = () => {
 
     }, [token, member_id])
     
-    console.log(paymentMember)
+    let total = [];
+    
+
+    function arrayPayment() {
+       
+        for(let i = 0; i<paymentMember.length; i++){   
+            total.push(parseFloat(paymentMember[i].credit))
+        }
+        
+    }
+    
+    arrayPayment();
+    console.log(total)
+
+    const initialValue = 0;
+    const totalPayments = total.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue)
+
 
     return (
         <div>
             <Navbar title={member.lastname + " " + member.firstname}/>
 
             <div className="member-global-amount">
-                <GlobalAmount amount={100} />
+                <GlobalAmount amount={totalPayments + "/" + member.subscription} />
             </div>
             <div className="member-transaction-cards">
-            <TransactionCard intitule={"test affichage"} />
+                {paymentMember && paymentMember.map((paymentI) => (
+                    <TransactionCard 
+                    key={paymentI.member_id + paymentI.created_at}
+                    date={paymentI.payment_date.split('T')[0]}
+                    intitule={paymentI.description}
+                    moyen={paymentI.payment_method}
+                    amount={paymentI.credit === "0.00" ? paymentI.debit : paymentI.credit}
+                    />
+                ))}
+            
             </div>
+
+            <ModalAccount isOpen={isModalOpen} toggleOpen={handleModal} total={total}/>
 
             <div className="footer-member-payments">
                 <Link to={`/member/${member_id}`}><GlassButton text={"Retour"} /></ Link>

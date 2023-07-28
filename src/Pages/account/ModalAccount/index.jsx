@@ -25,6 +25,7 @@ const ModalAccount = ({isOpen, toggleOpen, total}) => {
     
     const onSubmit = async (data) => {
 
+        //on regarde si c'est un credit ou un débit
         if (isValid === true) {
             if(data.credOrDeb === "Débit"){
                 data.debit = data.amount

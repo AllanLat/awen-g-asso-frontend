@@ -13,7 +13,7 @@ const TransactionCard = ({date, intitule, moyen, credOrDeb, amount, isCredOrDeb}
 
             <div className="moyen-cred">
                 <p>{moyen}</p>
-                <p className={isCredOrDeb === true ? 'deb-red' : 'cred-green' }>{credOrDeb} €</p>
+                <p className={isCredOrDeb === true ? 'deb-red' : 'cred-green' }>{credOrDeb}</p>
             </div>
         </div>
 
