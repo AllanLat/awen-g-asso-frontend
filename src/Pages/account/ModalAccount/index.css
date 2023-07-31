@@ -34,7 +34,6 @@
 .form input  
 {
     font-size: 1.8rem;
-    padding: 1rem;
     width: 100%;
     border-radius: 2rem;
     height: 3rem;
@@ -100,18 +99,6 @@
     width: 100%;
 }
 
-.radio-button
-{
-    display: flex;
-    align-items: center;
-}
-
-.radio-button label
-{
-    margin-left: 0.5rem;
-    margin-right: 2rem;
-} 
-
 label
 {
     font-size: 1.7rem;
@@ -167,4 +154,9 @@ label
 .footer-modal-account > *:last-child {
     border-right: none; /* Supprime la bordure sur le dernier élément */
     margin-right: 0; /* Supprime la marge sur le dernier élément */
+}
+
+#montant
+{
+    padding-right: 1rem;
 }

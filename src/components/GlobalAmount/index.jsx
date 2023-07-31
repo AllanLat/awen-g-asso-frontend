@@ -2,10 +2,11 @@ import './index.css'
 
 const GlobalAmount = ({amount}) => {
 
-    const isNegative = amount.includes("-")
+    
+    const isNegative = amount <= 0
     return(
         <div className='amount'>
-            <p className={isNegative ? 'detail-amount red' : 'detail-amount green'}>{amount} €</p>
+            <p className={isNegative ? "detail-amount red" : "detail-amount green"}>{amount}€</p>
         </div>
     )
 }
