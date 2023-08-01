@@ -40,6 +40,20 @@ const Account = () => {
     const handleModal = () => {
         setIsModalOpen(!isModalOpen)
     }
+
+    const sortBy = (e) => {
+        if(e.target.value === "date"){
+            
+            const paymentDate = [...payments].sort((a, b) => {
+                const date1 = new Date(a.payment_date)
+                const date2 = new Date(b.payment_date)
+
+                return date2 - date1
+            }) 
+            
+            setPayments(paymentDate)
+        }
+    }
     
     return(
         <div>
@@ -52,10 +66,10 @@ const Account = () => {
                 </div>
 
                 <div className='sort-button'>
-                    <ButtonSort />
+                    <ButtonSort onClick={sortBy} />
                 </div>
 
-                <div className='transaction-cards'>
+                <div className='transaction-cards'>      
                     {payments && payments.map((paymentI) => (
                         <TransactionCard key={paymentI.id} date={paymentI.payment_date.split('T')[0]} intitule={paymentI.description} 
                         moyen={paymentI.payment_method} credOrDeb={paymentI.credit === "0.00" ? paymentI.debit + "€" : paymentI.credit + "€"} amount={paymentI.balance + "€"} 

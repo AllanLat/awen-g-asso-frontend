@@ -1,9 +1,9 @@
 import './index.css'
 
-const ButtonSort = () => {
+const ButtonSort = ({onClick}) => {
 
     return(
-        <select>
+        <select onClick={onClick}>
             <option>Trier par..</option>
             <option value={"date"}>Date</option>
             <option value={"credit"}>Crédit</option>
