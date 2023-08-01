@@ -30,3 +30,10 @@
     align-items: center;
     overflow: auto;
 }
+
+.sort-button
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}

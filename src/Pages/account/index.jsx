@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react'
 import ModalAccount from './ModalAccount'
 import GlobalAmount from '../../components/GlobalAmount'
 import TransactionCard from '../../components/TransactionCard'
+import ButtonSort from '../../components/ButtonSort'
 
 const Account = () => {
 
@@ -48,6 +49,10 @@ const Account = () => {
                     {total && total.map((i) => (
                         <GlobalAmount key={i} amount={i.balance} />
                     ))}                    
+                </div>
+
+                <div className='sort-button'>
+                    <ButtonSort />
                 </div>
 
                 <div className='transaction-cards'>
