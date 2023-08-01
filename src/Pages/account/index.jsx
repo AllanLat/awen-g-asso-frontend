@@ -9,10 +9,11 @@ import { useState, useEffect } from 'react'
 import ModalAccount from './ModalAccount'
 import GlobalAmount from '../../components/GlobalAmount'
 import TransactionCard from '../../components/TransactionCard'
+import SortButton from '../../components/SortButton'
+
 
 const Account = () => {
 
-    
     const token = sessionStorage.getItem('token')
     const [payments, setPayments] = useState([])
     const [total, setTotal] = useState([])
@@ -48,6 +49,10 @@ const Account = () => {
                     {total && total.map((i) => (
                         <GlobalAmount key={i} amount={i.balance} />
                     ))}                    
+                </div>
+                
+                <div className='sort-button'>
+                    <SortButton />
                 </div>
 
                 <div className='transaction-cards'>
