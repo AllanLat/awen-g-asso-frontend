@@ -41,19 +41,40 @@ const Account = () => {
         setIsModalOpen(!isModalOpen)
     }
 
-    const sortBy = (e) => {
-        if(e.target.value === "date"){
-            
-            const paymentDate = [...payments].sort((a, b) => {
-                const date1 = new Date(a.payment_date)
-                const date2 = new Date(b.payment_date)
+    console.log(payments)
 
-                return date2 - date1
-            }) 
+    const sortBy = (e) => {
+
+        switch(e.target.value) {
+
+            case 'date' : 
+                const paymentDate = [...payments].sort((a, b) => {
+                    const date1 = new Date(a.payment_date)
+                    const date2 = new Date(b.payment_date)
+
+                    return date2 - date1
+                }) 
+                setPayments(paymentDate)
+                break
+
+            case 'id': 
+                const idPayments = [...payments].sort((a, b) => (b.id - a.id))
+                setPayments(idPayments)
+                break
+
+            case 'credit':
+                const creditPayments= payments.filter((item) => {
+                     return item.credit !== "0.00"
+                })
+                setPayments(creditPayments)
+                break
             
-            setPayments(paymentDate)
+            default: 
+                console.log("Il y a un problème")
         }
+        
     }
+    
     
     return(
         <div>
