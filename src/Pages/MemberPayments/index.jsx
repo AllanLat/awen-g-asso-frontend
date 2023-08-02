@@ -6,6 +6,7 @@ import GlassButton from "../../components/GlassButton";
 import TransactionCard from "../../components/TransactionCard";
 import GlobalAmount from "../../components/GlobalAmount";
 import ModalAccount from "../account/ModalAccount";
+import ButtonSort from "../../components/ButtonSort";
 
 
 import { getMemberById } from "../../api/members"
@@ -66,6 +67,45 @@ const MemberPayments  = () => {
         setIsModalOpen(!isModalOpen)
     }
 
+    const sortBy = (e) => {
+
+        switch(e.target.value) {
+
+            case 'date' : 
+                const paymentDate = [...paymentMember].sort((a, b) => {
+                    const date1 = new Date(a.payment_date)
+                    const date2 = new Date(b.payment_date)
+
+                    return date2 - date1
+                }) 
+                setPaymentsMember(paymentDate)
+                break
+
+            case 'id': 
+                const idPayments = [...paymentMember].sort((a, b) => (b.id - a.id))
+                setPaymentsMember(idPayments)
+                break
+
+            case 'credit':
+                const creditPayments= [...paymentMember].sort((a, b) => {
+                     return b.credit - a.credit
+                })
+                setPaymentsMember(creditPayments)
+                break
+
+            case 'debit':
+                const debitPayments = [...paymentMember].sort((a, b) => {
+                    return b.debit - a.debit
+                })
+                setPaymentsMember(debitPayments)
+                break
+        
+            default: 
+                console.log("Il y a un problème")
+        }     
+        
+    }
+
     return (
         <div>
             <Navbar title={member.lastname + " " + member.firstname}/>
@@ -73,6 +113,10 @@ const MemberPayments  = () => {
             <div className="member-global-amount">
                 <GlobalAmount amount={member.paid} />
                 <p className="cotisation">Cotisation à  <strong>{member.subscription}€</strong></p>
+            </div>
+
+            <div className='sort-button'>
+                <ButtonSort onClick={sortBy}/>
             </div>
             <div className="member-transaction-cards">
                 {paymentMember && paymentMember.map((paymentI) => (
