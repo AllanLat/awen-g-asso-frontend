@@ -82,7 +82,7 @@ const Account = () => {
     }
     
     window.scroll({top:0, left:0, behavior: 'smooth'})
-    
+
     return(
         <div>
             <Navbar title='Solde du compte' />
