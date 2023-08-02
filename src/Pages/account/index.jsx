@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react'
 import ModalAccount from './ModalAccount'
 import GlobalAmount from '../../components/GlobalAmount'
 import TransactionCard from '../../components/TransactionCard'
+import ButtonSort from '../../components/ButtonSort'
 
 const Account = () => {
 
@@ -17,14 +18,13 @@ const Account = () => {
     const [payments, setPayments] = useState([])
     const [total, setTotal] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(false)
-    
+   
     useEffect(() => {
         const fetchPayments = async() => {
             const getPay = await getPaymentsAsso(token)
             setPayments(getPay)
         }
         fetchPayments()
-        
     }, [isModalOpen, token])
 
     useEffect(() => {
@@ -39,7 +39,50 @@ const Account = () => {
     const handleModal = () => {
         setIsModalOpen(!isModalOpen)
     }
+
     
+
+    const sortBy = (e) => {
+
+        switch(e.target.value) {
+
+            case 'date' : 
+                const paymentDate = [...payments].sort((a, b) => {
+                    const date1 = new Date(a.payment_date)
+                    const date2 = new Date(b.payment_date)
+
+                    return date2 - date1
+                }) 
+                setPayments(paymentDate)
+                break
+
+            case 'id': 
+                const idPayments = [...payments].sort((a, b) => (b.id - a.id))
+                setPayments(idPayments)
+                break
+
+            case 'credit':
+                const creditPayments= [...payments].sort((a, b) => {
+                     return b.credit - a.credit
+                })
+                setPayments(creditPayments)
+                break
+
+            case 'debit':
+                const debitPayments = [...payments].sort((a, b) => {
+                    return b.debit - a.debit
+                })
+                setPayments(debitPayments)
+                break
+        
+            default: 
+                console.log("Il y a un problème")
+        }     
+        
+    }
+    
+    window.scroll({top:0, left:0, behavior: 'smooth'})
+
     return(
         <div>
             <Navbar title='Solde du compte' />
@@ -50,8 +93,13 @@ const Account = () => {
                     ))}                    
                 </div>
 
-                <div className='transaction-cards'>
-                    {payments && payments.map((paymentI) => (
+                <div className='sort-button'>
+                    <ButtonSort onClick={sortBy} />
+                </div>
+
+                <div className='transaction-cards'>      
+                    {payments &&
+                        payments.map((paymentI) => (
                         <TransactionCard key={paymentI.id} date={paymentI.payment_date.split('T')[0]} intitule={paymentI.description} 
                         moyen={paymentI.payment_method} credOrDeb={paymentI.credit === "0.00" ? paymentI.debit + "€" : paymentI.credit + "€"} amount={paymentI.balance + "€"} 
                         isCredOrDeb={paymentI.credit === "0.00" ? true : false}/>

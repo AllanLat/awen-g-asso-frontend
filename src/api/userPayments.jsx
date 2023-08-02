@@ -13,7 +13,6 @@ const getMemberPayments = async(token, id) => {
         })
        
         const response = await pay.json()
-        console.log(response)
 
         if(pay.status === 200){
             return response
