@@ -41,7 +41,6 @@ const ModalAccount = ({isOpen, toggleOpen, total, member_id}) => {
             if(member_id) {
                 const dataWithMember = data
                 dataWithMember.member_id = parseInt(member_id)
-                console.log(dataWithMember)
                 await createNewTransac(token, dataWithMember)
                 reset()     
                 onCloseAccount()
