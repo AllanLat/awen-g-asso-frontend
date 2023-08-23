@@ -2,7 +2,7 @@ import { toast, Slide } from 'react-toastify';
 
 const getGroupsByDayId = async (token, dayId) => {
     try {
-        const response = await fetch(`http://localhost:8080/api/v1/groups/day/${dayId}`, {
+        const response = await fetch(`http://api.g-asso.com/api/v1/groups/day/${dayId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

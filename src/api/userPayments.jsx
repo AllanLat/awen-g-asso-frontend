@@ -4,7 +4,7 @@ const getMemberPayments = async(token, id) => {
 
     try{
 
-        const pay = await fetch(`http://localhost:8080/api/v1/userpayment/${id}`,{
+        const pay = await fetch(`http://api.g-asso.com/api/v1/userpayment/${id}`,{
             method : 'GET',
             headers: {
                 'Content-type': 'application/json',

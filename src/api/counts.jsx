@@ -1,6 +1,6 @@
 const getMembersCount = async (token) => {
     try {
-        const response = await fetch('http://localhost:8080/api/v1/members/count', {
+        const response = await fetch('http://api.g-asso.com/api/v1/members/count', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ const getMembersCount = async (token) => {
 
 const getUsersCount = async (token) => {
     try {
-        const response = await fetch('http://localhost:8080/api/v1/users/count', {
+        const response = await fetch('http://api.g-asso.com/api/v1/users/count', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ const getUsersCount = async (token) => {
 
 const getDayGroupsCount = async (token) => {
     try {
-        const response = await fetch('http://localhost:8080/api/v1/groups/day_groups/count', {
+        const response = await fetch('http://api.g-asso.com/api/v1/groups/day_groups/count', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

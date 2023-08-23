@@ -4,7 +4,7 @@ const login = async (data, navigate) => {
   
     const body = JSON.stringify(data);
     try {
-      const response = await fetch('http://localhost:8080/api/v1/login', {
+      const response = await fetch('http://api.g-asso.com/api/v1/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
