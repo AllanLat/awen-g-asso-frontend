@@ -35,7 +35,9 @@ const Member = () => {
             setLoading(true);
             try {
                 const member = await getMemberById(token, member_id);
-                
+                if (!member || member === "Le membre n'existe pas.") {
+                    navigate('/error');
+                }
                 // Mettre en forme les données ici
                 const formattedMember = {
                     ...member,

@@ -1,7 +1,6 @@
 import './index.css';
 
 const GroupCard = ({ group }) => {
-  console.log(group);
 
   function dayNumberToDayName(dayNumber) {
     switch (dayNumber) {
@@ -29,7 +28,6 @@ const GroupCard = ({ group }) => {
   }
 
   const dayName = dayNumberToDayName(group.group_day);
-  console.log(dayName);
 
   const start_time = toTimeWithourSeconds(group.start_time);
   const end_time = toTimeWithourSeconds(group.end_time);
@@ -39,9 +37,10 @@ const GroupCard = ({ group }) => {
       <div className="card-content">
 
         <h2>{group.name}</h2>
-        <div className="group-time">
-          <p className="day-name">{dayName}</p>
+        <div className="group-day-time">
           <p className="time">{start_time} - {end_time}</p>
+          <p className="day-name">{dayName}</p>
+
         </div>
 
 
