@@ -20,6 +20,11 @@ import CreateUser from './Pages/CreateUser';
 import UpdateUser from './Pages/UpdateUser';
 
 import Groups from './Pages/Groups';
+import Group from './Pages/Group';
+import CreateGroup from './Pages/CreateGroup';
+import UpdateGroup from './Pages/UpdateGroup';
+import AddUsersToGroup from './Pages/AddUsersToGroup';
+import AddMembersToGroup from './Pages/AddMembersToGroup';
 
 import Error from './Pages/Error';
 import Disclaimer from './Pages/Disclaimer';
@@ -41,16 +46,26 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
+
         <Route path="/members" element={<Members />} />
         <Route path="/member/:member_id" element={<Member />} />
         <Route path="/member/:member_id/payments" element={<MemberPayments />} />
         <Route path="/member/new" element={<CreateMember />} />
         <Route path="/member/update/:member_id" element={<UpdateMember />} />
+
         <Route path="/users" element={<Users />} />
         <Route path="/user/:user_id" element={<User />} />
         <Route path="/user/new" element={<CreateUser />} />
         <Route path="/user/update/:user_id" element={<UpdateUser />} />
+
         <Route path="/groups" element={<Groups />} />
+        <Route path="/group/:group_id" element={<Group />} />
+        <Route path="/group/new" element={<CreateGroup />} />
+        <Route path="/group/update/:group_id" element={<UpdateGroup />} />
+        <Route path="/group/:group_id/addusers" element={<AddUsersToGroup />} />
+        <Route path="/group/:group_id/addmembers" element={<AddMembersToGroup />} />
+        
+
         <Route path="/disclaimer" element={<Disclaimer />} />
         <Route path="/account" element={<Account />} />
         <Route path="*" element={<Error />} /> {/* à créer en page */}

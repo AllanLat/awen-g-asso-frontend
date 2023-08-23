@@ -37,9 +37,10 @@ const GroupCard = ({ group }) => {
       <div className="card-content">
 
         <h2>{group.name}</h2>
-        <div className="group-time">
-          <p className="day-name">{dayName}</p>
+        <div className="group-day-time">
           <p className="time">{start_time} - {end_time}</p>
+          <p className="day-name">{dayName}</p>
+
         </div>
 
 

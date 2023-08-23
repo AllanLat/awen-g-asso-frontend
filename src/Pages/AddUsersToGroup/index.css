@@ -1,0 +1,47 @@
+.add-users-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.add-users-group-title  {
+    position: fixed;
+    top: 6rem;
+    height: 4rem;
+    padding: 1rem;
+    font-size: 2.5rem;
+    font-weight: 400;
+    text-align: center;
+    text-align: center;
+    width: 100%;
+}
+
+.add-users-list {
+    margin-top: 10rem;
+    height: calc(100vh - 16rem);
+    width: 100%;
+    overflow: auto;
+}
+
+.add-users-users {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+}
+
+.add-users-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+}
+
+.add-users-footer > *:last-child button {
+    border-right: none; /* Supprime la bordure sur le dernier élément */
+    margin-right: 0; /* Supprime la marge sur le dernier élément */
+}

@@ -34,7 +34,7 @@ const getUserById = async (token, id) => {
     }
 }
 
-const getGroupByUser = async (token, id) => {
+const getGroupsByUserId = async (token, id) => {
     try {
         const response = await fetch(`http://localhost:8080/api/v1/users/${id}/groups`, {
             method: 'GET',
@@ -92,4 +92,4 @@ const updateUser = async (token, id, newUser) => {
 }
 
 
-export { getUsers, getUserById, getGroupByUser, createUser, updateUser };
+export { getUsers, getUserById, getGroupsByUserId, createUser, updateUser };
