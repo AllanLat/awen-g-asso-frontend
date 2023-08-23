@@ -10,6 +10,7 @@ import Home from './Pages/Home';
 
 import Members from './Pages/Members';
 import Member from './Pages/Member';
+import MemberPayments from './Pages/MemberPayments';
 import CreateMember from './Pages/CreateMember';
 import UpdateMember from './Pages/UpdateMember';
 
@@ -27,6 +28,7 @@ import AddMembersToGroup from './Pages/AddMembersToGroup';
 
 import Error from './Pages/Error';
 import Disclaimer from './Pages/Disclaimer';
+import Account from './Pages/account';
 
 function App() {
   const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
@@ -47,6 +49,7 @@ function App() {
 
         <Route path="/members" element={<Members />} />
         <Route path="/member/:member_id" element={<Member />} />
+        <Route path="/member/:member_id/payments" element={<MemberPayments />} />
         <Route path="/member/new" element={<CreateMember />} />
         <Route path="/member/update/:member_id" element={<UpdateMember />} />
 
@@ -64,7 +67,8 @@ function App() {
         
 
         <Route path="/disclaimer" element={<Disclaimer />} />
-        <Route path="*" element={<Error />} />
+        <Route path="/account" element={<Account />} />
+        <Route path="*" element={<Error />} /> {/* à créer en page */}
       </Routes>
       <ToastContainer autoClose={1500} />
     </div>

@@ -19,6 +19,7 @@ const Member = () => {
     const [member, setMember] = useState({});
     const [loading, setLoading] = useState(true);
 
+
     const navigate = useNavigate();
 
     const toOneInitial = (firstname) => {
@@ -111,7 +112,9 @@ const Member = () => {
                         <h2>Contre-indication(s) :</h2> 
                         <p>{member.contraindication ? member.contraindication : "Non"}</p>
                     </div>
-                    {userLvl > 0 && <SingleMemberCard title="Paiement" paid={member.paid} subscription={member.subscription} /> }
+                    {userLvl > 0 && <Link to={`/member/${member_id}/payments`}>
+                        <SingleMemberCard title="Paiement" paid={member.paid} subscription={member.subscription} />
+                        </Link >}
                     <SingleMemberCard title="Pièces jointes" />
                 </div>
 
