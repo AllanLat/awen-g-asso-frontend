@@ -2,7 +2,7 @@ import './index.css';
 import placeholderImage from '../../assets/img/placeholder.png';
 
 const MemberCard = ({ member, onClick }) => {
-  console.log(member)
+  //console.log(member)
   const photoConverted = member ? "data:image/png;base64,"+ member.photo : placeholderImage;
   return (
     <li className="member" onClick={onClick}>
