@@ -56,7 +56,7 @@ const GroupForm = ({ method, groupId }) => {
                         if (method === 'post') {
                             createGroup(token, newData)
                                 .then((insertId) => {
-                                    navigate(`/group/${insertId}`);
+                                    navigate('/group/' + insertId);
                                 })
                                 .catch((error) => {
                                     console.log(error);

@@ -22,7 +22,7 @@ const ModalAccount = ({isOpen, toggleOpen, total, member_id}) => {
     }
     
     const onSubmit = async (data) => {
-        
+        console.log("coucou")
         //on regarde si c'est un credit ou un débit
         if (isValid === true) {
             if(data.credOrDeb === "Débit"){
@@ -32,9 +32,9 @@ const ModalAccount = ({isOpen, toggleOpen, total, member_id}) => {
                 data.credit = data.amount
                 data.debit = 0
             }
-    
-            const tot = total[0].balance
-    
+            
+            const tot = total[0]?.balance || 0
+            console.log(tot)
             data.balance = tot
             delete data.amount
 

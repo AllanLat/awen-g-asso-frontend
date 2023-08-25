@@ -52,7 +52,8 @@ const MemberForm = ({ method, memberId }) => {
                 setValue('mail', memberData.member_detail.mail);
                 setValue('phone_number', memberData.member_detail.phone_number);
                 setValue('emergency_number', memberData.member_detail.emergency_number);
-    
+                setValue('subscription', memberData.subscription);
+
                 setValue('contraindication', memberData.member_detail.contraindication);
             } catch (error) {
                 console.log(error);
@@ -72,6 +73,13 @@ const MemberForm = ({ method, memberId }) => {
                 {
                     label: 'Oui', onClick: () => {
                         // on construit ici la data simple pour créer un nouveau membre
+                        if (data.reduction === true) {
+                            data.subscription -= 10;
+                        }
+
+                       
+
+
                         const newData = {
                             "street": data.street,
                             "postal_code": data.postal_code,
@@ -88,7 +96,7 @@ const MemberForm = ({ method, memberId }) => {
                             "file_status": 0,
                             "payment_status": 0,
                             "certificate": null,
-                            "subscription": 0,
+                            "subscription": data.subscription,
                             "paid": 0
                         }
 
@@ -175,6 +183,27 @@ const MemberForm = ({ method, memberId }) => {
             <h2>Informations :</h2>
             <Input value='image_rights_signature' text={image_rights_signatureName === '' ? method === 'post' ? "Ajouter autorisation signée de droit à l'image" : "Modifier l'autorisation signée de droit à l'image" : image_rights_signatureName} onChange={handleImage_rights_signatureName} type='file' register={register} />
             <Input value='contraindication' text='Contraintes médicales (laisser vide si aucune)' type='text' register={register} />
+            
+            <h2>Paiements</h2>
+            <label htmlFor="subscription">Montant de la cotisation</label>
+            <select {...register('subscription')} required>
+                <option value="161">Babydo - 161€ </option>
+                <option value="181">Judo / Cross training - 181€</option>
+                <option value="141">Taïso - 141€</option>
+            </select>
+
+            <Input value='reduction' text='Réduction 10€' type='checkbox' register={register} />
+
+            <br />
+            
+            <div class="signature-container">
+                <canvas id="signatureCanvas"></canvas>
+            </div>
+            <button id="saveSignatureButton">Sauvegarder la signature</button>
+
+            
+
+
         </form>
     )
 }
