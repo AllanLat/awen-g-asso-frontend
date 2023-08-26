@@ -26,3 +26,14 @@
 .member-form h2:first-of-type {
     align-self: center;
 }
+
+.subscription {
+    align-self: start;
+    gap: 1rem;
+}
+
+.subscription select {
+    font-size: 2.5rem;
+    text-align: center;
+    cursor: pointer;
+}
