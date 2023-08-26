@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import '../../utils/css/customConfirm.css'
+import SignatureComponent from './signature';
 
 import Input from '../Input';
 
@@ -63,7 +64,8 @@ const MemberForm = ({ method, memberId }) => {
     }, [method, memberId, token, setValue]);
         
     // on utilise la fonction getMemberById pour récupérer le membre si on est en update pour afficher les données
-   
+ 
+
 
     const onSubmit = (data) => {
         confirmAlert({
@@ -73,6 +75,8 @@ const MemberForm = ({ method, memberId }) => {
                 {
                     label: 'Oui', onClick: () => {
                         // on construit ici la data simple pour créer un nouveau membre
+
+                        // Reduction si checkbox coché
                         if (data.reduction === true) {
                             data.subscription -= 10;
                         }
@@ -196,10 +200,8 @@ const MemberForm = ({ method, memberId }) => {
 
             <br />
             
-            <div class="signature-container">
-                <canvas id="signatureCanvas"></canvas>
-            </div>
-            <button id="saveSignatureButton">Sauvegarder la signature</button>
+            {/* <SignatureComponent /> */}
+
 
             
 

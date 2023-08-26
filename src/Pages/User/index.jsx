@@ -36,7 +36,7 @@ const User = () => {
             setLoading(true);
             try {
                 const user = await getUserById(token, user_id);
-                console.log(user);
+                //console.log(user);
                 if (!user || user === "Le user n'existe pas.") {
                     navigate('/error');
                 }
