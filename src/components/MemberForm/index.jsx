@@ -18,6 +18,12 @@ const MemberForm = ({ method, memberId }) => {
     const token = sessionStorage.getItem('token');
     const { register, handleSubmit, setValue } = useForm();
 
+    const cotisations = [
+        {name: "Babydo", price: "161"}, 
+        {name: "Judo / Cross training", price: "181"},
+        {name: "Taïso", price: "141"}
+    ]
+
     const navigate = useNavigate();
 
     const [photoName, setPhotoName] = useState('');
@@ -30,8 +36,8 @@ const MemberForm = ({ method, memberId }) => {
         const day = String(date.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
     };
-    
-    
+
+
     useEffect(() => {
         if (method === 'post') {
             return
@@ -39,17 +45,17 @@ const MemberForm = ({ method, memberId }) => {
         const fetchMemberData = async () => {
             try {
                 const memberData = await getMemberById(token, memberId);
-    
+
                 setValue('lastname', memberData.lastname);
                 setValue('firstname', memberData.firstname);
                 setValue('birthday', formatDate(memberData.member_detail.birthday));
                 setValue('birthplace', memberData.member_detail.birthplace);
-    
+
                 setValue('living_with', memberData.member_detail.living_with);
                 setValue('street', memberData.address.street);
                 setValue('postal_code', memberData.address.postal_code);
                 setValue('city', memberData.address.city);
-    
+
                 setValue('mail', memberData.member_detail.mail);
                 setValue('phone_number', memberData.member_detail.phone_number);
                 setValue('emergency_number', memberData.member_detail.emergency_number);
@@ -62,9 +68,9 @@ const MemberForm = ({ method, memberId }) => {
         };
         fetchMemberData();
     }, [method, memberId, token, setValue]);
-        
+
     // on utilise la fonction getMemberById pour récupérer le membre si on est en update pour afficher les données
- 
+
 
 
     const onSubmit = (data) => {
@@ -81,7 +87,7 @@ const MemberForm = ({ method, memberId }) => {
                             data.subscription -= 10;
                         }
 
-                       
+
 
 
                         const newData = {
@@ -187,26 +193,27 @@ const MemberForm = ({ method, memberId }) => {
             <h2>Informations :</h2>
             <Input value='image_rights_signature' text={image_rights_signatureName === '' ? method === 'post' ? "Ajouter autorisation signée de droit à l'image" : "Modifier l'autorisation signée de droit à l'image" : image_rights_signatureName} onChange={handleImage_rights_signatureName} type='file' register={register} />
             <Input value='contraindication' text='Contraintes médicales (laisser vide si aucune)' type='text' register={register} />
-            
-            <h2>Paiements</h2>
-            <label htmlFor="subscription">Montant de la cotisation</label>
-            <select {...register('subscription')} required>
-                <option value="161">Babydo - 161€ </option>
-                <option value="181">Judo / Cross training - 181€</option>
-                <option value="141">Taïso - 141€</option>
-            </select>
+
+            <div className='subscription'>
+                <label htmlFor="subscription"><h2>Choix de la cotisation :</h2></label>
+                <select {...register('subscription')} required>
+                    {cotisations.map((cotisation) => (
+                        <option key={cotisation.name} value={cotisation.price}>{cotisation.name + ' - ' + cotisation.price + '€'}</option>
+                    ))}
+                </select>
+            </div>
 
             <Input value='reduction' text='Réduction 10€' type='checkbox' register={register} />
 
             <br />
-            
+
             <h2>Signature </h2>
             {/* <SignatureComponent /> */}
 
             <h2>Choix du Groupe</h2>
             {/** Ajouter un fetch et un select */}
 
-            
+
 
 
         </form>
