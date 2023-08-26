@@ -31,6 +31,10 @@ input[type="file"] {
     display: none;
 }
 
+.input-group-checkbox {
+    flex-direction: row;
+}
+
 .custom-file-upload {
     width: 100%;
     background-color: var(--dashMenuColor);
