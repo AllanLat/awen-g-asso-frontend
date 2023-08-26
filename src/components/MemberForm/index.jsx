@@ -200,8 +200,11 @@ const MemberForm = ({ method, memberId }) => {
 
             <br />
             
+            <h2>Signature </h2>
             {/* <SignatureComponent /> */}
 
+            <h2>Choix du Groupe</h2>
+            {/** Ajouter un fetch et un select */}
 
             
 
