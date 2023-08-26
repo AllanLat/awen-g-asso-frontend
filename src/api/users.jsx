@@ -2,7 +2,7 @@ import { toast, Slide } from 'react-toastify';
 
 const getUsers = async (token) => {
     try {
-        const response = await fetch(`http://api.g-asso.com/api/v1/users`, {
+        const response = await fetch(`https://api.g-asso.com/api/v1/users`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -19,7 +19,7 @@ const getUsers = async (token) => {
 
 const getUserById = async (token, id) => {
     try {
-        const response = await fetch(`http://api.g-asso.com/api/v1/users/${id}`, {
+        const response = await fetch(`https://api.g-asso.com/api/v1/users/${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ const getUserById = async (token, id) => {
 
 const getGroupsByUserId = async (token, id) => {
     try {
-        const response = await fetch(`http://api.g-asso.com/api/v1/users/${id}/groups`, {
+        const response = await fetch(`https://api.g-asso.com/api/v1/users/${id}/groups`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ const getGroupsByUserId = async (token, id) => {
 }
 
 const createUser = async (token, newUser) => {
-    const response = await fetch(`http://api.g-asso.com/api/v1/users`, {
+    const response = await fetch(`https://api.g-asso.com/api/v1/users`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ const createUser = async (token, newUser) => {
 }
 
 const updateUser = async (token, id, newUser) => {
-    const response = await fetch(`http://api.g-asso.com/api/v1/users/${id}`, {
+    const response = await fetch(`https://api.g-asso.com/api/v1/users/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

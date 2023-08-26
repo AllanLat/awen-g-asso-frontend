@@ -44,6 +44,7 @@ function App() {
 
     <div className="App">
       <Routes>
+       
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
 
@@ -67,8 +68,9 @@ function App() {
         
 
         <Route path="/disclaimer" element={<Disclaimer />} />
+        
         <Route path="/account" element={<Account />} />
-        <Route path="*" element={<Error />} /> {/* à créer en page */}
+        <Route component={<Error />} /> {/* à créer en page */}
       </Routes>
       <ToastContainer autoClose={1500} />
     </div>

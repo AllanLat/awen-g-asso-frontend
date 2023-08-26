@@ -2,7 +2,7 @@ import { toast, Slide } from 'react-toastify';
 
 const getMembers = async (token) => {
   try {
-    const response = await fetch(`http://api.g-asso.com/api/v1/members`, {
+    const response = await fetch(`https://api.g-asso.com/api/v1/members`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ const getMembers = async (token) => {
 const getMemberById = async (token, id) => {
   
     try {
-      const response = await fetch(`http://api.g-asso.com/api/v1/members/${id}`, {
+      const response = await fetch(`https://api.g-asso.com/api/v1/members/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ const getMemberById = async (token, id) => {
 
 
 const createMember = async (token, newMember) => {
-  const response = await fetch(`http://api.g-asso.com/api/v1/members`, {
+  const response = await fetch(`https://api.g-asso.com/api/v1/members`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`
@@ -58,7 +58,7 @@ const createMember = async (token, newMember) => {
 }
 
 const updateMember = async (token, memberId, newMember) => {
-   const response = await fetch(`http://api.g-asso.com/api/v1/members/${memberId}`, {
+   const response = await fetch(`https://api.g-asso.com/api/v1/members/${memberId}`, {
      method: 'PUT',
      headers: {
        'Authorization': `Bearer ${token}`

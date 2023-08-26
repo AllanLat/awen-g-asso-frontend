@@ -78,11 +78,24 @@ const Account = () => {
             default: 
                 console.log("Il y a un problème")
         }     
-        
+           console.log(payments)
+    }
+
+    const convertPaymentDate = (datefromDB) => {
+        const date = new Date(datefromDB);
+
+        const frenchDateTime = date.toLocaleString('fr-FR', {
+            timeZone: 'Europe/Paris',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+        });
+
+        return frenchDateTime
     }
     
     window.scroll({top:0, left:0, behavior: 'smooth'})
-
+ 
     return(
         <div>
             <Navbar title='Solde du compte' />
@@ -100,7 +113,7 @@ const Account = () => {
                 <div className='transaction-cards'>      
                     {payments &&
                         payments.map((paymentI) => (
-                        <TransactionCard key={paymentI.id} date={paymentI.payment_date.split('T')[0]} intitule={paymentI.description} 
+                        <TransactionCard key={paymentI.id} date={convertPaymentDate(paymentI.payment_date)} intitule={paymentI.description} 
                         moyen={paymentI.payment_method} credOrDeb={paymentI.credit === "0.00" ? paymentI.debit + "€" : paymentI.credit + "€"} amount={paymentI.balance + "€"} 
                         isCredOrDeb={paymentI.credit === "0.00" ? true : false}/>
                     ))} 
