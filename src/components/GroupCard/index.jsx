@@ -40,6 +40,7 @@ const GroupCard = ({ group }) => {
         <div className="group-day-time">
           <p className="time">{start_time} - {end_time}</p>
           <p className="day-name">{dayName}</p>
+
         </div>
 
 
