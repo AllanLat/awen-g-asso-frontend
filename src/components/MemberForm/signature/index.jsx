@@ -1,64 +1,46 @@
-import React, { useRef, useEffect, useState } from 'react';
-import SignaturePad from 'signature_pad';
+import React, { useRef, useState } from 'react';
+import SignaturePad from 'react-signature-canvas';
+import './index.css';
 
-function SignatureComponent() {
-    const canvasRef = useRef(null);
-    const [signaturePad, setSignaturePad] = useState(null);
+const SignatureComponent = () => {
+  const [trimmedDataURL, setTrimmedDataURL] = useState(null);
+  const sigPadRef = useRef(null);
 
-    useEffect(() => {
-        const canvas = canvasRef.current;
+  const clear = () => {
+    sigPadRef.current.clear();
+  };
 
-        if (canvas) {
-            const newSignaturePad = new SignaturePad(canvas);
-            setSignaturePad(newSignaturePad);
+  const trim = () => {
+    setTrimmedDataURL(sigPadRef.current.getTrimmedCanvas().toDataURL('image/png'));
+  };
 
-            // Nettoyer SignaturePad lorsque le composant est démonté
-            return () => {
-                newSignaturePad.off();
-                newSignaturePad.clear();
-            };
-        }
-    }, []);
+  return (
+    <div className="container">
+      <div className="sigContainer">
+        <SignaturePad
+          canvasProps={{ className: "sigPad" }}
+          ref={sigPadRef}
+        />
+      </div>
+      <div>
+        <button className="buttons" onClick={clear}>
+          Supprimer
+        </button>
+        <button className="buttons" onClick={trim}>
+         Enregistrer
+        </button>
+      </div>
 
-    const handleSaveSignature = () => {
-        if (signaturePad && !signaturePad.isEmpty()) {
-            const signatureImage = signaturePad.toDataURL();
+      {trimmedDataURL && (
+        <img className="sigImage" src={trimmedDataURL} alt="Trimmed Signature" />
+      )}
 
-            // Convertir la base64 en blob
-            const blob = dataURLtoBlob(signatureImage);
-
-            // Créer un objet de fichier à partir du blob
-            const file = new File([blob], 'signature.png', { type: 'image/png' });
-
-            // Mettre à jour le champ de fichier avec le fichier créé
-            const fileInput = document.getElementById('signatureFileInput');
-            fileInput.files = [file];
-        }
-    };
-
-    // Convertir une base64 en blob
-    const dataURLtoBlob = (dataURL) => {
-        const byteString = atob(dataURL.split(',')[1]);
-        const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
-        const arrayBuffer = new ArrayBuffer(byteString.length);
-        const uint8Array = new Uint8Array(arrayBuffer);
-
-        for (let i = 0; i < byteString.length; i++) {
-            uint8Array[i] = byteString.charCodeAt(i);
-        }
-
-        return new Blob([arrayBuffer], { type: mimeString });
-    };
-
-    return (
-        <div>
-            <div>
-                <canvas ref={canvasRef} width={500} height={500}/>
-            </div>
-            <button onClick={handleSaveSignature}>Sauvegarder la signature</button>
-            <input type="file" accept="image/png" id="signatureFileInput" />
-        </div>
-    );
-}
+      {trimmedDataURL && (
+              <input type="files" accept="image/*" value={trimmedDataURL} hidden/>
+            )}
+     
+    </div>
+  );
+};
 
 export default SignatureComponent;

@@ -181,15 +181,19 @@ const MemberForm = ({ method, memberId }) => {
             <Input value='birthday' text='Né(e) le' type='date' required register={register} />
             <Input value='birthplace' text='Lieu de naissance' type='text' required register={register} />
             <Input value='photo' text={photoName === '' ? method === 'post' ? 'Ajouter une photo' : 'Modifier la photo' : photoName} onChange={handlePhotoName} type='file' register={register} />
+            
             <h2>Adresse :</h2>
-            <Input value='living_with' text='Vit chez (facultatif)' type='text' placeholder='ex : sa mère' register={register} />
             <Input value='street' text='Numéro et nom de la rue' type='text' required register={register} />
             <Input value='postal_code' text='Code postal' type='text' required register={register} />
             <Input value='city' text='Ville' type='text' required register={register} />
+            <hr />
+            <Input value='living_with' text='Adresse secondaire' type='text' placeholder='Adresse secondaire' register={register} />
+            
             <h2>Contacts :</h2>
             <Input value='mail' text='Adresse mail' type='email' required register={register} />
             <Input value='phone_number' text='N° de téléphone' type='tel' required register={register} />
             <Input value='emergency_number' text="Numéro en cas d'urgence" type='tel' required register={register} />
+            
             <h2>Informations :</h2>
             <Input value='image_rights_signature' text={image_rights_signatureName === '' ? method === 'post' ? "Ajouter autorisation signée de droit à l'image" : "Modifier l'autorisation signée de droit à l'image" : image_rights_signatureName} onChange={handleImage_rights_signatureName} type='file' register={register} />
             <Input value='contraindication' text='Contraintes médicales (laisser vide si aucune)' type='text' register={register} />
@@ -208,8 +212,9 @@ const MemberForm = ({ method, memberId }) => {
             <br />
 
             <h2>Signature </h2>
-            {/* <SignatureComponent /> */}
+            <SignatureComponent />
 
+            
             <h2>Choix du Groupe</h2>
             {/** Ajouter un fetch et un select */}
 
