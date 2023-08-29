@@ -3,6 +3,7 @@ import './index.css';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { createMember, getMemberById, updateMember } from '../../api/members';
+import { getGroups, addMembersToGroup } from '../../api/groups';
 
 import { useNavigate } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
@@ -28,6 +29,14 @@ const MemberForm = ({ method, memberId }) => {
 
     const [photoName, setPhotoName] = useState('');
     const [image_rights_signatureName, setImage_rights_signatureName] = useState('');
+    const [allGroups, setAllGroups] = useState([]);
+    const [groupId, setGroupId] = useState();
+    
+    const memId = {
+        "members_list" : []
+    }
+    memId.members_list.push(memberId)
+    
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -66,12 +75,31 @@ const MemberForm = ({ method, memberId }) => {
                 console.log(error);
             }
         };
+        
         fetchMemberData();
     }, [method, memberId, token, setValue]);
 
+    useEffect(() => {
+        const fetchGroups = async () => {
+            try{
+                const groupsFetch = await getGroups(token);
+                setAllGroups(groupsFetch);
+            } catch (err){
+                console.log(err)
+            }
+        }
+        fetchGroups();
+    }, [token])
+    
+    const getGroupInfo = (e) => {
+        if(e.target.value !== "none"){
+            setGroupId(e.target.value)
+        }else{
+            setGroupId(null)
+        }
+    }
     // on utilise la fonction getMemberById pour récupérer le membre si on est en update pour afficher les données
-
-
+    
 
     const onSubmit = (data) => {
         confirmAlert({
@@ -86,9 +114,6 @@ const MemberForm = ({ method, memberId }) => {
                         if (data.reduction === true) {
                             data.subscription -= 10;
                         }
-
-
-
 
                         const newData = {
                             "street": data.street,
@@ -107,9 +132,8 @@ const MemberForm = ({ method, memberId }) => {
                             "payment_status": 0,
                             "certificate": null,
                             "subscription": data.subscription,
-                            "paid": 0
+                            "paid": 0,
                         }
-
 
                         // on construit ici les formData pour les fichiers s'ils existent
                         const formData = new FormData();
@@ -136,18 +160,35 @@ const MemberForm = ({ method, memberId }) => {
                         formData.forEach((file, index) => {
                             newMember.append(index, file);
                         })
+                    
                         if (method === 'post') {
                             createMember(token, newMember)
                                 .then((insertId) => {
+                                    if(groupId !== null){
+                                        getMemberById(token, insertId)
+                                        .then((res) => {
+                                            const member_liste = {
+                                                "members_list" : []
+                                            }
+                                            member_liste.members_list.push(res.member_details_id)
+                                            addMembersToGroup(token, groupId, member_liste)
+                                        })
+                                    }
                                     navigate('/member/' + insertId);
                                 })
                                 .catch((error) => {
                                     console.log(error);
                                 });
+                            
+                            
+                            
                         }
                         if (method === 'put') {
                             updateMember(token, memberId, newMember)
                                 .then(() => {
+                                    if(groupId !== null){
+                                        addMembersToGroup(token, groupId, memId);
+                                    }
                                     navigate('/member/' + memberId);
                                 })
                                 .catch((error) => {
@@ -211,12 +252,20 @@ const MemberForm = ({ method, memberId }) => {
 
             <br />
 
+            <label htmlFor='groupTo' className='input-group'>Choix du groupe</label>
+            <select id='groupTo'className='input-group' {...register('group')} onChange={getGroupInfo}>
+                <option value="none">---</option>
+                {allGroups.map((group) => (
+                    <option key={group.name} value={group.id}>{group.name}</option>
+                ))}
+            </select>
+
             <h2>Signature </h2>
             <SignatureComponent />
 
             
-            <h2>Choix du Groupe</h2>
-            {/** Ajouter un fetch et un select */}
+            
+            
 
     {/* rajouter un eneieme commentaire ici  */}
 

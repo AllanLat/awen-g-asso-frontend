@@ -18,6 +18,25 @@ const getGroupsByDayId = async (token, dayId) => {
     }
 }
 
+const getGroups = async (token) => {
+
+    try {
+        const response = await fetch('https://api.g-asso.com/api/v1/groups', {
+            method : "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        });
+        const result = await response.json();
+        if (response.status === 200){
+            return result
+        }
+    } catch (err){
+        console.log("erreur recupération groupes" + err)
+    }
+}
+
 const getGroupById = async (token, groupId) => {
     try {
         const response = await fetch(`https://api.g-asso.com/api/v1/groups/${groupId}`, {
@@ -167,4 +186,4 @@ const updateGroup = async (token, id, newGroup) => {
     }
 }
 
-export { getGroupsByDayId, createGroup, updateGroup, getGroupById, getUsersByGroupId, getMembersByGroupId, addUsersToGroup, addMembersToGroup };
+export { getGroupsByDayId, createGroup, updateGroup, getGroupById, getUsersByGroupId, getMembersByGroupId, addUsersToGroup, addMembersToGroup, getGroups };
