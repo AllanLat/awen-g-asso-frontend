@@ -78,7 +78,6 @@ const ModalAccount = ({isOpen, toggleOpen, total, member_id}) => {
                         <select id='moyen' {...register('payment_method', {required: true})} className='select'>
                             <option value="cb" className='opto-pay'>CB</option>
                             <option value="cheque" className='opto-pay'>Chèque</option>
-                            
                             <option value="CAF" className="opto-pay">CAF</option>
                             <option value="PassSport" className="opto-pay">Passport</option>
                             <option value="ChèqueVacance" className="opto-pay">Chèque Vacance</option>

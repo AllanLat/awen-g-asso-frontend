@@ -19,7 +19,7 @@ import MyPDF from './signature';
 
 
 
-const MemberForm = ({ method, memberId }) => {
+export const MemberForm = ({ method, memberId }) => {
     const token = sessionStorage.getItem('token');
     const { register, handleSubmit, setValue } = useForm();
 
@@ -40,7 +40,8 @@ const MemberForm = ({ method, memberId }) => {
     const memId = {
         "members_list" : []
     }
-    memId.members_list.push(memberId)
+    
+    memId.members_list.push(memberId);
     
 
     const [trimmedDataURL, setTrimmedDataURL] = useState('');
@@ -99,8 +100,6 @@ const MemberForm = ({ method, memberId }) => {
         fetchMemberData();
     }, [method, memberId, token, setValue]);
 
-<<<<<<< HEAD
-=======
     useEffect(() => {
         const fetchGroups = async () => {
             try{
@@ -111,7 +110,7 @@ const MemberForm = ({ method, memberId }) => {
             }
         }
         fetchGroups();
-    }, [token])
+    }, [token]);
     
     const getGroupInfo = (e) => {
         if(e.target.value !== "none"){
@@ -119,10 +118,9 @@ const MemberForm = ({ method, memberId }) => {
         }else{
             setGroupId(null)
         }
-    }
+    };
     // on utilise la fonction getMemberById pour récupérer le membre si on est en update pour afficher les données
     
->>>>>>> 943a2b9 (AJout grout création et modif membre)
 
     const onSubmit = (data) => {
         confirmAlert({
@@ -200,9 +198,6 @@ const MemberForm = ({ method, memberId }) => {
 
                             createMember(token, newMember)
                                 .then((insertId) => {
-<<<<<<< HEAD
-            
-=======
                                     if(groupId !== null){
                                         getMemberById(token, insertId)
                                         .then((res) => {
@@ -213,7 +208,6 @@ const MemberForm = ({ method, memberId }) => {
                                             addMembersToGroup(token, groupId, member_liste)
                                         })
                                     }
->>>>>>> 943a2b9 (AJout grout création et modif membre)
                                     navigate('/member/' + insertId);
                                 })
                                 .catch((error) => {
@@ -244,31 +238,27 @@ const MemberForm = ({ method, memberId }) => {
         })
 
 
-    }
+    };
 
     const handlePhotoName = (e) => {
         e.target.files[0].name && setPhotoName(e.target.files[0].name);
        // console.log(e.target.files[0]);
         setValue('photo', e.target.files[0]);
-    }
+    };
 
     const handleCertificate_medicalName = (e) => {
         e.target.files[0].name && setCertificate_medicalName(e.target.files[0].name);
         setValue('certificate', e.target.files[0]);
-    }
+    };
 
 
   const handleFileAddition = () => {
+    if (trimmedDataURL) {
+        const filee = dataURLtoFile(trimmedDataURL, 'nouveau_fichier.png');
+        filee.name && setImage_rights_signatureName(filee.name);
+        setValue('image_rights_signature', filee);
 
-
-
-  if (trimmedDataURL) {
-
-     const filee = dataURLtoFile(trimmedDataURL, 'nouveau_fichier.png');
-    filee.name && setImage_rights_signatureName(filee.name);
-     setValue('image_rights_signature', filee);
-
-   }
+    }
   };
 
   const handleImageLoad = (e) => {
@@ -310,15 +300,11 @@ const handleAddDroitPDF = async () => {
 
     const nomETPrenom = nom + ' ' + prenom;
    
-
-   
     // Utilisez la fonction setValue pour définir la valeur de l'input
    
     await setnomPrenom(nomETPrenom);
     
-
-
-  }
+  };
   
 
 //   Je créé l'image png de la signture
@@ -336,32 +322,33 @@ const handleAddDroitPDF = async () => {
     trim();
   };
 
-    return (
+return (
+    // code 
+    <>
         <form id='member-form' className='member-form' action="" onSubmit={handleSubmit(onSubmit)} >
-            <>
-            <h2>{method === 'post' ? 'Ajouter un membre' : 'Modifier un membre'}</h2>
-            <Input value='lastname' text='Nom' type='text' required register={register} />
-            <Input value='firstname' text='Prénom' type='text' required register={register} />
-            <Input value='birthday' text='Né(e) le' type='date' required register={register} />
-            <Input value='birthplace' text='Lieu de naissance' type='text' required register={register} />
-            <Input value='photo' text={photoName === '' ? method === 'post' ? 'Ajouter une photo' : 'Modifier la photo' : photoName} onChange={handlePhotoName} type='file' register={register} />
-            
-            <h2>Adresse :</h2>
-            <Input value='street' text='Numéro et nom de la rue' type='text' required register={register} />
-            <Input value='postal_code' text='Code postal' type='text' required register={register} />
-            <Input value='city' text='Ville' type='text' required register={register} />
-            <hr />
-            <Input value='living_with' text='Adresse secondaire' type='text' placeholder='Adresse secondaire' register={register} />
-            
-            <h2>Contacts :</h2>
-            <Input value='mail' text='Adresse mail' type='email' required register={register} />
-            <Input value='phone_number' text='N° de téléphone' type='tel' required register={register} />
-            <Input value='emergency_number' text="Numéro en cas d'urgence" type='tel' required register={register} />
-            
-            <h2>Informations :</h2>
-          
-            <Input value='certificate' text={certificate_medicalName === '' ? method === 'post' ? "Ajouter un certificat medicale" : "Modifier certificat medicale" : certificate_medicalName} onChange={handleCertificate_medicalName} type='file' register={register} />
-            <Input value='contraindication' text='Contraintes médicales (laisser vide si aucune)' type='text' register={register} />
+             <h2>{method === 'post' ? 'Ajouter un membre' : 'Modifier un membre'}</h2>
+                <Input value='lastname' text='Nom' type='text' required register={register} />
+                <Input value='firstname' text='Prénom' type='text' required register={register} />
+                <Input value='birthday' text='Né(e) le' type='date' required register={register} />
+                <Input value='birthplace' text='Lieu de naissance' type='text' required register={register} />
+                <Input value='photo' text={photoName === '' ? method === 'post' ? 'Ajouter une photo' : 'Modifier la photo' : photoName} onChange={handlePhotoName} type='file' register={register} />
+                
+                <h2>Adresse :</h2>
+                <Input value='street' text='Numéro et nom de la rue' type='text' required register={register} />
+                <Input value='postal_code' text='Code postal' type='text' required register={register} />
+                <Input value='city' text='Ville' type='text' required register={register} />
+                <hr></hr>
+                <Input value='living_with' text='Adresse secondaire' type='text' placeholder='Adresse secondaire' register={register} />
+                
+                <h2>Contacts :</h2>
+                <Input value='mail' text='Adresse mail' type='email' required register={register} />
+                <Input value='phone_number' text='N° de téléphone' type='tel' required register={register} />
+                <Input value='emergency_number' text="Numéro en cas d'urgence" type='tel' required register={register} />
+
+                <h2>Informations :</h2>
+
+                <Input value='certificate' text={certificate_medicalName === '' ? method === 'post' ? "Ajouter un certificat medicale" : "Modifier certificat medicale" : certificate_medicalName} onChange={handleCertificate_medicalName} type='file' register={register} />
+                <Input value='contraindication' text='Contraintes médicales (laisser vide si aucune)' type='text' register={register} />
 
             <div className='subscription'>
                 <label htmlFor="subscription"><h2>Choix de la cotisation :</h2></label>
@@ -373,9 +360,7 @@ const handleAddDroitPDF = async () => {
             </div>
             <Input value='reduction' text='Réduction 10€' type='checkbox' register={register} />
             <br />
-<<<<<<< HEAD
-            </>
-=======
+
 
             <label htmlFor='groupTo' className='input-group'>Choix du groupe</label>
             <select id='groupTo'className='input-group' {...register('group')} onChange={getGroupInfo}>
@@ -385,10 +370,10 @@ const handleAddDroitPDF = async () => {
                 ))}
             </select>
 
->>>>>>> 943a2b9 (AJout grout création et modif membre)
+
             <h2>Signature </h2>
             
-<<<<<<< HEAD
+
             <Input value='droits' text='J autorise le droit à l image' type='checkbox' register={register} checkeds={isChecked} onChange={() => {
                 handleCheckboxChange();
                 
@@ -398,71 +383,47 @@ const handleAddDroitPDF = async () => {
             <div className="input-group">
                 <div className='container_button'>
                         <div className="buttons" onClick={clear}>
-                        <p style={{ color: 'white', fontSize: '20px', textAlign: 'center', paddingTop: '10px' }}> Supprimer </p>
+                            <p style={{ color: 'white', fontSize: '20px', textAlign: 'center', paddingTop: '10px' }}> Supprimer </p>
                         </div>
-                        <div className="buttons" onClick={() => {
-                            trim();
-                            handleAddDroitPDF();
-                }}><p style={{ color: 'white', fontSize: '20px', textAlign: 'center', paddingTop: '10px' }}>Valider la signature</p>
+                        <div className="buttons" onClick={() => {trim();handleAddDroitPDF();}}>
+                            <p style={{ color: 'white', fontSize: '20px', textAlign: 'center', paddingTop: '10px' }}>Valider la signature</p>
                         </div>
-                        
                     </div>
-                <div className="container">
-                    <div className="sigContainer">
-
-                        <SignaturePad
-                        canvasProps={{ className: "sigPad" }}
-                        ref={sigPadRef}
-                        />
+                    <div className="container">
+                        <div className="sigContainer">
+                            <SignaturePad canvasProps={{ className: "sigPad" }} ref={sigPadRef} />
+                        </div>
                     </div>
-                    
-
-                   
-
                 </div>
-                
-            </div>
-            {trimmedDataURL && (
-                        <>
-                        <img className="sigImage" src={trimmedDataURL} alt={image_rights_signatureName} onClick={handleImageLoad} 
-                        onLoad={() => {
-                                handleFileAddition();
-                                handleAddDroitPDF();
-                            }} 
-                        />
-                        <div className="container">
-                            <div className="container_pdf">
-                            <PDFViewer width="90%" height={400}>
-                                    <MyPDF image={trimmedDataURL} 
-                                      droitImage={isChecked}
-                                      nomPRenom={nomPrenom}
+                {trimmedDataURL && (
+                    <>
+                            <img className="sigImage" src={trimmedDataURL} alt={image_rights_signatureName} onClick={handleImageLoad} 
+                            onLoad={() => {
+                                    handleFileAddition();
+                                    handleAddDroitPDF();
+                                }} 
+                            />
+                            <div className="container">
+                                <div className="container_pdf">
+                                <PDFViewer width="90%" height={400}>
+                                        <MyPDF image={trimmedDataURL} 
+                                        droitImage={isChecked}
+                                        nomPRenom={nomPrenom}
 
-                                      onPDFReady={handlePDFReady} 
-                                      onLoad={handleAddDroitPDF}/>
-                            </PDFViewer>
-                        </div>
-                        </div>
-                        
-                        
+                                        onPDFReady={handlePDFReady} 
+                                        onLoad={handleAddDroitPDF}/>
+                                </PDFViewer>
+                            </div>
+                            </div>
+                            
+                            
                     </>
-                )}
-      
-                  
+        )}
 
-                
-           
-           
-            {/** Ajouter un fetch et un select */}
-=======
-            
-            
->>>>>>> 943a2b9 (AJout grout création et modif membre)
+        </form>
+    </>
+);
 
-            {/* rajouter un eneieme commentaire ici  */}
-
-
-        </form  >
-    )
 }
 
-export default MemberForm
+export default MemberForm;
