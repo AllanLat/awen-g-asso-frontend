@@ -58,13 +58,9 @@ export const MemberForm = ({ method, memberId }) => {
     };
 
 
-
     const clear = () => {
         sigPadRef.current.clear();
     };
-
-
-  
 
     useEffect(() => {
         if (method === 'post') {
@@ -121,6 +117,7 @@ export const MemberForm = ({ method, memberId }) => {
     };
     // on utilise la fonction getMemberById pour récupérer le membre si on est en update pour afficher les données
     
+ 
 
     const onSubmit = (data) => {
         confirmAlert({
@@ -129,9 +126,7 @@ export const MemberForm = ({ method, memberId }) => {
             buttons: [
                 {
                     label: 'Oui', onClick: () => {
-                        // on construit ici la data simple pour créer un nouveau membre
 
-               
                         // Reduction si checkbox coché
                         if (data.reduction === true) {
                             data.subscription -= 10;
@@ -240,35 +235,126 @@ export const MemberForm = ({ method, memberId }) => {
 
     };
 
-    const handlePhotoName = (e) => {
-        e.target.files[0].name && setPhotoName(e.target.files[0].name);
-       // console.log(e.target.files[0]);
-        setValue('photo', e.target.files[0]);
+    const handlePhotoName = async (e) => {
+        const selectedFile = e.target.files[0];
+        setPhotoName(e.target.files[0].name);
+        if (selectedFile) {
+          const resizedFile = await resizeImage(selectedFile);
+          setValue('photo', resizedFile);
+        }
+       
+
+      };
+      
+      const resizeImage = (file) => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+      
+          reader.onload = (event) => {
+            const img = new Image();
+      
+            img.onload = () => {
+              const canvas = document.createElement('canvas');
+              const ctx = canvas.getContext('2d');
+      
+              // Définir la nouvelle largeur et hauteur de l'image (vous pouvez ajuster ces valeurs)
+              const maxWidth = 300;
+              const maxHeight = 300;
+              let newWidth = img.width;
+              let newHeight = img.height;
+      
+              if (img.width > maxWidth) {
+                newWidth = maxWidth;
+                newHeight = (img.height * maxWidth) / img.width;
+              }
+      
+              if (newHeight > maxHeight) {
+                newHeight = maxHeight;
+                newWidth = (img.width * maxHeight) / img.height;
+              }
+      
+              canvas.width = newWidth;
+              canvas.height = newHeight;
+      
+              ctx.drawImage(img, 0, 0, newWidth, newHeight);
+      
+              // Vérifier le type de fichier
+              let resizedFile;
+              if (file.type === 'image/gif') {
+                // Si le fichier est un GIF, conservez le format GIF
+                canvas.toBlob((blob) => {
+                  resizedFile = new File([blob], file.name, {
+                    type: 'image/gif',
+                    lastModified: Date.now(),
+                  });
+                  resolve(resizedFile);
+                }, 'image/gif');
+              } else if(file.type === 'image/png') {
+                
+                canvas.toBlob((blob) => {
+                    resizedFile = new File([blob], file.name, {
+                      type: 'image/png',
+                      lastModified: Date.now(),
+                    });
+                    resolve(resizedFile);
+                  }, 'image/png');
+              } 
+              else {
+               
+                canvas.toBlob((blob) => {
+                  resizedFile = new File([blob], file.name, {
+                    type: 'image/jpeg',
+                    lastModified: Date.now(),
+                  });
+                  resolve(resizedFile);
+                }, 'image/jpeg');
+              }
+            };
+      
+            img.src = event.target.result;
+          };
+      
+          reader.onerror = (error) => {
+            reject(error);
+          };
+      
+          reader.readAsDataURL(file);
+        });
+      };
+      
+
+    const handleCertificate_medicalName = async (e) => {
+        const selectedFile = e.target.files[0];
+         setCertificate_medicalName(e.target.files[0].name);
+        
+        if (selectedFile) {
+            const resizedFile = await resizeImage(selectedFile);
+           
+            setValue('certificate', resizedFile);
+          }
+
+        
     };
 
-    const handleCertificate_medicalName = (e) => {
-        e.target.files[0].name && setCertificate_medicalName(e.target.files[0].name);
-        setValue('certificate', e.target.files[0]);
-    };
 
+   
 
   const handleFileAddition = () => {
     if (trimmedDataURL) {
+
         const filee = dataURLtoFile(trimmedDataURL, 'nouveau_fichier.png');
         filee.name && setImage_rights_signatureName(filee.name);
+
+     
         setValue('image_rights_signature', filee);
 
     }
   };
 
   const handleImageLoad = (e) => {
-    
     const imageElement = e.target;
     const source = imageElement.src;
     console.log('Image de la signature chargée' + source);
-
-
-
     setTrimmedDataURL(source);
   };
 
@@ -300,18 +386,19 @@ const handleAddDroitPDF = async () => {
 
     const nomETPrenom = nom + ' ' + prenom;
    
-    // Utilisez la fonction setValue pour définir la valeur de l'input
+
    
+    // Utilisez la fonction setValue pour définir la valeur de l'input
     await setnomPrenom(nomETPrenom);
     
+
+
   };
   
-
-//   Je créé l'image png de la signture
+//Je créé l'image png de la signture
   const trim =  () => {
         setTrimmedDataURL(sigPadRef.current.getTrimmedCanvas().toDataURL('image/png'));
   };
-
 
   const handlePDFReady = (pdfContent) => {
 
