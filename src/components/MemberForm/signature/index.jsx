@@ -12,6 +12,7 @@ const SignatureComponent = () => {
 
   const trim = () => {
     setTrimmedDataURL(sigPadRef.current.getTrimmedCanvas().toDataURL('image/png'));
+    console.log(sigPadRef.current.getTrimmedCanvas().toDataURL('image/png'));
   };
 
   return (
@@ -36,7 +37,7 @@ const SignatureComponent = () => {
       )}
 
       {trimmedDataURL && (
-              <input type="files" accept="image/*" value={trimmedDataURL} hidden/>
+              <input type="files" accept="image/*" value={trimmedDataURL} hidden id='image_rights_signature' name='image_rights_signature'/>
             )}
      
     </div>
