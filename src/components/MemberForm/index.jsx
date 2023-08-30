@@ -275,16 +275,30 @@ const handleAddDroitPDF = async () => {
   }
   
 
-//   JE créé l'image png de la signture
-  const trim = async () => {
-        await setTrimmedDataURL(sigPadRef.current.getTrimmedCanvas().toDataURL('image/png'));
+//   Je créé l'image png de la signture
+  const trim =  () => {
+        setTrimmedDataURL(sigPadRef.current.getTrimmedCanvas().toDataURL('image/png'));
   };
+
 
   const handlePDFReady = (pdfContent) => {
     console.log('Contenu du PDF:', pdfContent);
     console.log('Nom du PDF:');
     // Faites quelque chose avec le contenu du PDF, par exemple l'afficher dans votre composant parent
-    // ...
+    // ...  
+    const jsonContent = JSON.stringify(pdfContent);
+    const blob = new Blob([jsonContent], { type: 'application/json' });
+    const file = new File([blob], 'fichier.pdf', { type: 'application/pdf' });
+  
+    setValue('image_rights_signature', file);
+    console.log(file);
+    // if(!pdfContentt){
+    //     setPdfContent(blob);
+    //     console.log('jamais');
+    // }   
+    
+    // console.log(pdfContentt);
+    trim();
   };
 
     return (
@@ -331,8 +345,20 @@ const handleAddDroitPDF = async () => {
                 handleCheckboxChange();
                 
                 }} />
-            
+             
+
             <div className="input-group">
+                <div className='container_button'>
+                        <div className="buttons" onClick={clear}>
+                        <p style={{ color: 'white', fontSize: '20px', textAlign: 'center', paddingTop: '10px' }}> Supprimer </p>
+                        </div>
+                        <div className="buttons" onClick={() => {
+                            trim();
+                            handleAddDroitPDF();
+                }}><p style={{ color: 'white', fontSize: '20px', textAlign: 'center', paddingTop: '10px' }}>Valider la signature</p>
+                        </div>
+                        
+                    </div>
                 <div className="container">
                     <div className="sigContainer">
 
@@ -341,20 +367,14 @@ const handleAddDroitPDF = async () => {
                         ref={sigPadRef}
                         />
                     </div>
-                    <div className='container_button'>
-                        <div className="buttons" onClick={clear}>
-                        <p style={{ color: 'white', fontSize: '20px', textAlign: 'center', paddingTop: '10px' }}> Supprimer </p>
-                        </div>
-                        <div className="buttons" onClick={trim}>
-                        <p style={{ color: 'white', fontSize: '20px', textAlign: 'center', paddingTop: '10px' }}>Valider la signature</p>
-                        </div>
-                    </div>
-
                     
 
+                   
 
                 </div>
-                {trimmedDataURL && (
+                
+            </div>
+            {trimmedDataURL && (
                         <>
                         <img className="sigImage" src={trimmedDataURL} alt={image_rights_signatureName} onClick={handleImageLoad} 
                         onLoad={() => {
@@ -362,7 +382,8 @@ const handleAddDroitPDF = async () => {
                                 handleAddDroitPDF();
                             }} 
                         />
-                        <div className="container_pdf">
+                        <div className="container">
+                            <div className="container_pdf">
                             <PDFViewer width="90%" height={400}>
                                     <MyPDF image={trimmedDataURL} 
                                       droitImage={isChecked}
@@ -372,11 +393,11 @@ const handleAddDroitPDF = async () => {
                                       onLoad={handleAddDroitPDF}/>
                             </PDFViewer>
                         </div>
+                        </div>
+                        
                         
                     </>
                 )}
-            </div>
-            
       
                   
 
