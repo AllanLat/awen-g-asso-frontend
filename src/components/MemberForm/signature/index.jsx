@@ -1,47 +1,54 @@
-import React, { useRef, useState } from 'react';
-import SignaturePad from 'react-signature-canvas';
-import './index.css';
+import React, { useEffect } from 'react';
+import { Page, Document, Image, StyleSheet, View, Text } from '@react-pdf/renderer';
 
-const SignatureComponent = () => {
-  const [trimmedDataURL, setTrimmedDataURL] = useState(null);
-  const sigPadRef = useRef(null);
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: 'row',
+    backgroundColor: '#FFFFFF',
+  },
+  image: {
+    width: 200,
+    height: 150,
+  },
+  content: {
+    marginLeft: 10,
+    marginTop: 10,
+  },
+});
 
-  const clear = () => {
-    sigPadRef.current.clear();
-  };
+const generatePDFContent = (image, droitImage, nomPRenom) => {
+  // Générez le contenu du PDF à partir des données fournies
 
-  const trim = () => {
-    setTrimmedDataURL(sigPadRef.current.getTrimmedCanvas().toDataURL('image/png'));
-    console.log(sigPadRef.current.getTrimmedCanvas().toDataURL('image/png'));
-  };
+  console.log(nomPRenom);
 
   return (
-    <div className="container">
-      <div className="sigContainer">
-        <SignaturePad
-          canvasProps={{ className: "sigPad" }}
-          ref={sigPadRef}
-        />
-      </div>
-      <div>
-        <button className="buttons" onClick={clear}>
-          Supprimer
-        </button>
-        <button className="buttons" onClick={trim}>
-         Enregistrer
-        </button>
-      </div>
-
-      {trimmedDataURL && (
-        <img className="sigImage" src={trimmedDataURL} alt="Trimmed Signature" />
-      )}
-
-      {trimmedDataURL && (
-              <input type="files" accept="image/*" value={trimmedDataURL} hidden id='image_rights_signature' name='image_rights_signature'/>
-            )}
-     
-    </div>
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.content}>
+          <Text>Je m'inscrit pour l'année 2023-2024</Text>
+          <Text>Je certifie que mes informations renseignées sont exactes</Text>
+          <Text style={{ marginBottom: 40 }}>{droitImage ? "J'accepte le droit à l'image" : "Je n'accepte pas le droit à l'image"}</Text>
+          <Text style={{ marginBottom: 10 }}>{nomPRenom}</Text>
+          <Image style={styles.image} src={image} />
+        </View>
+      </Page>
+    </Document>
   );
 };
 
-export default SignatureComponent;
+const MyPDF = ({ image, droitImage, nomPRenom, onPDFReady }) => {
+  useEffect(() => {
+    // Générez le contenu du PDF
+    const pdfContent = generatePDFContent(image, droitImage, nomPRenom);
+
+    // Appelez la fonction de rappel avec le contenu du PDF
+    onPDFReady(pdfContent);
+  }, [image, droitImage, nomPRenom, onPDFReady]);
+
+  console.log(droitImage);
+  console.log(nomPRenom);
+
+  return generatePDFContent(image, droitImage, nomPRenom);
+};
+
+export default MyPDF;

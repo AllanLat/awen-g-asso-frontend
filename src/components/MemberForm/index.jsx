@@ -13,6 +13,8 @@ import './signature/index.css'
 import SignaturePad from 'react-signature-canvas';
 
 import Input from '../Input';
+import { PDFViewer } from '@react-pdf/renderer';
+import MyPDF from './signature';
 
 
 
@@ -207,6 +209,8 @@ const MemberForm = ({ method, memberId }) => {
 
   const handleFileAddition = () => {
 
+
+
   if (trimmedDataURL) {
     console.log(trimmedDataURL);
 
@@ -223,6 +227,9 @@ const MemberForm = ({ method, memberId }) => {
     const imageElement = e.target;
     const source = imageElement.src;
     console.log(source)
+
+
+
     setTrimmedDataURL(source);
   };
 
@@ -239,16 +246,50 @@ const MemberForm = ({ method, memberId }) => {
     return new File([u8arr], filename, { type: mime });
   };
 
-  const trim = async () => {
-        await setTrimmedDataURL(sigPadRef.current.getTrimmedCanvas().toDataURL('image/png'));
-       
-       
-      
+
+const [nomPrenom, setnomPrenom] = useState('jean dupont');
+const [isChecked, setIsChecked] = useState(false);
+
+const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+    console.log(isChecked);
   };
 
+const handleAddDroitPDF = async () => {
+
+    const nom = document.getElementById('lastname').value
+    const prenom = document.getElementById('firstname').value
+
+    const nomETPrenom = nom + ' ' + prenom;
+   
+
+   
+    // Utilisez la fonction setValue pour définir la valeur de l'input
+   
+    await setnomPrenom(nomETPrenom);
+    
+    console.log(nomETPrenom);
+    console.log(isChecked);
+
+
+  }
+  
+
+//   JE créé l'image png de la signture
+  const trim = async () => {
+        await setTrimmedDataURL(sigPadRef.current.getTrimmedCanvas().toDataURL('image/png'));
+  };
+
+  const handlePDFReady = (pdfContent) => {
+    console.log('Contenu du PDF:', pdfContent);
+    console.log('Nom du PDF:');
+    // Faites quelque chose avec le contenu du PDF, par exemple l'afficher dans votre composant parent
+    // ...
+  };
 
     return (
         <form id='member-form' className='member-form' action="" onSubmit={handleSubmit(onSubmit)} >
+            <>
             <h2>{method === 'post' ? 'Ajouter un membre' : 'Modifier un membre'}</h2>
             <Input value='lastname' text='Nom' type='text' required register={register} />
             <Input value='firstname' text='Prénom' type='text' required register={register} />
@@ -283,44 +324,71 @@ const MemberForm = ({ method, memberId }) => {
             </div>
             <Input value='reduction' text='Réduction 10€' type='checkbox' register={register} />
             <br />
-
+            </>
             <h2>Signature </h2>
+            
+            <Input value='droits' text='J autorise le droit à l image' type='checkbox' register={register} checkeds={isChecked} onChange={() => {
+                handleCheckboxChange();
+                
+                }} />
+            
+            <div className="input-group">
+                <div className="container">
+                    <div className="sigContainer">
+
+                        <SignaturePad
+                        canvasProps={{ className: "sigPad" }}
+                        ref={sigPadRef}
+                        />
+                    </div>
+                    <div className='container_button'>
+                        <div className="buttons" onClick={clear}>
+                        <p style={{ color: 'white', fontSize: '20px', textAlign: 'center', paddingTop: '10px' }}> Supprimer </p>
+                        </div>
+                        <div className="buttons" onClick={trim}>
+                        <p style={{ color: 'white', fontSize: '20px', textAlign: 'center', paddingTop: '10px' }}>Valider la signature</p>
+                        </div>
+                    </div>
+
+                    
 
 
-            <div className="container">
-                <div className="sigContainer">
-                    <SignaturePad
-                    canvasProps={{ className: "sigPad" }}
-                    ref={sigPadRef}
-                    />
                 </div>
-                <div>
-                    <button className="buttons" onClick={clear}>
-                        Supprimer
-                    </button>
-                    <button className="buttons" onClick={() => {
-                        trim();
-                        }}>Cliquez ici
-                    </button>
-                </div>
-
                 {trimmedDataURL && (
-                    <img className="sigImage" src={trimmedDataURL} alt={image_rights_signatureName} onClick={handleImageLoad} onLoad={handleFileAddition}/>
-               )}
+                        <>
+                        <img className="sigImage" src={trimmedDataURL} alt={image_rights_signatureName} onClick={handleImageLoad} 
+                        onLoad={() => {
+                                handleFileAddition();
+                                handleAddDroitPDF();
+                            }} 
+                        />
+                        <div className="container_pdf">
+                            <PDFViewer width="90%" height={400}>
+                                    <MyPDF image={trimmedDataURL} 
+                                      droitImage={isChecked}
+                                      nomPRenom={nomPrenom}
 
-
+                                      onPDFReady={handlePDFReady} 
+                                      onLoad={handleAddDroitPDF}/>
+                            </PDFViewer>
+                        </div>
+                        
+                    </>
+                )}
             </div>
+            
+      
                   
 
                 
            
-            <h2>Choix du Groupe</h2>
+           
             {/** Ajouter un fetch et un select */}
 
             {/* rajouter un eneieme commentaire ici  */}
 
 
-        </form>
+        </form  >
     )
 }
 
