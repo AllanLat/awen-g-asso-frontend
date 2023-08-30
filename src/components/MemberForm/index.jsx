@@ -32,6 +32,10 @@ const MemberForm = ({ method, memberId }) => {
     const [certificate_medicalName, setCertificate_medicalName] = useState('');
     const [image_rights_signatureName, setImage_rights_signatureName] = useState('');
 
+    const [trimmedDataURL, setTrimmedDataURL] = useState('');
+    const sigPadRef = useRef('');
+
+
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -42,18 +46,13 @@ const MemberForm = ({ method, memberId }) => {
     };
 
 
-    const [trimmedDataURL, setTrimmedDataURL] = useState('');
-    const sigPadRef = useRef('');
 
     const clear = () => {
         sigPadRef.current.clear();
     };
 
 
-    const trim = () => {
-        setTrimmedDataURL(sigPadRef.current.getTrimmedCanvas().toDataURL('image/png'));
-  };
-
+  
 
     useEffect(() => {
         if (method === 'post') {
@@ -206,26 +205,16 @@ const MemberForm = ({ method, memberId }) => {
     }
 
 
-const [trimmedDataUrl, setTrimmedDataUrl] = useState(null);
-
   const handleFileAddition = () => {
 
-  if (trimmedDataUrl) {
-    console.log(trimmedDataUrl);
+  if (trimmedDataURL) {
+    console.log(trimmedDataURL);
 
-     const filee = dataURLtoFile(trimmedDataUrl, 'nouveau_fichier.png');
+     const filee = dataURLtoFile(trimmedDataURL, 'nouveau_fichier.png');
     filee.name && setImage_rights_signatureName(filee.name);
      setValue('image_rights_signature', filee);
      console.log(filee);
 
-    // const dataTransfer = new DataTransfer();
-    // dataTransfer.items.add(file);
-    // fileInput.files = dataTransfer.files;
-
-    // // Afficher les informations du fichier dans la console
-    // console.log('Nom du fichier:', file.name);
-    // console.log('Type du fichier:', file.type);
-    // console.log('Taille du fichier:', file.size);
    }
   };
 
@@ -234,7 +223,7 @@ const [trimmedDataUrl, setTrimmedDataUrl] = useState(null);
     const imageElement = e.target;
     const source = imageElement.src;
     console.log(source)
-    setTrimmedDataUrl(source);
+    setTrimmedDataURL(source);
   };
 
   const dataURLtoFile = (dataUrl, filename) => {
@@ -248,6 +237,13 @@ const [trimmedDataUrl, setTrimmedDataUrl] = useState(null);
     }
 
     return new File([u8arr], filename, { type: mime });
+  };
+
+  const trim = async () => {
+        await setTrimmedDataURL(sigPadRef.current.getTrimmedCanvas().toDataURL('image/png'));
+       
+       
+      
   };
 
 
@@ -309,16 +305,9 @@ const [trimmedDataUrl, setTrimmedDataUrl] = useState(null);
                 </div>
 
                 {trimmedDataURL && (
-                    <img className="sigImage" src={trimmedDataURL} alt={image_rights_signatureName} onClick={handleImageLoad}/>
+                    <img className="sigImage" src={trimmedDataURL} alt={image_rights_signatureName} onClick={handleImageLoad} onLoad={handleFileAddition}/>
                )}
 
-               {
-                   trimmedDataURL &&
-                   (
-                    <button className="buttons" onClick={handleFileAddition}>Ajouter la signature au document</button>
-
-                   )
-               }
 
             </div>
                   

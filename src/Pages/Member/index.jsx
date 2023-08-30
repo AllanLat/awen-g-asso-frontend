@@ -46,7 +46,7 @@ const Member = () => {
                     birthday: dateConverter(member.member_detail.birthday),
                     birthplace: member.member_detail.birthplace,
                     photo: "data:image/jpeg;base64,"+ member.photo,
-    
+
                     city: member.address.city,
                     postal_code: member.address.postal_code,
                     street: member.address.street,
@@ -55,7 +55,7 @@ const Member = () => {
                     mail: member.member_detail.mail,
                     phone: member.member_detail.phone_number,
                     emergency_number: member.member_detail.emergency_number,
-                    image_rights_signature: member.member_detail.image_rights_signature,
+                    image_rights_signature: "data:image/png;base64,"+member.member_detail.image_rights_signature,
                     contraindication: member.member_detail.contraindication,
     
                     paid: member.paid,
@@ -115,7 +115,10 @@ const Member = () => {
                     {userLvl > 0 && <Link to={`/member/${member_id}/payments`}>
                         <SingleMemberCard title="Paiement" paid={member.paid} subscription={member.subscription} />
                         </Link >}
-                    <SingleMemberCard title="Pièces jointes" />
+                        <SingleMemberCard title="Pièces jointes" />
+
+                        <div className="member-picture" style={{ backgroundImage: member.image_rights_signature ?  `url(${member.image_rights_signature})`  : `url(${placeholderImage})` }}></div>
+                       
                 </div>
 
 
