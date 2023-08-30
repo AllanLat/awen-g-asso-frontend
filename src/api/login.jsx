@@ -4,7 +4,7 @@ const login = async (data, navigate) => {
   
     const body = JSON.stringify(data);
     try {
-      const response = await fetch('https://api.g-asso.com/api/v1/login', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -13,7 +13,7 @@ const login = async (data, navigate) => {
       });
       const result = await response.json();
       if (response.status === 200) {
-        sessionStorage.setItem('isLoggedIn', 'true');
+        sessionStorage.setItem('isLoggedIn', true);
         sessionStorage.setItem('token', result.token);
         sessionStorage.setItem('userId', parseInt(result.userId));
         sessionStorage.setItem('associationId', result.associationId);

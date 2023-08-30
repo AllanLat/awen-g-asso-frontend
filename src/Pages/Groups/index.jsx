@@ -20,27 +20,30 @@ const Groups = () => {
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const groupsListRef = useRef();
+  const groupsListRef = useRef('');
 
   // Fonction de rappel pour mettre à jour dayNumber à partir de DaySelector
   const handleDayNumberChange = (number) => {
     setDayNumber(number);
-    groupsListRef.current.scrollIntoView( { behavior: 'smooth' } );
+    if(Array.isArray(groups)) {
+      groupsListRef.current.scrollIntoView( { behavior: 'smooth' } );
+    }
+    
   };
 
   useEffect(() => {
     const fetchGroups = async () => {
       setLoading(true);
       try {
-        const groups = await getGroupsByDayId(token, dayNumber);
+        const Thegroups = await getGroupsByDayId(token, dayNumber);
         
         const userGroups = await getGroupsByUserId(token, userId);
         
         if (userLvl < 1) {
           // ne garder dans groups que les group qui font partie de userGroups
-          setGroups(groups.filter(group => userGroups.some(userGroup => userGroup.id === group.id)))
+          setGroups(Thegroups.filter(group => userGroups.some(userGroup => userGroup.id === group.id)))
         } else {
-          setGroups(groups);
+          setGroups(Thegroups);
         } 
       } catch (error) {
         console.log('Error while fetching groups:', error);
@@ -57,15 +60,18 @@ const Groups = () => {
       {/* Utilisation du composant DaySelector avec la fonction de rappel */}
       <DaySelector onDayNumberChange={handleDayNumberChange} />
       <div className="groups-page">
-        {groups && (
-          <ul className="groups-list" ref={groupsListRef}>
-            {groups && groups
-            .sort((groupA, groupB) => groupA.start_time.localeCompare(groupB.start_time)) // Tri les groupes de 00:00 à 23:59
-            .map((group) => (
-              <Link to={`/group/${group.id}`} key={group.id}><GroupCard  group={group}/></Link>
-            ))}
-          </ul>
-        )}
+          {Array.isArray(groups) && (
+            <ul className="groups-list" ref={groupsListRef}>
+              {groups
+                .sort((groupA, groupB) => groupA.start_time.localeCompare(groupB.start_time))
+                .map((group) => (
+                  <Link to={`/group/${group.id}`} key={group.id}>
+                    <GroupCard group={group} />
+                  </Link>
+                ))}
+            </ul>
+          )}
+        
         
       </div>
 
