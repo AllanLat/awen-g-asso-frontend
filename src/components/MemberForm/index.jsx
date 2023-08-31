@@ -13,7 +13,7 @@ import './signature/index.css'
 import SignaturePad from 'react-signature-canvas';
 
 import Input from '../Input';
-import { PDFViewer } from '@react-pdf/renderer';
+import { PDFViewer} from '@react-pdf/renderer';
 import MyPDF from './signature';
 
 
@@ -133,13 +133,11 @@ const MemberForm = ({ method, memberId }) => {
                         }
 
                         if (data.image_rights_signature) {
-                            console.log('Récupéré signature');
                             formData.append('image_rights_signature', data.image_rights_signature);
                         }
                         
 
-                        if (data.certificate.name) {
-                            console.log('Récupéré certificat');
+                        if (data.certificate.name) { 
                             formData.append('certificate', data.certificate);
                         }
 
@@ -168,7 +166,7 @@ const MemberForm = ({ method, memberId }) => {
 
                             createMember(token, newMember)
                                 .then((insertId) => {
-                                    console.log(newMember);
+            
                                     navigate('/member/' + insertId);
                                 })
                                 .catch((error) => {
@@ -212,21 +210,19 @@ const MemberForm = ({ method, memberId }) => {
 
 
   if (trimmedDataURL) {
-    console.log(trimmedDataURL);
 
      const filee = dataURLtoFile(trimmedDataURL, 'nouveau_fichier.png');
     filee.name && setImage_rights_signatureName(filee.name);
      setValue('image_rights_signature', filee);
-     console.log(filee);
 
    }
   };
 
   const handleImageLoad = (e) => {
-    console.log('bite')
+    
     const imageElement = e.target;
     const source = imageElement.src;
-    console.log(source)
+    console.log('Image de la signature chargée' + source);
 
 
 
@@ -252,7 +248,6 @@ const [isChecked, setIsChecked] = useState(false);
 
 const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
-    console.log(isChecked);
   };
 
 const handleAddDroitPDF = async () => {
@@ -268,8 +263,6 @@ const handleAddDroitPDF = async () => {
    
     await setnomPrenom(nomETPrenom);
     
-    console.log(nomETPrenom);
-    console.log(isChecked);
 
 
   }
@@ -282,22 +275,11 @@ const handleAddDroitPDF = async () => {
 
 
   const handlePDFReady = (pdfContent) => {
-    console.log('Contenu du PDF:', pdfContent);
-    console.log('Nom du PDF:');
-    // Faites quelque chose avec le contenu du PDF, par exemple l'afficher dans votre composant parent
-    // ...  
-    const jsonContent = JSON.stringify(pdfContent);
-    const blob = new Blob([jsonContent], { type: 'application/json' });
-    const file = new File([blob], 'fichier.pdf', { type: 'application/pdf' });
+
+    const file = new File([pdfContent], 'fichier.pdf', { type: 'application/pdf' });
   
     setValue('image_rights_signature', file);
-    console.log(file);
-    // if(!pdfContentt){
-    //     setPdfContent(blob);
-    //     console.log('jamais');
-    // }   
-    
-    // console.log(pdfContentt);
+
     trim();
   };
 
