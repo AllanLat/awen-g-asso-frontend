@@ -42,7 +42,7 @@ const generatePDFContent = (image, droitImage, nomPRenom) => {
 };
 
 const MyPDF = ({ image, droitImage, nomPRenom, onPDFReady }) => {
-  const [pdfBlob, setPdfBlob] = useState(null);
+  //const [pdfBlob, setPdfBlob] = useState(null);
   const [fichierLisible, setFichierLisible] = useState(null);
   
 
@@ -50,7 +50,7 @@ const MyPDF = ({ image, droitImage, nomPRenom, onPDFReady }) => {
     const generatePDF = async () => {
       const pdfContent = await generatePDFContent(image, droitImage, nomPRenom);
       const blob = await pdf(pdfContent).toBlob();
-      setPdfBlob(blob);
+      
       setFichierLisible(pdfContent);
       
       onPDFReady(blob);
