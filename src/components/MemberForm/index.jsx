@@ -3,6 +3,7 @@ import './index.css';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect, useRef } from 'react';
 import { createMember, getMemberById, updateMember } from '../../api/members';
+import { getGroups, addMembersToGroup } from '../../api/groups';
 
 import { useNavigate } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
@@ -33,6 +34,14 @@ const MemberForm = ({ method, memberId }) => {
     const [photoName, setPhotoName] = useState('');
     const [certificate_medicalName, setCertificate_medicalName] = useState('');
     const [image_rights_signatureName, setImage_rights_signatureName] = useState('');
+    const [allGroups, setAllGroups] = useState([]);
+    const [groupId, setGroupId] = useState();
+    
+    const memId = {
+        "members_list" : []
+    }
+    memId.members_list.push(memberId)
+    
 
     const [trimmedDataURL, setTrimmedDataURL] = useState('');
     const sigPadRef = useRef('');
@@ -86,9 +95,32 @@ const MemberForm = ({ method, memberId }) => {
                 console.log(error);
             }
         };
+        
         fetchMemberData();
     }, [method, memberId, token, setValue]);
 
+    useEffect(() => {
+        const fetchGroups = async () => {
+            try{
+                const groupsFetch = await getGroups(token);
+                setAllGroups(groupsFetch);
+            } catch (err){
+                console.log(err)
+            }
+        }
+        fetchGroups();
+    }, [token])
+    
+    const getGroupInfo = (e) => {
+        if(e.target.value !== "none"){
+            setGroupId(e.target.value)
+        }else{
+            setGroupId(null)
+        }
+    }
+    // on utilise la fonction getMemberById pour récupérer le membre si on est en update pour afficher les données
+    
+ 
 
     const onSubmit = (data) => {
         confirmAlert({
@@ -121,9 +153,8 @@ const MemberForm = ({ method, memberId }) => {
                             "file_status": 0,
                             "payment_status": 0,
                             "subscription": data.subscription,
-                            "paid": 0
+                            "paid": 0,
                         }
-
 
                         // on construit ici les formData pour les fichiers s'ils existent
                         const formData = new FormData();
@@ -155,6 +186,7 @@ const MemberForm = ({ method, memberId }) => {
                         formData.forEach((file, index) => {
                             newMember.append(index, file);
                         })
+                    
                         if (method === 'post') {
 
                             console.log(newMember.has('photo'));
@@ -166,17 +198,34 @@ const MemberForm = ({ method, memberId }) => {
 
                             createMember(token, newMember)
                                 .then((insertId) => {
-            
+
+                                    if(groupId !== null){
+                                        getMemberById(token, insertId)
+                                        .then((res) => {
+                                            const member_liste = {
+                                                "members_list" : []
+                                            }
+                                            member_liste.members_list.push(res.member_details_id)
+                                            addMembersToGroup(token, groupId, member_liste)
+                                        })
+                                    }
+
                                     navigate('/member/' + insertId);
                                 })
                                 .catch((error) => {
                                     console.log(newMember);
                                     console.log(error);
                                 });
+                            
+                            
+                            
                         }
                         if (method === 'put') {
                             updateMember(token, memberId, newMember)
                                 .then(() => {
+                                    if(groupId !== null){
+                                        addMembersToGroup(token, groupId, memId);
+                                    }
                                     navigate('/member/' + memberId);
                                 })
                                 .catch((error) => {
@@ -320,9 +369,20 @@ const handleAddDroitPDF = async () => {
             </div>
             <Input value='reduction' text='Réduction 10€' type='checkbox' register={register} />
             <br />
-            </>
+
+
+            <label htmlFor='groupTo' className='input-group'>Choix du groupe</label>
+            <select id='groupTo'className='input-group' {...register('group')} onChange={getGroupInfo}>
+                <option value="none">---</option>
+                {allGroups.map((group) => (
+                    <option key={group.name} value={group.id}>{group.name}</option>
+                ))}
+            </select>
+
+
             <h2>Signature </h2>
             
+
             <Input value='droits' text='J autorise le droit à l image' type='checkbox' register={register} checkeds={isChecked} onChange={() => {
                 handleCheckboxChange();
                 
@@ -387,6 +447,7 @@ const handleAddDroitPDF = async () => {
            
            
             {/** Ajouter un fetch et un select */}
+
 
             {/* rajouter un eneieme commentaire ici  */}
 
