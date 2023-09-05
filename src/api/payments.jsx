@@ -3,7 +3,7 @@
 const getPaymentsAsso = async (token) => {
     
     try {
-        const reponse = await fetch ('https://api.g-asso.com/api/v1/paiement/views', {
+        const reponse = await fetch (`${process.env.REACT_APP_API_URL}/api/v1/paiement/views`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',
@@ -23,7 +23,7 @@ const getPaymentsAsso = async (token) => {
 const createNewTransac = async (token, formValue) => {
     
     try{
-        const reponse = await fetch('https://api.g-asso.com/api/v1/paiement', {
+        const reponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/paiement`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -44,7 +44,7 @@ const createNewTransac = async (token, formValue) => {
 const getBalanceAsso = async (token) => {
 
     try {
-        const response = await fetch('https://api.g-asso.com/api/v1/paiement/view/balance', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/paiement/view/balance`, {
             method : 'GET',
             headers: {
                 'Content-type': 'application/json',

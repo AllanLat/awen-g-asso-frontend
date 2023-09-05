@@ -2,7 +2,7 @@ import { toast, Slide } from 'react-toastify';
 
 const getGroupsByDayId = async (token, dayId) => {
     try {
-        const response = await fetch(`https://api.g-asso.com/api/v1/groups/day/${dayId}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/groups/day/${dayId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ const getGroups = async (token) => {
 
 const getGroupById = async (token, groupId) => {
     try {
-        const response = await fetch(`https://api.g-asso.com/api/v1/groups/${groupId}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/groups/${groupId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ const getGroupById = async (token, groupId) => {
 
 const getUsersByGroupId = async (token, groupId) => {
     try {
-        const response = await fetch(`https://api.g-asso.com/api/v1/groups/${groupId}/users`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/groups/${groupId}/users`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ const getUsersByGroupId = async (token, groupId) => {
 
 const getMembersByGroupId = async (token, groupId) => {
     try {
-        const response = await fetch(`https://api.g-asso.com/api/v1/groups/${groupId}/members`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/groups/${groupId}/members`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ const getMembersByGroupId = async (token, groupId) => {
 
 const addUsersToGroup = async (token, groupId, users_list) => {
     try {
-        const response = await fetch(`https://api.g-asso.com/api/v1/groups/${groupId}/users/`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/groups/${groupId}/users/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -124,7 +124,7 @@ const addUsersToGroup = async (token, groupId, users_list) => {
 
 const addMembersToGroup = async (token, groupId, members_list) => {
     try {
-        const response = await fetch(`https://api.g-asso.com/api/v1/groups/${groupId}/members/`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/groups/${groupId}/members/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -146,7 +146,7 @@ const addMembersToGroup = async (token, groupId, members_list) => {
 
 const createGroup = async (token, newGroup) => {
 
-    const response = await fetch(`https://api.g-asso.com/api/v1/groups`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/groups`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -167,7 +167,7 @@ const createGroup = async (token, newGroup) => {
 
 const updateGroup = async (token, id, newGroup) => {
     try {
-        const response = await fetch(`https://api.g-asso.com/api/v1/groups/${id}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/groups/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
