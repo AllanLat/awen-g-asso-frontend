@@ -64,14 +64,59 @@ export const MemberForm = ({ method, memberId }) => {
         sigPadRef.current.clear();
     };
 
+    const base64ToFile = (base64String, fileName) => {
+        const byteCharacters = atob(base64String);
+        const byteArrays = [];
+      
+        for (let offset = 0; offset < byteCharacters.length; offset += 1024) {
+          const slice = byteCharacters.slice(offset, offset + 1024);
+      
+          const byteNumbers = new Array(slice.length);
+          for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+          }
+      
+          const byteArray = new Uint8Array(byteNumbers);
+          byteArrays.push(byteArray);
+        }
+      
+        let fileExtension = 'png';
+        // if (base64String.startsWith('data:image/png')) {
+        //   fileExtension = 'png';
+        // } else if (base64String.startsWith('data:image/jpeg')) {
+        //   fileExtension = 'jpeg';
+        // } else {
+        //   throw new Error('Unsupported file type');
+        // }
+      
+        const blob = new Blob(byteArrays, { type: `image/${fileExtension}` });
+        return new File([blob], fileName, { type: `image/${fileExtension}` });
+      };
+
+
+      const generateRandomString = (length) => {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+      
+        for (let i = 0; i < length; i++) {
+          const randomIndex = Math.floor(Math.random() * characters.length);
+          result += characters.charAt(randomIndex);
+        }
+      
+        return result;
+      };
+      
+
     useEffect(() => {
         if (method === 'post') {
             return
         }
         const fetchMemberData = async () => {
             try {
+                
                 const memberData = await getMemberById(token, memberId);
 
+                console.log(memberData)
                 setValue('lastname', memberData.lastname);
                 setValue('firstname', memberData.firstname);
                 setValue('birthday', formatDate(memberData.member_detail.birthday));
@@ -88,6 +133,24 @@ export const MemberForm = ({ method, memberId }) => {
                 setValue('subscription', memberData.subscription);
 
                 setValue('contraindication', memberData.member_detail.contraindication);
+
+                if(memberData.photo && memberData.photo !== undefined){
+                    let oldPhotoBas64 = memberData.photo;
+                    console.log(oldPhotoBas64);
+
+                    let photoBlob = base64ToFile(oldPhotoBas64, 'photo'+generateRandomString(5)+'.png');
+                    console.log(photoBlob);
+
+                    let reductPhoto = await resizeImage(photoBlob);
+                    console.log(reductPhoto);
+
+                    setValue('photo', reductPhoto);
+                }
+
+                if(memberData.certificate && memberData.certificate !== undefined){
+                    setValue('certificate', resizeImage(base64ToFile(memberData.certificate)));
+                }
+             
 
                 
             } catch (error) {
@@ -185,13 +248,6 @@ export const MemberForm = ({ method, memberId }) => {
                         })
                     
                         if (method === 'post') {
-
-                            console.log(newMember.has('photo'));
-                            console.log(newMember.get('photo'));
-                            console.log(newMember.has('image_rights_signature'));
-                            console.log(newMember.get('image_rights_signature'));
-                            console.log(newMember.has('certificate'));
-                            console.log(newMember.get('certificate'));
 
                             createMember(token, newMember)
                                 .then((insertId) => {
@@ -299,7 +355,7 @@ export const MemberForm = ({ method, memberId }) => {
   };
 
 
-const [nomPrenom, setnomPrenom] = useState('jean dupont');
+const [nomPrenom, setnomPrenom] = useState('');
 const [isChecked, setIsChecked] = useState(false);
 
 const handleCheckboxChange = () => {
@@ -336,6 +392,7 @@ const handleAddDroitPDF = async () => {
     trim();
   };
 
+  //console.log(setValue('photo'));
 return (
     // code 
     <>
@@ -366,7 +423,7 @@ return (
 
             <div className='subscription'>
                 <label htmlFor="subscription"><h2>Choix de la cotisation :</h2></label>
-                <select {...register('subscription')} required>
+                <select {...register('subscription')}>
                     {cotisations.map((cotisation) => (
                         <option key={cotisation.name} value={cotisation.price}>{cotisation.name + ' - ' + cotisation.price + '€'}</option>
                     ))}
