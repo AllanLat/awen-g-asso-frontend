@@ -27,8 +27,8 @@ const Users = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             setLoading(true);
-            const users = await getUsers(token);
-            setUsers(users);
+            const Theusers = await getUsers(token);
+            setUsers(Theusers);
             setLoading(false);
         };
         fetchUsers();
@@ -54,18 +54,24 @@ const Users = () => {
                 </div>
             </div>
             <div className='users-page'>
-                {users && (
-                    <ul className="users-list" ref={usersListRef}>
-                        {users
-                            .filter(user => user.lastname.toLowerCase().includes(searchValue.toLowerCase()))  // Affiche seulement les users dont le nom contient la recherche
-                            .sort((userA, userB) => userA.lastname.localeCompare(userB.lastname))
-                            .map((user) => (
-                                <Link to={`/user/${user.id}`} key={user.id}><UserCard key={user.id} user={user} /></Link>
-                            ))}
-                    </ul>
-                )
-                }
-
+                
+                {Array.isArray(users) && (
+                  <ul className="users-list" ref={usersListRef}>
+                    {users
+                      .filter((user) =>
+                        user.lastname.toLowerCase().includes(searchValue.toLowerCase())
+                      )
+                      .sort((userA, userB) =>
+                        userA.lastname.localeCompare(userB.lastname)
+                      )
+                      .map((user) => (
+                        <Link to={`/user/${user.id}`} key={user.id}>
+                          <UserCard key={user.id} user={user} />
+                        </Link>
+                      ))}
+                  </ul>
+                )}
+                
                 {loading && (
                     <div className="loader-container">
                         <ClipLoader color='#fff' loading={loading} size={75} speedMultiplier={0.8} />

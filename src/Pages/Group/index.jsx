@@ -84,11 +84,11 @@ const Group = () => {
         fetchGroup();
     }, [token, group_id]);
 
-    /* useEffect(() => {
-        if (!isUserInGroup && userLvl < 1) {
-            navigate('/error');
-        }
-    }, [navigate, isUserInGroup, userLvl]); */
+    useEffect(() => {
+      if (!isUserInGroup && userLvl < 1) {
+           navigate('/error');
+    }
+     }, [navigate, isUserInGroup, userLvl]);
 
     function dayNumberToDayName(dayNumber) {
         switch (dayNumber) {

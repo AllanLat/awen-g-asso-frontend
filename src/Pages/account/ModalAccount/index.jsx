@@ -78,7 +78,15 @@ const ModalAccount = ({isOpen, toggleOpen, total, member_id}) => {
                         <select id='moyen' {...register('payment_method', {required: true})} className='select'>
                             <option value="cb" className='opto-pay'>CB</option>
                             <option value="cheque" className='opto-pay'>Chèque</option>
-                            <option value="autre" className='opto-pay'>Autre</option>
+                            
+                            <option value="CAF" className="opto-pay">CAF</option>
+                            <option value="PassSport" className="opto-pay">Passport</option>
+                            <option value="ChèqueVacance" className="opto-pay">Chèque Vacance</option>
+                            <option value="Cheque Sport" className="opto-pay">Chèque Sport</option>
+                            <option value="Virement" className="opto-pay">Virement</option>
+                            <option value="Espce" className="opto-pay">Espece</option>
+                            <option value="Prèlevement" className="opto-pay">Prélevement</option>
+                            <option value="autre" className="opto-pay">Autre</option>
                         </select>
                         
                         <div className="footer-modal-account">

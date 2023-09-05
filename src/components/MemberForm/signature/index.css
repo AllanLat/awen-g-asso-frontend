@@ -1,0 +1,51 @@
+/*Le style qui prime - Contraint les dimensionnements internes à la taille de la boîte, soit de la fenêtre*/
+body {
+    background-color: gray;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+  
+  .container {
+    width: 100%;
+    height: 200px;
+  }
+
+.sigContainer {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: #fff  !important;
+  }
+  
+  .sigPad {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    margin-bottom: 100px;
+  }
+  
+  .buttons {
+    width:100%;
+    height: 50px;
+    background-color: blueviolet;
+    color: #fff;
+  }
+  
+  .sigImage {
+    display: none;
+    background-size: 200px 50px;
+    width: 200px;
+    height: 50px;
+    background-color: white;
+  }
+
+
+.container_button {
+  margin-bottom: 40px;;
+}
+
+.container_pdf {
+  margin-top: 50px;
+  margin-bottom: 150px;
+}

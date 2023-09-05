@@ -20,8 +20,8 @@ const Members = () => {
   useEffect(() => {
     const fetchMembers = async () => {
       setLoading(true);
-      const members = await getMembers(token);
-      setMembers(members);
+      const Themembers = await getMembers(token);
+      setMembers(Themembers);
       setLoading(false);
     };
     fetchMembers();
@@ -48,17 +48,22 @@ const Members = () => {
       </div>
       <div className='members-page'>
 
-        {members && (
-          <ul className="members-list" ref={membersListRef}>
-            {members
-              .filter(member => member.lastname.toLowerCase().includes(searchValue.toLowerCase()))  // Affiche seulement les members dont le nom contient la recherche
-              .sort((memberA, memberB) => memberA.lastname.localeCompare(memberB.lastname)) // Trie les membres par nom
-              .map((member) => (
-                <Link to={`/member/${member.id}`} key={member.id}><MemberCard key={member.id} member={member} /></Link>
-              ))}
-          </ul>
-        )
-        }
+      {Array.isArray(members) && (
+        <ul className="members-list" ref={membersListRef}>
+          {members
+            .filter((member) =>
+              member.lastname.toLowerCase().includes(searchValue.toLowerCase())
+            )
+            .sort((memberA, memberB) =>
+              memberA.lastname.localeCompare(memberB.lastname)
+            )
+            .map((member) => (
+              <Link to={`/member/${member.id}`} key={member.id}>
+                <MemberCard key={member.id} member={member} />
+              </Link>
+            ))}
+        </ul>
+      )}
 
         {loading && (
           <div className="loader-container">

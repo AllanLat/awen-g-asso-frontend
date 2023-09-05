@@ -1,16 +1,20 @@
 import './index.css';
 
 import { useForm } from 'react-hook-form';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { createMember, getMemberById, updateMember } from '../../api/members';
 
 import { useNavigate } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import '../../utils/css/customConfirm.css'
-import SignatureComponent from './signature';
+import './signature/index.css'
+
+import SignaturePad from 'react-signature-canvas';
 
 import Input from '../Input';
+import { PDFViewer} from '@react-pdf/renderer';
+import MyPDF from './signature';
 
 
 
@@ -27,7 +31,13 @@ const MemberForm = ({ method, memberId }) => {
     const navigate = useNavigate();
 
     const [photoName, setPhotoName] = useState('');
+    const [certificate_medicalName, setCertificate_medicalName] = useState('');
     const [image_rights_signatureName, setImage_rights_signatureName] = useState('');
+
+    const [trimmedDataURL, setTrimmedDataURL] = useState('');
+    const sigPadRef = useRef('');
+
+
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -37,6 +47,14 @@ const MemberForm = ({ method, memberId }) => {
         return `${year}-${month}-${day}`;
     };
 
+
+
+    const clear = () => {
+        sigPadRef.current.clear();
+    };
+
+
+  
 
     useEffect(() => {
         if (method === 'post') {
@@ -62,15 +80,14 @@ const MemberForm = ({ method, memberId }) => {
                 setValue('subscription', memberData.subscription);
 
                 setValue('contraindication', memberData.member_detail.contraindication);
+
+                
             } catch (error) {
                 console.log(error);
             }
         };
         fetchMemberData();
     }, [method, memberId, token, setValue]);
-
-    // on utilise la fonction getMemberById pour récupérer le membre si on est en update pour afficher les données
-
 
 
     const onSubmit = (data) => {
@@ -82,13 +99,11 @@ const MemberForm = ({ method, memberId }) => {
                     label: 'Oui', onClick: () => {
                         // on construit ici la data simple pour créer un nouveau membre
 
+               
                         // Reduction si checkbox coché
                         if (data.reduction === true) {
                             data.subscription -= 10;
                         }
-
-
-
 
                         const newData = {
                             "street": data.street,
@@ -105,7 +120,6 @@ const MemberForm = ({ method, memberId }) => {
                             "lastname": data.lastname,
                             "file_status": 0,
                             "payment_status": 0,
-                            "certificate": null,
                             "subscription": data.subscription,
                             "paid": 0
                         }
@@ -118,8 +132,13 @@ const MemberForm = ({ method, memberId }) => {
                             formData.append('photo', data.photo);
                         }
 
-                        if (data.image_rights_signature.name) {
+                        if (data.image_rights_signature) {
                             formData.append('image_rights_signature', data.image_rights_signature);
+                        }
+                        
+
+                        if (data.certificate.name) { 
+                            formData.append('certificate', data.certificate);
                         }
 
 
@@ -137,11 +156,21 @@ const MemberForm = ({ method, memberId }) => {
                             newMember.append(index, file);
                         })
                         if (method === 'post') {
+
+                            console.log(newMember.has('photo'));
+                            console.log(newMember.get('photo'));
+                            console.log(newMember.has('image_rights_signature'));
+                            console.log(newMember.get('image_rights_signature'));
+                            console.log(newMember.has('certificate'));
+                            console.log(newMember.get('certificate'));
+
                             createMember(token, newMember)
                                 .then((insertId) => {
+            
                                     navigate('/member/' + insertId);
                                 })
                                 .catch((error) => {
+                                    console.log(newMember);
                                     console.log(error);
                                 });
                         }
@@ -156,7 +185,8 @@ const MemberForm = ({ method, memberId }) => {
                         }
                     }
                 },
-                { label: 'Non', onClick: () => { return; } }
+                { label: 'Non', onClick: () => { 
+                    return; } }
             ]
         })
 
@@ -165,33 +195,119 @@ const MemberForm = ({ method, memberId }) => {
 
     const handlePhotoName = (e) => {
         e.target.files[0].name && setPhotoName(e.target.files[0].name);
+       // console.log(e.target.files[0]);
         setValue('photo', e.target.files[0]);
     }
 
-    const handleImage_rights_signatureName = (e) => {
-        e.target.files[0].name && setImage_rights_signatureName(e.target.files[0].name);
-        setValue('image_rights_signature', e.target.files[0]);
+    const handleCertificate_medicalName = (e) => {
+        e.target.files[0].name && setCertificate_medicalName(e.target.files[0].name);
+        setValue('certificate', e.target.files[0]);
     }
+
+
+  const handleFileAddition = () => {
+
+
+
+  if (trimmedDataURL) {
+
+     const filee = dataURLtoFile(trimmedDataURL, 'nouveau_fichier.png');
+    filee.name && setImage_rights_signatureName(filee.name);
+     setValue('image_rights_signature', filee);
+
+   }
+  };
+
+  const handleImageLoad = (e) => {
+    
+    const imageElement = e.target;
+    const source = imageElement.src;
+    console.log('Image de la signature chargée' + source);
+
+
+
+    setTrimmedDataURL(source);
+  };
+
+  const dataURLtoFile = (dataUrl, filename) => {
+    const arr = dataUrl.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new File([u8arr], filename, { type: mime });
+  };
+
+
+const [nomPrenom, setnomPrenom] = useState('jean dupont');
+const [isChecked, setIsChecked] = useState(false);
+
+const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
+
+const handleAddDroitPDF = async () => {
+
+    const nom = document.getElementById('lastname').value
+    const prenom = document.getElementById('firstname').value
+
+    const nomETPrenom = nom + ' ' + prenom;
+   
+
+   
+    // Utilisez la fonction setValue pour définir la valeur de l'input
+   
+    await setnomPrenom(nomETPrenom);
+    
+
+
+  }
+  
+
+//   Je créé l'image png de la signture
+  const trim =  () => {
+        setTrimmedDataURL(sigPadRef.current.getTrimmedCanvas().toDataURL('image/png'));
+  };
+
+
+  const handlePDFReady = (pdfContent) => {
+
+    const file = new File([pdfContent], 'fichier.pdf', { type: 'application/pdf' });
+  
+    setValue('image_rights_signature', file);
+
+    trim();
+  };
 
     return (
         <form id='member-form' className='member-form' action="" onSubmit={handleSubmit(onSubmit)} >
+            <>
             <h2>{method === 'post' ? 'Ajouter un membre' : 'Modifier un membre'}</h2>
             <Input value='lastname' text='Nom' type='text' required register={register} />
             <Input value='firstname' text='Prénom' type='text' required register={register} />
             <Input value='birthday' text='Né(e) le' type='date' required register={register} />
             <Input value='birthplace' text='Lieu de naissance' type='text' required register={register} />
             <Input value='photo' text={photoName === '' ? method === 'post' ? 'Ajouter une photo' : 'Modifier la photo' : photoName} onChange={handlePhotoName} type='file' register={register} />
+            
             <h2>Adresse :</h2>
-            <Input value='living_with' text='Vit chez (facultatif)' type='text' placeholder='ex : sa mère' register={register} />
             <Input value='street' text='Numéro et nom de la rue' type='text' required register={register} />
             <Input value='postal_code' text='Code postal' type='text' required register={register} />
             <Input value='city' text='Ville' type='text' required register={register} />
+            <hr />
+            <Input value='living_with' text='Adresse secondaire' type='text' placeholder='Adresse secondaire' register={register} />
+            
             <h2>Contacts :</h2>
             <Input value='mail' text='Adresse mail' type='email' required register={register} />
             <Input value='phone_number' text='N° de téléphone' type='tel' required register={register} />
             <Input value='emergency_number' text="Numéro en cas d'urgence" type='tel' required register={register} />
+            
             <h2>Informations :</h2>
-            <Input value='image_rights_signature' text={image_rights_signatureName === '' ? method === 'post' ? "Ajouter autorisation signée de droit à l'image" : "Modifier l'autorisation signée de droit à l'image" : image_rights_signatureName} onChange={handleImage_rights_signatureName} type='file' register={register} />
+          
+            <Input value='certificate' text={certificate_medicalName === '' ? method === 'post' ? "Ajouter un certificat medicale" : "Modifier certificat medicale" : certificate_medicalName} onChange={handleCertificate_medicalName} type='file' register={register} />
             <Input value='contraindication' text='Contraintes médicales (laisser vide si aucune)' type='text' register={register} />
 
             <div className='subscription'>
@@ -202,21 +318,80 @@ const MemberForm = ({ method, memberId }) => {
                     ))}
                 </select>
             </div>
-
             <Input value='reduction' text='Réduction 10€' type='checkbox' register={register} />
-
             <br />
-
+            </>
             <h2>Signature </h2>
-            {/* <SignatureComponent /> */}
+            
+            <Input value='droits' text='J autorise le droit à l image' type='checkbox' register={register} checkeds={isChecked} onChange={() => {
+                handleCheckboxChange();
+                
+                }} />
+             
 
-            <h2>Choix du Groupe</h2>
+            <div className="input-group">
+                <div className='container_button'>
+                        <div className="buttons" onClick={clear}>
+                        <p style={{ color: 'white', fontSize: '20px', textAlign: 'center', paddingTop: '10px' }}> Supprimer </p>
+                        </div>
+                        <div className="buttons" onClick={() => {
+                            trim();
+                            handleAddDroitPDF();
+                }}><p style={{ color: 'white', fontSize: '20px', textAlign: 'center', paddingTop: '10px' }}>Valider la signature</p>
+                        </div>
+                        
+                    </div>
+                <div className="container">
+                    <div className="sigContainer">
+
+                        <SignaturePad
+                        canvasProps={{ className: "sigPad" }}
+                        ref={sigPadRef}
+                        />
+                    </div>
+                    
+
+                   
+
+                </div>
+                
+            </div>
+            {trimmedDataURL && (
+                        <>
+                        <img className="sigImage" src={trimmedDataURL} alt={image_rights_signatureName} onClick={handleImageLoad} 
+                        onLoad={() => {
+                                handleFileAddition();
+                                handleAddDroitPDF();
+                            }} 
+                        />
+                        <div className="container">
+                            <div className="container_pdf">
+                            <PDFViewer width="90%" height={400}>
+                                    <MyPDF image={trimmedDataURL} 
+                                      droitImage={isChecked}
+                                      nomPRenom={nomPrenom}
+
+                                      onPDFReady={handlePDFReady} 
+                                      onLoad={handleAddDroitPDF}/>
+                            </PDFViewer>
+                        </div>
+                        </div>
+                        
+                        
+                    </>
+                )}
+      
+                  
+
+                
+           
+           
             {/** Ajouter un fetch et un select */}
 
-    {/* rajouter un eneieme commentaire ici  */}
+            {/* rajouter un eneieme commentaire ici  */}
 
 
-        </form>
+        </form  >
     )
 }
 

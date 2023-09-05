@@ -1,6 +1,6 @@
 const getLogo = async (token, id) => {
     try {
-        const response = await fetch(`https://api.g-asso.com/api/v1/associations/associationLogo/${id}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/associations/associationLogo/${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
