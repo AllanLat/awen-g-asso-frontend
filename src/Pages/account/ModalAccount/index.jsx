@@ -22,7 +22,7 @@ const ModalAccount = ({isOpen, toggleOpen, total, member_id}) => {
     }
     
     const onSubmit = async (data) => {
-        console.log("coucou")
+        //console.log("coucou")
         //on regarde si c'est un credit ou un débit
         if (isValid === true) {
             if(data.credOrDeb === "Débit"){
@@ -80,8 +80,8 @@ const ModalAccount = ({isOpen, toggleOpen, total, member_id}) => {
                             <option value="cheque" className='opto-pay'>Chèque</option>
                             <option value="CAF" className="opto-pay">CAF</option>
                             <option value="PassSport" className="opto-pay">Passport</option>
-                            <option value="ChèqueVacance" className="opto-pay">Chèque Vacance</option>
-                            <option value="Cheque Sport" className="opto-pay">Chèque Sport</option>
+                            <option value="Chèque Vacance" className="opto-pay">Chèque Vacance</option>
+                            <option value="Chèque Sport" className="opto-pay">Chèque Sport</option>
                             <option value="Virement" className="opto-pay">Virement</option>
                             <option value="Espce" className="opto-pay">Espece</option>
                             <option value="Prèlevement" className="opto-pay">Prélevement</option>

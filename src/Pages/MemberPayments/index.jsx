@@ -111,7 +111,7 @@ const MemberPayments  = () => {
             <Navbar title={member.lastname + " " + member.firstname}/>
 
             <div className="member-global-amount">
-                <GlobalAmount amount={member.paid} />
+                <GlobalAmount amount={member.paid} total={member.subscription}/>
                 <p className="cotisation">Cotisation à  <strong>{member.subscription}€</strong></p>
             </div>
 
