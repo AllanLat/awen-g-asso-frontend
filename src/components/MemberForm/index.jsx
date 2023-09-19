@@ -14,7 +14,7 @@ import './signature/index.css'
 import SignaturePad from 'react-signature-canvas';
 
 import Input from '../Input';
-import { PDFViewer} from '@react-pdf/renderer';
+import { PDFViewer } from '@react-pdf/renderer';
 import MyPDF from './signature';
 
 
@@ -24,9 +24,9 @@ const MemberForm = ({ method, memberId }) => {
     const { register, handleSubmit, setValue } = useForm();
 
     const cotisations = [
-        {name: "Babydo", price: "161"}, 
-        {name: "Judo / Cross training", price: "181"},
-        {name: "Taïso", price: "141"}
+        { name: "Babydo", price: "161" },
+        { name: "Judo / Cross training", price: "181" },
+        { name: "Taïso", price: "141" }
     ]
 
     const navigate = useNavigate();
@@ -36,12 +36,12 @@ const MemberForm = ({ method, memberId }) => {
     const [image_rights_signatureName, setImage_rights_signatureName] = useState('');
     const [allGroups, setAllGroups] = useState([]);
     const [groupId, setGroupId] = useState();
-    
+
     const memId = {
-        "members_list" : []
+        "members_list": []
     }
     memId.members_list.push(memberId)
-    
+
 
     const [trimmedDataURL, setTrimmedDataURL] = useState('');
     const sigPadRef = useRef('');
@@ -63,7 +63,7 @@ const MemberForm = ({ method, memberId }) => {
     };
 
 
-  
+
 
     useEffect(() => {
         if (method === 'post') {
@@ -90,37 +90,37 @@ const MemberForm = ({ method, memberId }) => {
 
                 setValue('contraindication', memberData.member_detail.contraindication);
 
-                
+
             } catch (error) {
                 console.log(error);
             }
         };
-        
+
         fetchMemberData();
     }, [method, memberId, token, setValue]);
 
     useEffect(() => {
         const fetchGroups = async () => {
-            try{
+            try {
                 const groupsFetch = await getGroups(token);
                 setAllGroups(groupsFetch);
-            } catch (err){
+            } catch (err) {
                 console.log(err)
             }
         }
         fetchGroups();
     }, [token])
-    
+
     const getGroupInfo = (e) => {
-        if(e.target.value !== "none"){
+        if (e.target.value !== "none") {
             setGroupId(e.target.value)
-        }else{
+        } else {
             setGroupId(null)
         }
     }
     // on utilise la fonction getMemberById pour récupérer le membre si on est en update pour afficher les données
-    
- 
+
+
 
     const onSubmit = (data) => {
         confirmAlert({
@@ -131,7 +131,7 @@ const MemberForm = ({ method, memberId }) => {
                     label: 'Oui', onClick: () => {
                         // on construit ici la data simple pour créer un nouveau membre
 
-               
+
                         // Reduction si checkbox coché
                         if (data.reduction === true) {
                             data.subscription -= 10;
@@ -166,9 +166,9 @@ const MemberForm = ({ method, memberId }) => {
                         if (data.image_rights_signature) {
                             formData.append('image_rights_signature', data.image_rights_signature);
                         }
-                        
 
-                        if (data.certificate.name) { 
+
+                        if (data.certificate.name) {
                             formData.append('certificate', data.certificate);
                         }
 
@@ -186,7 +186,7 @@ const MemberForm = ({ method, memberId }) => {
                         formData.forEach((file, index) => {
                             newMember.append(index, file);
                         })
-                    
+
                         if (method === 'post') {
 
                             console.log(newMember.has('photo'));
@@ -199,15 +199,15 @@ const MemberForm = ({ method, memberId }) => {
                             createMember(token, newMember)
                                 .then((insertId) => {
 
-                                    if(groupId !== null){
+                                    if (groupId !== null) {
                                         getMemberById(token, insertId)
-                                        .then((res) => {
-                                            const member_liste = {
-                                                "members_list" : []
-                                            }
-                                            member_liste.members_list.push(res.member_details_id)
-                                            addMembersToGroup(token, groupId, member_liste)
-                                        })
+                                            .then((res) => {
+                                                const member_liste = {
+                                                    "members_list": []
+                                                }
+                                                member_liste.members_list.push(res.member_details_id)
+                                                addMembersToGroup(token, groupId, member_liste)
+                                            })
                                     }
 
                                     navigate('/member/' + insertId);
@@ -216,14 +216,14 @@ const MemberForm = ({ method, memberId }) => {
                                     console.log(newMember);
                                     console.log(error);
                                 });
-                            
-                            
-                            
+
+
+
                         }
                         if (method === 'put') {
                             updateMember(token, memberId, newMember)
                                 .then(() => {
-                                    if(groupId !== null){
+                                    if (groupId !== null) {
                                         addMembersToGroup(token, groupId, memId);
                                     }
                                     navigate('/member/' + memberId);
@@ -234,8 +234,11 @@ const MemberForm = ({ method, memberId }) => {
                         }
                     }
                 },
-                { label: 'Non', onClick: () => { 
-                    return; } }
+                {
+                    label: 'Non', onClick: () => {
+                        return;
+                    }
+                }
             ]
         })
 
@@ -244,7 +247,7 @@ const MemberForm = ({ method, memberId }) => {
 
     const handlePhotoName = (e) => {
         e.target.files[0].name && setPhotoName(e.target.files[0].name);
-       // console.log(e.target.files[0]);
+        // console.log(e.target.files[0]);
         setValue('photo', e.target.files[0]);
     }
 
@@ -254,206 +257,207 @@ const MemberForm = ({ method, memberId }) => {
     }
 
 
-  const handleFileAddition = () => {
+    const handleFileAddition = () => {
 
 
 
-  if (trimmedDataURL) {
+        if (trimmedDataURL) {
 
-     const filee = dataURLtoFile(trimmedDataURL, 'nouveau_fichier.png');
-    filee.name && setImage_rights_signatureName(filee.name);
-     setValue('image_rights_signature', filee);
+            const filee = dataURLtoFile(trimmedDataURL, 'nouveau_fichier.png');
+            filee.name && setImage_rights_signatureName(filee.name);
+            setValue('image_rights_signature', filee);
 
-   }
-  };
+        }
+    };
 
-  const handleImageLoad = (e) => {
-    
-    const imageElement = e.target;
-    const source = imageElement.src;
-    console.log('Image de la signature chargée' + source);
+    const handleImageLoad = (e) => {
+
+        const imageElement = e.target;
+        const source = imageElement.src;
+        console.log('Image de la signature chargée' + source);
 
 
 
-    setTrimmedDataURL(source);
-  };
+        setTrimmedDataURL(source);
+    };
 
-  const dataURLtoFile = (dataUrl, filename) => {
-    const arr = dataUrl.split(',');
-    const mime = arr[0].match(/:(.*?);/)[1];
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
+    const dataURLtoFile = (dataUrl, filename) => {
+        const arr = dataUrl.split(',');
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+
+        return new File([u8arr], filename, { type: mime });
+    };
+
+
+    const [nomPrenom, setnomPrenom] = useState('jean dupont');
+    const [isChecked, setIsChecked] = useState(false);
+
+    const handleCheckboxChange = () => {
+        setIsChecked(!isChecked);
+    };
+
+    const handleAddDroitPDF = async () => {
+
+        const nom = document.getElementById('lastname').value
+        const prenom = document.getElementById('firstname').value
+
+        const nomETPrenom = nom + ' ' + prenom;
+
+
+
+        // Utilisez la fonction setValue pour définir la valeur de l'input
+
+        await setnomPrenom(nomETPrenom);
+
+
+
     }
 
-    return new File([u8arr], filename, { type: mime });
-  };
 
-
-const [nomPrenom, setnomPrenom] = useState('jean dupont');
-const [isChecked, setIsChecked] = useState(false);
-
-const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-  };
-
-const handleAddDroitPDF = async () => {
-
-    const nom = document.getElementById('lastname').value
-    const prenom = document.getElementById('firstname').value
-
-    const nomETPrenom = nom + ' ' + prenom;
-   
-
-   
-    // Utilisez la fonction setValue pour définir la valeur de l'input
-   
-    await setnomPrenom(nomETPrenom);
-    
-
-
-  }
-  
-
-//   Je créé l'image png de la signture
-  const trim =  () => {
+    //   Je créé l'image png de la signture
+    const trim = () => {
         setTrimmedDataURL(sigPadRef.current.getTrimmedCanvas().toDataURL('image/png'));
-  };
+    };
 
 
-  const handlePDFReady = (pdfContent) => {
+    const handlePDFReady = (pdfContent) => {
 
-    const file = new File([pdfContent], 'fichier.pdf', { type: 'application/pdf' });
-  
-    setValue('image_rights_signature', file);
+        const file = new File([pdfContent], 'fichier.pdf', { type: 'application/pdf' });
 
-    trim();
-  };
+        setValue('image_rights_signature', file);
+
+        trim();
+    };
 
     return (
-        <form id='member-form' className='member-form' action="" onSubmit={handleSubmit(onSubmit)} >
+        <form id='member-form' className='member-form' action="" onSubmit={handleSubmit(onSubmit)}>
             <>
-            <h2>{method === 'post' ? 'Ajouter un membre' : 'Modifier un membre'}</h2>
-            <Input value='lastname' text='Nom' type='text' required register={register} />
-            <Input value='firstname' text='Prénom' type='text' required register={register} />
-            <Input value='birthday' text='Né(e) le' type='date' required register={register} />
-            <Input value='birthplace' text='Lieu de naissance' type='text' required register={register} />
-            <Input value='photo' text={photoName === '' ? method === 'post' ? 'Ajouter une photo' : 'Modifier la photo' : photoName} onChange={handlePhotoName} type='file' register={register} />
-            
-            <h2>Adresse :</h2>
-            <Input value='street' text='Numéro et nom de la rue' type='text' required register={register} />
-            <Input value='postal_code' text='Code postal' type='text' required register={register} />
-            <Input value='city' text='Ville' type='text' required register={register} />
-            <hr />
-            <Input value='living_with' text='Adresse secondaire' type='text' placeholder='Adresse secondaire' register={register} />
-            
-            <h2>Contacts :</h2>
-            <Input value='mail' text='Adresse mail' type='email' required register={register} />
-            <Input value='phone_number' text='N° de téléphone' type='tel' required register={register} />
-            <Input value='emergency_number' text="Numéro en cas d'urgence" type='tel' required register={register} />
-            
-            <h2>Informations :</h2>
-          
-            <Input value='certificate' text={certificate_medicalName === '' ? method === 'post' ? "Ajouter un certificat medicale" : "Modifier certificat medicale" : certificate_medicalName} onChange={handleCertificate_medicalName} type='file' register={register} />
-            <Input value='contraindication' text='Contraintes médicales (laisser vide si aucune)' type='text' register={register} />
+                <h2>{method === 'post' ? 'Ajouter un membre' : 'Modifier un membre'}</h2>
+                <Input value='lastname' text='Nom' type='text' required register={register} />
+                <Input value='firstname' text='Prénom' type='text' required register={register} />
+                <Input value='birthday' text='Né(e) le' type='date' required register={register} />
+                <Input value='birthplace' text='Lieu de naissance' type='text' required register={register} />
+                <Input value='photo' text={photoName === '' ? method === 'post' ? 'Ajouter une photo' : 'Modifier la photo' : photoName} onChange={handlePhotoName} type='file' register={register} />
 
-            <div className='subscription'>
-                <label htmlFor="subscription"><h2>Choix de la cotisation :</h2></label>
-                <select {...register('subscription')} required>
-                    {cotisations.map((cotisation) => (
-                        <option key={cotisation.name} value={cotisation.price}>{cotisation.name + ' - ' + cotisation.price + '€'}</option>
+                <h2>Adresse :</h2>
+                <Input value='street' text='Numéro et nom de la rue' type='text' required register={register} />
+                <Input value='postal_code' text='Code postal' type='text' required register={register} />
+                <Input value='city' text='Ville' type='text' required register={register} />
+                <hr />
+                <Input value='living_with' text='Adresse secondaire' type='text' placeholder='Adresse secondaire' register={register} />
+
+                <h2>Contacts :</h2>
+                <Input value='mail' text='Adresse mail' type='email' required register={register} />
+                <Input value='phone_number' text='N° de téléphone' type='tel' required register={register} />
+                <Input value='emergency_number' text="Numéro en cas d'urgence" type='tel' required register={register} />
+
+                <h2>Informations :</h2>
+
+                <Input value='certificate' text={certificate_medicalName === '' ? method === 'post' ? "Ajouter un certificat medicale" : "Modifier certificat medicale" : certificate_medicalName} onChange={handleCertificate_medicalName} type='file' register={register} />
+                <Input value='contraindication' text='Contraintes médicales (laisser vide si aucune)' type='text' register={register} />
+
+                <div className='subscription'>
+                    <label htmlFor="subscription"><h2>Choix de la cotisation :</h2></label>
+                    <select {...register('subscription')} required>
+                        {cotisations.map((cotisation) => (
+                            <option key={cotisation.name} value={cotisation.price}>{cotisation.name + ' - ' + cotisation.price + '€'}</option>
+                        ))}
+                    </select>
+                </div>
+                <Input value='reduction' text='Réduction 10€' type='checkbox' register={register} />
+                <br />
+
+
+                <label htmlFor='groupTo' className='input-group'>Choix du groupe</label>
+                <select id='groupTo' className='input-group' {...register('group')} onChange={getGroupInfo}>
+                    <option value="none">---</option>
+                    {allGroups.map((group) => (
+                        <option key={group.name} value={group.id}>{group.name}</option>
                     ))}
                 </select>
-            </div>
-            <Input value='reduction' text='Réduction 10€' type='checkbox' register={register} />
-            <br />
 
 
-            <label htmlFor='groupTo' className='input-group'>Choix du groupe</label>
-            <select id='groupTo'className='input-group' {...register('group')} onChange={getGroupInfo}>
-                <option value="none">---</option>
-                {allGroups.map((group) => (
-                    <option key={group.name} value={group.id}>{group.name}</option>
-                ))}
-            </select>
+                <h2>Signature </h2>
 
 
-            <h2>Signature </h2>
-            
+                <Input value='droits' text='J autorise le droit à l image' type='checkbox' register={register} checkeds={isChecked} onChange={() => {
+                    handleCheckboxChange();
 
-            <Input value='droits' text='J autorise le droit à l image' type='checkbox' register={register} checkeds={isChecked} onChange={() => {
-                handleCheckboxChange();
-                
                 }} />
-             
 
-            <div className="input-group">
-                <div className='container_button'>
+
+                <div className="input-group">
+                    <div className='container_button'>
                         <div className="buttons" onClick={clear}>
-                        <p style={{ color: 'white', fontSize: '20px', textAlign: 'center', paddingTop: '10px' }}> Supprimer </p>
+                            <p style={{ color: 'white', fontSize: '20px', textAlign: 'center', paddingTop: '10px' }}> Supprimer </p>
                         </div>
                         <div className="buttons" onClick={() => {
                             trim();
                             handleAddDroitPDF();
-                }}><p style={{ color: 'white', fontSize: '20px', textAlign: 'center', paddingTop: '10px' }}>Valider la signature</p>
+                        }}><p style={{ color: 'white', fontSize: '20px', textAlign: 'center', paddingTop: '10px' }}>Valider la signature</p>
                         </div>
-                        
-                    </div>
-                <div className="container">
-                    <div className="sigContainer">
 
-                        <SignaturePad
-                        canvasProps={{ className: "sigPad" }}
-                        ref={sigPadRef}
-                        />
                     </div>
-                    
+                    <div className="container">
+                        <div className="sigContainer">
 
-                   
+                            <SignaturePad
+                                canvasProps={{ className: "sigPad" }}
+                                ref={sigPadRef}
+                            />
+                        </div>
+
+
+
+
+                    </div>
 
                 </div>
-                
-            </div>
-            {trimmedDataURL && (
-                        <>
-                        <img className="sigImage" src={trimmedDataURL} alt={image_rights_signatureName} onClick={handleImageLoad} 
-                        onLoad={() => {
+                {trimmedDataURL && (
+                    <>
+                        <img className="sigImage" src={trimmedDataURL} alt={image_rights_signatureName} onClick={handleImageLoad}
+                            onLoad={() => {
                                 handleFileAddition();
                                 handleAddDroitPDF();
-                            }} 
+                            }}
                         />
                         <div className="container">
                             <div className="container_pdf">
-                            <PDFViewer width="90%" height={400}>
-                                    <MyPDF image={trimmedDataURL} 
-                                      droitImage={isChecked}
-                                      nomPRenom={nomPrenom}
+                                <PDFViewer width="90%" height={400}>
+                                    <MyPDF image={trimmedDataURL}
+                                        droitImage={isChecked}
+                                        nomPRenom={nomPrenom}
 
-                                      onPDFReady={handlePDFReady} 
-                                      onLoad={handleAddDroitPDF}/>
-                            </PDFViewer>
+                                        onPDFReady={handlePDFReady}
+                                        onLoad={handleAddDroitPDF} />
+                                </PDFViewer>
+                            </div>
                         </div>
-                        </div>
-                        
-                        
+
+
                     </>
                 )}
-      
-                  
-
-                
-           
-           
-            {/** Ajouter un fetch et un select */}
 
 
-            {/* rajouter un eneieme commentaire ici  */}
 
 
-        </form  >
+
+
+                {/** Ajouter un fetch et un select */}
+
+
+                {/* rajouter un eneieme commentaire ici  */}
+
+
+        </form>
     )
 }
+
 
 export default MemberForm
