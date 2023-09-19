@@ -36,6 +36,7 @@ const MemberForm = ({ method, memberId }) => {
     const [image_rights_signatureName, setImage_rights_signatureName] = useState('');
     const [allGroups, setAllGroups] = useState([]);
     const [groupId, setGroupId] = useState();
+    const [selectedFile, setSelectedFile] = useState([]);
 
     const memId = {
         "members_list": []
@@ -172,6 +173,10 @@ const MemberForm = ({ method, memberId }) => {
                             formData.append('certificate', data.certificate);
                         }
 
+                        if(data.otherFiles.name) {
+                            formData.append('other_file', data.otherFiles);
+                        }
+
 
                         // on transforme la data en JSON
                         const jsonData = JSON.stringify(newData);
@@ -195,6 +200,8 @@ const MemberForm = ({ method, memberId }) => {
                             console.log(newMember.get('image_rights_signature'));
                             console.log(newMember.has('certificate'));
                             console.log(newMember.get('certificate'));
+
+                            console.log(newMember)
 
                             createMember(token, newMember)
                                 .then((insertId) => {
@@ -249,6 +256,7 @@ const MemberForm = ({ method, memberId }) => {
         e.target.files[0].name && setPhotoName(e.target.files[0].name);
         // console.log(e.target.files[0]);
         setValue('photo', e.target.files[0]);
+        
     }
 
     const handleCertificate_medicalName = (e) => {
@@ -335,6 +343,16 @@ const MemberForm = ({ method, memberId }) => {
         trim();
     };
 
+    useEffect(() => {
+        console.log(selectedFile)
+    }, [selectedFile])
+
+    const handleFileSelect = (e) => {
+        const file = Array.from(e.target.files);
+        setSelectedFile(file)
+        setValue('otherFiles', e.target.files)
+    }
+
     return (
         <form id='member-form' className='member-form' action="" onSubmit={handleSubmit(onSubmit)}>
             <>
@@ -359,8 +377,10 @@ const MemberForm = ({ method, memberId }) => {
 
                 <h2>Informations :</h2>
 
+                
                 <Input value='certificate' text={certificate_medicalName === '' ? method === 'post' ? "Ajouter un certificat medicale" : "Modifier certificat medicale" : certificate_medicalName} onChange={handleCertificate_medicalName} type='file' register={register} />
-                <Input value='contraindication' text='Contraintes médicales (laisser vide si aucune)' type='text' register={register} />
+                <Input value='contraindication' text='Contraintes médicales (laisser vide si aucune)' type='text' register={register}/>
+                <Input value = 'other-files'  text={"Autres fichiers"} type={'file'} register={register} onChange={handleFileSelect} multiple={true}/>
 
                 <div className='subscription'>
                     <label htmlFor="subscription"><h2>Choix de la cotisation :</h2></label>
@@ -445,16 +465,12 @@ const MemberForm = ({ method, memberId }) => {
                 )}
 
 
-
-
-
-
-                {/** Ajouter un fetch et un select */}
+                {/* Ajouter un fetch et un select */}
 
 
                 {/* rajouter un eneieme commentaire ici  */}
 
-
+        </>
         </form>
     )
 }
