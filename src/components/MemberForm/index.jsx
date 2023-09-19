@@ -36,7 +36,7 @@ const MemberForm = ({ method, memberId }) => {
     const [image_rights_signatureName, setImage_rights_signatureName] = useState('');
     const [allGroups, setAllGroups] = useState([]);
     const [groupId, setGroupId] = useState();
-    const [selectedFile, setSelectedFile] = useState([]);
+    
 
     const memId = {
         "members_list": []
@@ -343,15 +343,7 @@ const MemberForm = ({ method, memberId }) => {
         trim();
     };
 
-    useEffect(() => {
-        console.log(selectedFile)
-    }, [selectedFile])
-
-    const handleFileSelect = (e) => {
-        const file = Array.from(e.target.files);
-        setSelectedFile(file)
-        setValue('otherFiles', e.target.files)
-    }
+   
 
     return (
         <form id='member-form' className='member-form' action="" onSubmit={handleSubmit(onSubmit)}>
@@ -380,7 +372,7 @@ const MemberForm = ({ method, memberId }) => {
                 
                 <Input value='certificate' text={certificate_medicalName === '' ? method === 'post' ? "Ajouter un certificat medicale" : "Modifier certificat medicale" : certificate_medicalName} onChange={handleCertificate_medicalName} type='file' register={register} />
                 <Input value='contraindication' text='Contraintes médicales (laisser vide si aucune)' type='text' register={register}/>
-                <Input value = 'other-files'  text={"Autres fichiers"} type={'file'} register={register} onChange={handleFileSelect} multiple={true}/>
+                
 
                 <div className='subscription'>
                     <label htmlFor="subscription"><h2>Choix de la cotisation :</h2></label>
