@@ -334,7 +334,7 @@ const handleAddDroitPDF = async () => {
 
     return (
         <form id='member-form' className='member-form' action="" onSubmit={handleSubmit(onSubmit)} >
-            <>
+            
             <h2>{method === 'post' ? 'Ajouter un membre' : 'Modifier un membre'}</h2>
             <Input value='lastname' text='Nom' type='text' required register={register} />
             <Input value='firstname' text='Prénom' type='text' required register={register} />
@@ -452,7 +452,7 @@ const handleAddDroitPDF = async () => {
             {/* rajouter un eneieme commentaire ici  */}
 
 
-        </form  >
+        </form>
     )
 }
 
