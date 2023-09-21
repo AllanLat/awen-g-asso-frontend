@@ -140,7 +140,7 @@ const Group = () => {
                 <p>Adhérents : </p>
                 <div className="button-add-suppr-member">
                     <Link to={`/group/${group_id}/addmembers`}>Ajouter un adhérent</Link>
-                    <Link to={`/group/${group_id}/addmembers`}>Supprimer un adhérent</Link>
+                    <Link to={`/group/${group_id}/removeusers`}>Supprimer un adhérent</Link>
                 </div>
             </div>
             
