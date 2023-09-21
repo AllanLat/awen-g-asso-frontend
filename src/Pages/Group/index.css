@@ -69,7 +69,7 @@
 
 .group-page-members-title {
     width: 100%;
-    height: 6rem;
+    height: 8.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -137,4 +137,18 @@
     align-items: center;
     padding: 2rem;
     gap: 1rem;
+}
+
+.button-add-suppr-member
+{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    align-items: center;
+}
+
+.button-add-suppr-member > a
+{
+    margin: 3px;
+    width: 100%;
 }
