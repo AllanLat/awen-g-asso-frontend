@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { getGroupById, getMembersByGroupId } from '../../api/groups';
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { getGroupById, getMembersByGroupId, removeMembersToGroup } from '../../api/groups';
+import { toast, Slide } from 'react-toastify';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import '../../utils/css/customConfirm.css'
 
 import GlassButton from "../../components/GlassButton";
 import Navbar from "../../components/Navbar";
@@ -8,10 +12,14 @@ import MemberCard from "../../components/MemberCard";
 
 
 
+
+
 const RemoveMembersToGroup = () => {
     
     const [groupName, setGroupName] = useState('');
     const [membersToDisplay, setMembersToDisplay] = useState([]);
+
+    const navigate = useNavigate();
 
     const { group_id } = useParams();
     const token = sessionStorage.getItem('token')
@@ -30,6 +38,33 @@ const RemoveMembersToGroup = () => {
         }
         fetchGroup();
     },[token,group_id])
+
+    const onCardClick = (memberId) => {
+        console.log(memberId)
+        confirmAlert({
+            message : "Voulez-vous vraiment supprimer ce membre du goupe ?",
+            closeOnClickOutside : false,
+            buttons : [{
+                label: 'Oui', onClick: () => {
+                    const members_list = {
+                        "members_list": []
+                    }
+                    members_list.members_list.push(memberId)
+                    console.log(members_list)
+                    try {
+                        removeMembersToGroup(token, group_id, members_list)
+                    } catch (error) {
+                        console.log(error)
+                    } finally {
+                        toast.success('Adhérent supprimé du groupe', { transition: Slide, position: 'bottom-center', className: 'myCustomToast' });
+                        navigate(`/group/${group_id}`);
+                    }
+                } },
+                {label: 'Non', onClick: () => {return}}
+            ]
+        })
+    }
+
     return (
         <>
             <Navbar title={groupName} />
@@ -41,7 +76,7 @@ const RemoveMembersToGroup = () => {
                     {membersToDisplay
                     .sort((a, b) => a.lastname.localeCompare(b.lastname))
                     .map(member => ( 
-                        <MemberCard key={member.id} member={member} /> 
+                        <MemberCard key={member.id} member={member} onClick={() => onCardClick(member.id)} /> 
                     ))}
                 
                 </div>
