@@ -1,0 +1,23 @@
+.members-display
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    margin-top: 10rem;
+    overflow: auto;
+}
+
+.presence-group-title
+{
+    position: fixed;
+    top: 6rem;
+    height: 4rem;
+    padding: 1rem;
+    font-size: 2.5rem;
+    font-weight: 400;
+    text-align: center;
+    width: 100%;
+}

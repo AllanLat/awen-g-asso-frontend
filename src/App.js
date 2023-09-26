@@ -26,6 +26,7 @@ import UpdateGroup from './Pages/UpdateGroup';
 import AddUsersToGroup from './Pages/AddUsersToGroup';
 import AddMembersToGroup from './Pages/AddMembersToGroup';
 import RemoveMembersToGroup from './Pages/RemoveMembersToGroup';
+import Presences from './Pages/Presences';
 
 import Error from './Pages/Error';
 import Disclaimer from './Pages/Disclaimer';
@@ -67,6 +68,7 @@ function App() {
         <Route path="/group/:group_id/addusers" element={<AddUsersToGroup />} />
         <Route path="/group/:group_id/removeusers" element={<RemoveMembersToGroup />} />
         <Route path="/group/:group_id/addmembers" element={<AddMembersToGroup />} />
+        <Route path='/group/:group_id/presences' element={<Presences />} />
         
 
         <Route path="/disclaimer" element={<Disclaimer />} />
