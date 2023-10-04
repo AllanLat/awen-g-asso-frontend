@@ -24,6 +24,7 @@ const AddMembersToGroup = () => {
 
     const navigate = useNavigate();
 
+
     useEffect(() => {
         const fetchGroup = async () => {
             try {
@@ -33,6 +34,7 @@ const AddMembersToGroup = () => {
                 const members = await getMembersByGroupId(token, group_id);
 
                 const allMembers = await getMembers(token);
+                
                 setMembersToDisplay(allMembers.filter(
                     member => !members.map(member => member.id).includes(member.id)
                 ))

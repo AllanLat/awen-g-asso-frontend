@@ -144,6 +144,28 @@ const addMembersToGroup = async (token, groupId, members_list) => {
     }
 }
 
+const removeMembersToGroup = async (token, groupId, members_list) => {
+    try{
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/groups/${groupId}/members/`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify(members_list)
+        });
+        const result = await response.json()
+        if(response.status === 200){
+            return result
+        } else if (response.status !== 400){
+            return console.log(response.status)
+        }
+
+    }catch(error) {
+        console.log(error)
+    }
+}
+
 const createGroup = async (token, newGroup) => {
 
     const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/groups`, {
@@ -186,4 +208,46 @@ const updateGroup = async (token, id, newGroup) => {
     }
 }
 
-export { getGroupsByDayId, createGroup, updateGroup, getGroupById, getUsersByGroupId, getMembersByGroupId, addUsersToGroup, addMembersToGroup, getGroups };
+const updateMembersCount = async (token, group_id, members_list) => {
+
+    try{
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/groups/${group_id}/presence`, {
+            method :'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify(members_list)
+        });
+
+        const result = await response.json()
+        if(response.status === 200){
+            return result
+        }
+    }catch(err){
+        console.log(err)
+    }
+}
+
+const addMemberList = async (token, listDetails) => {
+
+    try{
+        console.log(JSON.stringify(listDetails))
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/groups/presence`, {
+            method :'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify(listDetails)
+        });
+
+        const result = await response.json()
+        if(response.status === 200){
+            return result
+        }
+    }catch(err){
+        console.log(err)
+    }
+}
+export { getGroupsByDayId, createGroup, updateGroup, getGroupById, getUsersByGroupId, getMembersByGroupId, addUsersToGroup, addMembersToGroup, getGroups, removeMembersToGroup, updateMembersCount,addMemberList};

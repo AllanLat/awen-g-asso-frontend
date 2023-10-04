@@ -36,6 +36,7 @@ const MemberForm = ({ method, memberId }) => {
     const [image_rights_signatureName, setImage_rights_signatureName] = useState('');
     const [allGroups, setAllGroups] = useState([]);
     const [groupId, setGroupId] = useState();
+    const [ribName, setRibName] = useState('');
     
     const memId = {
         "members_list" : []
@@ -159,6 +160,11 @@ const MemberForm = ({ method, memberId }) => {
                         // on construit ici les formData pour les fichiers s'ils existent
                         const formData = new FormData();
 
+
+                        if(data.rib.name){
+                            formData.append('rib', data.rib)
+                        }
+
                         if (data.photo.name) {
                             formData.append('photo', data.photo);
                         }
@@ -172,7 +178,6 @@ const MemberForm = ({ method, memberId }) => {
                             formData.append('certificate', data.certificate);
                         }
 
-
                         // on transforme la data en JSON
                         const jsonData = JSON.stringify(newData);
 
@@ -185,7 +190,9 @@ const MemberForm = ({ method, memberId }) => {
                         // on ajoute les fichiers au formData
                         formData.forEach((file, index) => {
                             newMember.append(index, file);
-                        })
+                        }) 
+                        
+                        console.log(newMember)
                     
                         if (method === 'post') {
 
@@ -195,6 +202,9 @@ const MemberForm = ({ method, memberId }) => {
                             console.log(newMember.get('image_rights_signature'));
                             console.log(newMember.has('certificate'));
                             console.log(newMember.get('certificate'));
+                            console.log(newMember.has('rib'));
+                            console.log(newMember.get('rib'));
+                            
 
                             createMember(token, newMember)
                                 .then((insertId) => {
@@ -332,9 +342,15 @@ const handleAddDroitPDF = async () => {
     trim();
   };
 
+   
+    const handleFileSelect = (e) => {
+       e.target.files[0].name && setRibName(e.target.files[0].name);
+       setValue('rib', e.target.files[0])
+    }
+
     return (
         <form id='member-form' className='member-form' action="" onSubmit={handleSubmit(onSubmit)} >
-            <>
+            
             <h2>{method === 'post' ? 'Ajouter un membre' : 'Modifier un membre'}</h2>
             <Input value='lastname' text='Nom' type='text' required register={register} />
             <Input value='firstname' text='Prénom' type='text' required register={register} />
@@ -358,6 +374,7 @@ const handleAddDroitPDF = async () => {
           
             <Input value='certificate' text={certificate_medicalName === '' ? method === 'post' ? "Ajouter un certificat medicale" : "Modifier certificat medicale" : certificate_medicalName} onChange={handleCertificate_medicalName} type='file' register={register} />
             <Input value='contraindication' text='Contraintes médicales (laisser vide si aucune)' type='text' register={register} />
+            <Input value = 'rib'  text={ribName === '' ?  "RIB" : ribName} type={'file'} register={register} onChange={handleFileSelect} multiple={true}/>
 
             <div className='subscription'>
                 <label htmlFor="subscription"><h2>Choix de la cotisation :</h2></label>
