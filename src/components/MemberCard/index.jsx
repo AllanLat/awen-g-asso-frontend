@@ -12,15 +12,11 @@ const MemberCard = ({ member, onClick }) => {
   let paidOrAdmin = false;
   let noPayNoAdmin = false;
 
-  if(member.certificate === null && member.paid <= member.subscription){
+  if(member.certificate === null && member.paid < member.subscription){
     noPayNoAdmin = true;
     paidAndAdmin = false;
     paidOrAdmin = false;
-  } else if(member.certificate !== null && member.paid <= member.subscription){
-    paidOrAdmin = true;
-    paidAndAdmin = false;
-    noPayNoAdmin = false;
-  } else if(member.certificate === null && member.paid === member.subscription){
+  } else if(member.certificate === null || member.paid < member.subscription){
     paidOrAdmin = true;
     paidAndAdmin = false;
     noPayNoAdmin = false;
