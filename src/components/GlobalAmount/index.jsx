@@ -4,6 +4,7 @@ const GlobalAmount = ({amount}) => {
 
     
     const isNegative = amount <= 0
+    
     return(
         <div className='amount'>
             <p className={isNegative ? "detail-amount red" : "detail-amount green"}>{amount}€</p>

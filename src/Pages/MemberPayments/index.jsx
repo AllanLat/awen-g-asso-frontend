@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import Navbar from "../../components/Navbar"
 import GlassButton from "../../components/GlassButton";
 import TransactionCard from "../../components/TransactionCard";
-import GlobalAmount from "../../components/GlobalAmount";
+import GlobalAmountMember from "../../components/GlobalAmountMember";
 import ModalAccount from "../account/ModalAccount";
 import ButtonSort from "../../components/ButtonSort";
 
@@ -111,7 +111,7 @@ const MemberPayments  = () => {
             <Navbar title={member.lastname + " " + member.firstname}/>
 
             <div className="member-global-amount">
-                <GlobalAmount amount={member.paid} />
+                <GlobalAmountMember amount={member.paid} subscription={member.subscription} />
                 <p className="cotisation">Cotisation à  <strong>{member.subscription}€</strong></p>
             </div>
 
