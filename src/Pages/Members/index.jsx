@@ -32,6 +32,7 @@ const Members = () => {
     membersListRef.current.scrollIntoView( { behavior: 'smooth' } );
   };
 
+  console.log(members)
   return (
     <>
       <Navbar title="Adhérents" />

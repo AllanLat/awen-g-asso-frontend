@@ -56,3 +56,9 @@
 .member:hover .card-button {
     background-color: var(--primaryButtonHover);
 }
+
+.member-state
+{
+    width: 3%;
+    margin-right: 30px;
+}
