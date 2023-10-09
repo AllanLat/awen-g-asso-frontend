@@ -12,7 +12,7 @@ const MemberCardPresence = ({member, onClick}) => {
     
     const handleOnClick = () => {
         setIsChecked(!isChecked);
-        console.log(isChecked);
+        //console.log(isChecked);
         onClick();
     }
 

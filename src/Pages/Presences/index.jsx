@@ -3,9 +3,12 @@ import './index.css'
 import Navbar from "../../components/Navbar";
 import GlassButton from "../../components/GlassButton";
 import MemberCardPresence from '../../components/MemberCardPresence';
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { getMembersByGroupId, updateMembersCount,addMemberList } from "../../api/groups";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import '../../utils/css/customConfirm.css'
 
 const Presences = () =>{
 
@@ -15,6 +18,7 @@ const Presences = () =>{
     const [membersToDisplay, setMembersToDisplay] = useState([]);
     const [membersPresent, setMembersPresent] = useState([]);
     const [membersPresentId, setMembersPresentId ] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchMembers = async () => {
@@ -55,7 +59,7 @@ const Presences = () =>{
     const validerTest = async () => {
 
         const listOfPresence = membersPresent.join("/")
-        console.log(listOfPresence)
+        //console.log(listOfPresence)
         const listDetail = {
             "associationId": sessionStorage.getItem('associationId'),
             "group_id": group_id,
@@ -64,8 +68,19 @@ const Presences = () =>{
         }
         console.log(listDetail)
         try{
-            await updateMembersCount(token, group_id, membersPresentId);
-            await addMemberList(token, listDetail)
+            const res = await updateMembersCount(token, group_id, membersPresentId);
+            console.log(res);
+            const result = await addMemberList(token, listDetail)
+            console.log(result);
+            //Ajouter popup de confirmation
+            confirmAlert({
+                message: 'Les présences ont bien été validées',
+                closeOnClickOutside: false,
+                buttons: [
+                    { label: 'Ok', onClick: () => { navigate(`/group/${group_id}`); } }
+                ]
+            })
+
         }catch(err){
             console.log(err)
         }
@@ -73,7 +88,7 @@ const Presences = () =>{
 
     return(
         <>
-            <Navbar title={"Papiii"} />
+            <Navbar title={"Presences"} />
             <h2 className='presence-group-title'>Valider les présences</h2>
             <div className="members-display">
                 {membersToDisplay.map(member => 

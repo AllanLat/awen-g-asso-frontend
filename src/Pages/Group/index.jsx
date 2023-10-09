@@ -117,7 +117,8 @@ const Group = () => {
 
     return (
         <>
-            <Navbar title={group.name} />
+           <Navbar title="Groupe" />
+
             <div className="group-page-time">
                 <p className="group-page-day">{dayNumberToDayName(group.group_day)}</p>
                 <p className="group-page-hours">
