@@ -1,0 +1,23 @@
+.error-page {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--backgroundPrimary);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.error-page p {
+    font-size: 2rem;
+}
+
+.error-page a  {
+    font-size: 3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--primaryButton);
+}

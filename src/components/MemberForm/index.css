@@ -1,0 +1,43 @@
+.member-form {
+    z-index: 901;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+    margin-bottom: 200px;
+    /* overflow: scroll; */
+}
+
+.member-form label {
+    font-size: 2rem;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 25);
+}
+
+
+.member-form h2 {
+    align-self: flex-start;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 25);
+    -webkit-text-stroke: 1px var(--primaryButton);
+    margin-block: 1rem;
+}
+
+.member-form h2:first-of-type {
+    align-self: center;
+}
+
+.subscription {
+    align-self: start;
+    gap: 1rem;
+}
+
+.subscription select {
+    font-size: 2.5rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+

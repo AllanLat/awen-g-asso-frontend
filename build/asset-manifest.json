@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "./static/css/main.72b49553.css",
+    "main.js": "./static/js/main.b6d3a774.js",
+    "static/js/787.4511b80c.chunk.js": "./static/js/787.4511b80c.chunk.js",
+    "static/media/greenCheck.png": "./static/media/greenCheck.b4ed617b5ed0f08ea0a5.png",
+    "static/media/lato-v24-latin-regular.woff2": "./static/media/lato-v24-latin-regular.be36596da218e1eec01c.woff2",
+    "static/media/lato-v24-latin-700.woff2": "./static/media/lato-v24-latin-700.8f28e0e1fdb195149f1c.woff2",
+    "static/media/lato-v24-latin-900.woff2": "./static/media/lato-v24-latin-900.4b21d625362d4f7d84d2.woff2",
+    "index.html": "./index.html",
+    "static/media/circle-scatter-haikei.svg": "./static/media/circle-scatter-haikei.9ce65d0513fec105a05c.svg",
+    "main.72b49553.css.map": "./static/css/main.72b49553.css.map",
+    "main.b6d3a774.js.map": "./static/js/main.b6d3a774.js.map",
+    "787.4511b80c.chunk.js.map": "./static/js/787.4511b80c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.72b49553.css",
+    "static/js/main.b6d3a774.js"
+  ]
+}

@@ -1,0 +1,105 @@
+.input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    gap: 1rem;
+    margin-block: 1rem;
+}
+
+.input-group label {
+    padding-left: 1rem;
+    font-size: 1.8rem;
+}
+
+
+
+.input-group input {
+    border-radius: 20px;
+    padding: 1rem 1.5rem;
+    font-size: 2rem;
+    color: var(--fontSecondary);
+}
+
+.input-group input::placeholder {
+    opacity: 0.5;
+    color: var(--fontSecondary);
+    font-style: italic;
+}
+
+input[type="file"] {
+    display: none;
+}
+input[type="checkbox"] {
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--primaryButton);
+    border: 1px solid var(--primaryButton);
+    border-radius: 5px;
+    transition: all ease-in-out 0.3s;
+}
+
+input[type="checkbox"]:hover {
+    background-color: var(--primaryButtonHover);
+}
+
+.input-group-checkbox {
+    width: 100%;
+    display: flex;
+    text-align: start;
+    gap: 1rem;
+    margin-block: 1rem;
+}
+
+.input-group-checkbox {
+    flex-direction: row;
+}
+
+.custom-file-upload {
+    width: 100%;
+    background-color: var(--dashMenuColor);
+    border-radius: 16px;
+    border: 1px solid var(--dashMenuBorder);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 25);
+    cursor: pointer;
+    padding: 1.5rem;
+    padding-right: 7rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-file-upload::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--primaryButton);
+    background-image: url('../../assets/img/arrow.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 6rem;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all ease-in-out 0.3s;
+}
+
+.custom-file-upload:hover::before {
+    background-color: var(--primaryButtonHover);
+}
+
+
+
+
+
+
+
+
+
+
+
+

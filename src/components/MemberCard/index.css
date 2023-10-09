@@ -1,0 +1,58 @@
+.member {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dashMenuColor);
+    border-radius: 16px;
+    border: 1px solid var(--dashMenuBorder);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 25);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.member .card-content {
+    flex: flex-start;
+    width: calc(100% - 18rem);
+    height: 10rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.member .card-content p {
+    font-size: 1.4rem;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 25);
+}
+
+.member .card-picture {
+    width: 10rem;
+    height: 10rem;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+
+.member .card-button {
+    background-color: var(--primaryButton);
+    background-image: url('../../assets/img/arrow.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 8rem;
+    height: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all ease-in-out 0.3s;
+}
+
+
+
+.member:hover .card-button {
+    background-color: var(--primaryButtonHover);
+}

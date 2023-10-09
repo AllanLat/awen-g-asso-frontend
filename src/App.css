@@ -1,0 +1,110 @@
+/* #region FONTS */
+/* lato-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../public/fonts/lato-v24-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* lato-700 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../public/fonts/lato-v24-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* lato-900 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../public/fonts/lato-v24-latin-900.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* #endregion */
+
+/* css de toastify */
+.myCustomToast {
+  background-color: var(--primaryButton) !important; /* Remplacez par la couleur de votre choix */
+  background: var(--primaryButton) !important;
+  color: #FFF !important; 
+  font-size: 3.6rem !important; 
+  font-weight: 700 !important;
+  font-family: 'Lato', sans-serif !important;
+  text-align: center;
+}
+
+.myCustomToast .Toastify__close-button {
+  color: #FFF !important; 
+}
+
+/* css de loading ClipLoader */
+.loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--navbarColor);
+  color : var(--fontPrimary)
+}
+
+
+
+
+:root {
+  --fontPrimary: #FFF;
+  --fontSecondary: #160B26;
+  --backgroundPrimary: #160B26;
+  --primaryButton: #633C7D;
+  --primaryButtonHover: #8D549A;
+  --navbarColor: rgba(99, 60, 125, 0.5);
+  --modalMenuColor: #633C7D;
+  --dashMenuColor: rgba(255, 255, 255, 0.05);
+  --dashMenuColorHover: rgba(255, 255, 255, 0.10);
+  --dashMenuBorder: rgba(255, 255, 255, 0.30);
+  --glassButtonColor: rgba(255, 255, 255, 0.05);
+  --glassButtonColorHover: rgba(255, 255, 255, 0.15);
+  --glassButtonBorder: rgba(255, 255, 255, 0.30);
+  --fontPlaceholder: rgba(255, 255, 255, 0.50);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  font-size: 62.5%;
+  line-height: 2rem;
+}
+
+body {
+  width: 100%;
+  overflow: overlay;
+  overflow-x: hidden !important;
+  font-family: 'Lato', sans-serif;
+  color: var(--fontPrimary);
+  background-image: url('./assets/img/circle-scatter-haikei.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+a {
+  width: 100%;
+  text-decoration: none;
+  color: var(--fontPrimary);
+}
