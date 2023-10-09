@@ -58,14 +58,9 @@ const MemberForm = ({ method, memberId }) => {
         return `${year}-${month}-${day}`;
     };
 
-
-
     const clear = () => {
         sigPadRef.current.clear();
     };
-
-
-  
 
     useEffect(() => {
         if (method === 'post') {
@@ -91,6 +86,7 @@ const MemberForm = ({ method, memberId }) => {
                 setValue('subscription', memberData.subscription);
 
                 setValue('contraindication', memberData.member_detail.contraindication);
+                setValue('information', memberData.member_detail.information);
 
                 
             } catch (error) {
@@ -122,8 +118,6 @@ const MemberForm = ({ method, memberId }) => {
     }
     // on utilise la fonction getMemberById pour récupérer le membre si on est en update pour afficher les données
     
- 
-
     const onSubmit = (data) => {
         confirmAlert({
             message: 'Voulez-vous vraiment soumettre ce formulaire ?',
@@ -138,6 +132,9 @@ const MemberForm = ({ method, memberId }) => {
                         if (data.reduction === true) {
                             data.subscription -= 10;
                         }
+                        
+                        console.log("ci-dessous");
+                        console.log(data.information);
 
                         const newData = {
                             "street": data.street,
@@ -156,6 +153,7 @@ const MemberForm = ({ method, memberId }) => {
                             "payment_status": 0,
                             "subscription": data.subscription,
                             "paid": 0,
+                            "information": data.information,
                         }
 
                         // on construit ici les formData pour les fichiers s'ils existent
@@ -198,17 +196,7 @@ const MemberForm = ({ method, memberId }) => {
                         console.log(newMember)
                     
                         if (method === 'post') {
-
-                            console.log(newMember.has('photo'));
-                            console.log(newMember.get('photo'));
-                            console.log(newMember.has('image_rights_signature'));
-                            console.log(newMember.get('image_rights_signature'));
-                            console.log(newMember.has('certificate'));
-                            console.log(newMember.get('certificate'));
-                            console.log(newMember.has('rib'));
-                            console.log(newMember.get('rib'));
                             
-
                             createMember(token, newMember)
                                 .then((insertId) => {
 
@@ -230,12 +218,12 @@ const MemberForm = ({ method, memberId }) => {
                                     console.log(error);
                                 });
                             
-                            
-                            
                         }
                         if (method === 'put') {
+
                             updateMember(token, memberId, newMember)
                                 .then(() => {
+                                    console.log(newMember);
                                     if(groupId !== null){
                                         addMembersToGroup(token, groupId, memId);
                                     }
@@ -294,9 +282,6 @@ const MemberForm = ({ method, memberId }) => {
 
   };
 
-//   End PDF
-
-
   const dataURLtoFile = (dataUrl, filename) => {
     const arr = dataUrl.split(',');
     const mime = arr[0].match(/:(.*?);/)[1];
@@ -309,6 +294,7 @@ const MemberForm = ({ method, memberId }) => {
 
     return new File([u8arr], filename, { type: mime });
   };
+
 
 // Parametre par defaultP
 const [nomPrenom, setnomPrenom] = useState('jean dupont');
@@ -339,6 +325,9 @@ const handleAddDroitPDF = async () => {
   };
 
 
+
+
+
   const handlePDFReady = (pdfContent) => {
 
     const file = new File([pdfContent], 'fichier.pdf', { type: 'application/pdf' });
@@ -347,6 +336,8 @@ const handleAddDroitPDF = async () => {
 
     trim();
   };
+
+//   End PDF
 
 
     return (
@@ -372,11 +363,13 @@ const handleAddDroitPDF = async () => {
             <Input value='emergency_number' text="Numéro en cas d'urgence" type='tel' required register={register} />
             
             <h2>Informations :</h2>
-          
-            <Input value='certificate' text={certificate_medicalName === '' ? method === 'post' ? "Ajouter un certificat medicale" : "Modifier certificat medicale" : certificate_medicalName} onChange={handleCertificate_medicalName} type='file' register={register} />
             <Input value='contraindication' text='Contraintes médicales (laisser vide si aucune)' type='text' register={register} />
-            <Input value = 'rib'  text={ribName === '' ?  "RIB" : ribName} type={'file'} register={register} onChange={handleRibSelect} multiple={true}/>
 
+            <Input value='certificate' text={certificate_medicalName === '' ? method === 'post' ? "Ajouter un certificat medicale" : "Modifier certificat medicale" : certificate_medicalName} onChange={handleCertificate_medicalName} type='file' register={register} />
+             
+             <Input value='information' text='Informations paiement ou autres' type='text' register={register} />
+             <Input value = 'rib'  text={ribName === '' ?  "RIB" : ribName} type={'file'} register={register} onChange={handleRibSelect} multiple={true}/>
+           
             <div className='subscription'>
                 <label htmlFor="subscription"><h2>Choix de la cotisation :</h2></label>
                 <select {...register('subscription')} required>
