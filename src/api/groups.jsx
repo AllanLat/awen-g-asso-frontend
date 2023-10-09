@@ -21,7 +21,7 @@ const getGroupsByDayId = async (token, dayId) => {
 const getGroups = async (token) => {
 
     try {
-        const response = await fetch('https://api.g-asso.com/api/v1/groups', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/groups`, {
             method : "GET",
             headers: {
                 'Content-Type': 'application/json',

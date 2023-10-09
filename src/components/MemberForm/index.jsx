@@ -34,9 +34,10 @@ const MemberForm = ({ method, memberId }) => {
     const [photoName, setPhotoName] = useState('');
     const [certificate_medicalName, setCertificate_medicalName] = useState('');
     const [image_rights_signatureName, setImage_rights_signatureName] = useState('');
+    const [ribName, setRibName] = useState('');
     const [allGroups, setAllGroups] = useState([]);
     const [groupId, setGroupId] = useState();
-    const [ribName, setRibName] = useState('');
+    
     
     const memId = {
         "members_list" : []
@@ -265,18 +266,23 @@ const MemberForm = ({ method, memberId }) => {
         setValue('certificate', e.target.files[0]);
     }
 
+       
+    const handleRibSelect = (e) => {
+        e.target.files[0].name && setRibName(e.target.files[0].name);
+        setValue('rib', e.target.files[0])
+     }
+ 
 
+    /** Gestion du  PDF */
   const handleFileAddition = () => {
 
+    if (trimmedDataURL) {
 
+        const filee = dataURLtoFile(trimmedDataURL, 'nouveau_fichier.png');
+        filee.name && setImage_rights_signatureName(filee.name);
+        setValue('image_rights_signature', filee);
 
-  if (trimmedDataURL) {
-
-     const filee = dataURLtoFile(trimmedDataURL, 'nouveau_fichier.png');
-    filee.name && setImage_rights_signatureName(filee.name);
-     setValue('image_rights_signature', filee);
-
-   }
+    }
   };
 
   const handleImageLoad = (e) => {
@@ -284,11 +290,12 @@ const MemberForm = ({ method, memberId }) => {
     const imageElement = e.target;
     const source = imageElement.src;
     console.log('Image de la signature chargée' + source);
-
-
-
     setTrimmedDataURL(source);
+
   };
+
+//   End PDF
+
 
   const dataURLtoFile = (dataUrl, filename) => {
     const arr = dataUrl.split(',');
@@ -303,10 +310,11 @@ const MemberForm = ({ method, memberId }) => {
     return new File([u8arr], filename, { type: mime });
   };
 
-
+// Parametre par defaultP
 const [nomPrenom, setnomPrenom] = useState('jean dupont');
 const [isChecked, setIsChecked] = useState(false);
 
+// Gestion d'état de la coche
 const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
@@ -317,14 +325,10 @@ const handleAddDroitPDF = async () => {
     const prenom = document.getElementById('firstname').value
 
     const nomETPrenom = nom + ' ' + prenom;
-   
 
-   
     // Utilisez la fonction setValue pour définir la valeur de l'input
    
     await setnomPrenom(nomETPrenom);
-    
-
 
   }
   
@@ -344,11 +348,6 @@ const handleAddDroitPDF = async () => {
     trim();
   };
 
-   
-    const handleFileSelect = (e) => {
-       e.target.files[0].name && setRibName(e.target.files[0].name);
-       setValue('rib', e.target.files[0])
-    }
 
     return (
         <form id='member-form' className='member-form' action="" onSubmit={handleSubmit(onSubmit)} >
@@ -376,7 +375,7 @@ const handleAddDroitPDF = async () => {
           
             <Input value='certificate' text={certificate_medicalName === '' ? method === 'post' ? "Ajouter un certificat medicale" : "Modifier certificat medicale" : certificate_medicalName} onChange={handleCertificate_medicalName} type='file' register={register} />
             <Input value='contraindication' text='Contraintes médicales (laisser vide si aucune)' type='text' register={register} />
-            <Input value = 'rib'  text={ribName === '' ?  "RIB" : ribName} type={'file'} register={register} onChange={handleFileSelect} multiple={true}/>
+            <Input value = 'rib'  text={ribName === '' ?  "RIB" : ribName} type={'file'} register={register} onChange={handleRibSelect} multiple={true}/>
 
             <div className='subscription'>
                 <label htmlFor="subscription"><h2>Choix de la cotisation :</h2></label>
