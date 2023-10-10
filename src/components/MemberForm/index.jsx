@@ -372,7 +372,7 @@ const handleAddDroitPDF = async () => {
            
             <div className='subscription'>
                 <label htmlFor="subscription"><h2>Choix de la cotisation :</h2></label>
-                <select {...register('subscription')} required>
+                <select id='subscription' {...register('subscription')} required>
                     {cotisations.map((cotisation) => (
                         <option key={cotisation.name} value={cotisation.price}>{cotisation.name + ' - ' + cotisation.price + '€'}</option>
                     ))}
