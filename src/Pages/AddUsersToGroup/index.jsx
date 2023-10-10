@@ -61,7 +61,7 @@ const AddUsersToGroup = () => {
                         "users_list": []
                     }
                     users_list.users_list.push(userId)
-                    console.log(users_list)
+                   // console.log(users_list)
                     try {
                         addUsersToGroup(token, group_id, users_list)
                     } catch (error) {

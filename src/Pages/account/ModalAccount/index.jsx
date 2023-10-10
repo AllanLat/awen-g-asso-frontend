@@ -22,7 +22,7 @@ const ModalAccount = ({isOpen, toggleOpen, total, member_id}) => {
     }
     
     const onSubmit = async (data) => {
-        console.log("coucou")
+       // console.log("coucou")
         //on regarde si c'est un credit ou un débit
         if (isValid === true) {
             if(data.credOrDeb === "Débit"){
@@ -34,7 +34,7 @@ const ModalAccount = ({isOpen, toggleOpen, total, member_id}) => {
             }
             
             const tot = total[0]?.balance || 0
-            console.log(tot)
+            //console.log(tot)
             data.balance = tot
             delete data.amount
 
@@ -50,7 +50,7 @@ const ModalAccount = ({isOpen, toggleOpen, total, member_id}) => {
                 onCloseAccount()
             }      
         } else {
-            console.log('champ mal rempli')
+            //console.log('champ mal rempli')
         }
         
     }

@@ -78,7 +78,7 @@ const Account = () => {
             default: 
                 console.log("Il y a un problème")
         }     
-           console.log(payments)
+           //console.log(payments)
     }
 
     const convertPaymentDate = (datefromDB) => {

@@ -38,6 +38,8 @@ const Member = () => {
                 if (!member || member === "Le membre n'existe pas.") {
                     navigate('/error');
                 }
+
+                //console.log(member.certificate);
                 // Mettre en forme les données ici
                 const formattedMember = {
                     ...member,
@@ -57,9 +59,12 @@ const Member = () => {
                     emergency_number: member.member_detail.emergency_number,
                     image_rights_signature: "data:application/pdf;base64,"+member.member_detail.image_rights_signature,
                     contraindication: member.member_detail.contraindication,
+                    certificate: "data:image/jpeg;base64,"+ member.certificate,
+                    rib: "data:image/jpeg;base64,"+ member.member_detail.rib,
     
                     paid: member.paid,
-                    subscription: member.subscription
+                    subscription: member.subscription,
+                    information: member.member_detail.information
                 };
                 
                 setMember(formattedMember);
@@ -111,12 +116,25 @@ const Member = () => {
                         <h2 className="image-rights">Droits à l'image : {Ismember.image_rights_signature ? "Oui" : "Non"} </h2>
                         <h2>Contre-indication(s) :</h2> 
                         <p>{Ismember.contraindication ? Ismember.contraindication : "Non"}</p>
+                        <br>
+                        </br>
+                        <br></br>
+                        <h2>INFORMATIONS supplementaires :</h2>
+                        <p>{Ismember.information}</p>
+                    
                     </div>
                     {userLvl > 0 && <Link to={`/member/${member_id}/payments`}>
                         <SingleMemberCard title="Paiement" paid={Ismember.paid} subscription={Ismember.subscription} />
                         </Link >}
                         <SingleMemberCard title="Pièces jointes" />
 
+                        <h3>Certificat medicale ou questionnaire santé</h3>
+                        <img src={Ismember.certificate} alt="certificate non disponible" />
+
+                        <h3>RIB ou document d'identité pour les paiements</h3>
+                        <img src={Ismember.rib} alt="rib non disponible"  />
+
+                        <h3>Autorisation Signature de l'association</h3>
                        <embed src={Ismember.image_rights_signature} type="application/pdf" height={700}/>
                 </div>
 

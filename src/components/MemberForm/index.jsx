@@ -277,7 +277,7 @@ const MemberForm = ({ method, memberId }) => {
     
     const imageElement = e.target;
     const source = imageElement.src;
-    console.log('Image de la signature chargée' + source);
+   // console.log('Image de la signature chargée' + source);
     setTrimmedDataURL(source);
 
   };
