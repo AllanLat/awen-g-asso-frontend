@@ -126,7 +126,7 @@ const Member = () => {
                     {userLvl > 0 && <Link to={`/member/${member_id}/payments`}>
                         <SingleMemberCard title="Paiement" paid={Ismember.paid} subscription={Ismember.subscription} />
                         </Link >}
-                        <SingleMemberCard title="Pièces jointes" />
+                        {/* <SingleMemberCard title="Pièces jointes" /> */}
 
                         <h3>Certificat medicale ou questionnaire santé</h3>
                         <img src={Ismember.certificate} alt="certificate non disponible" />
