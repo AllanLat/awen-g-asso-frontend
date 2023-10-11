@@ -27,7 +27,10 @@ const ModalAccount = ({isOpen, toggleOpen, total, member_id}) => {
         if(data.credOrDeb === 'none'){
             toast.info('Crédit ou débit ?', { position: 'bottom-center', className: 'myCustomToast' });
             return
-        } 
+        } else if(data.payment_method === 'none'){
+            toast.info('Moyen de paiement ?', { position: 'bottom-center', className: 'myCustomToast' });
+            return
+        }
         //on regarde si c'est un credit ou un débit
         if (isValid === true) {
             if(data.credOrDeb === "Débit"){
@@ -82,6 +85,7 @@ const ModalAccount = ({isOpen, toggleOpen, total, member_id}) => {
 
                         <label htmlFor='moyen' className='label'>Moyen de paiement</label>
                         <select id='moyen' {...register('payment_method', {required: true})} className='select'>
+                            <option value="none">---</option>
                             <option value="cb" className='opto-pay'>CB</option>
                             <option value="cheque" className='opto-pay'>Chèque</option>
                             <option value="CAF" className="opto-pay">CAF</option>
