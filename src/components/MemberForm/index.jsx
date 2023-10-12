@@ -223,10 +223,10 @@ const MemberForm = ({ method, memberId }) => {
 
                             updateMember(token, memberId, newMember)
                                 .then(() => {
-                                    console.log(newMember);
-                                    if(groupId !== null){
-                                        addMembersToGroup(token, groupId, memId);
-                                    }
+                                    console.log(newMember.get('certificate'));
+                                    // if(groupId !== null){
+                                    //     addMembersToGroup(token, groupId, memId);
+                                    // }
                                     navigate('/member/' + memberId);
                                 })
                                 .catch((error) => {
