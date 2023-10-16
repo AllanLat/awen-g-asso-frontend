@@ -7,7 +7,7 @@ const login = async (data, navigate) => {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/login`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: body
       });
