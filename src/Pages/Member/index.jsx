@@ -12,6 +12,8 @@ import SingleMemberCard from "../../components/SingleMemberCard";
 
 import placeholderImage from '../../assets/img/placeholder.png';
 
+
+
 const Member = () => {
     const userLvl = sessionStorage.getItem('userLvl');
     const { member_id } = useParams();

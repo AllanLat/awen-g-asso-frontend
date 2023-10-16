@@ -368,7 +368,7 @@ const handleAddDroitPDF = async () => {
             <Input value='certificate' text={certificate_medicalName === '' ? method === 'post' ? "Ajouter un certificat medicale" : "Modifier certificat medicale" : certificate_medicalName} onChange={handleCertificate_medicalName} type='file' register={register} />
              
              <Input value='information' text='Informations paiement ou autres' type='text' register={register} />
-             <Input value = 'rib'  text={ribName === '' ?  "RIB" : ribName} type={'file'} register={register} onChange={handleRibSelect} multiple={true}/>
+             <Input value = 'rib'  text={ribName === '' ?  "RIB" : ribName} type={'file'} register={register} onChange={handleRibSelect} />
            
             <div className='subscription'>
                 <label htmlFor="subscription"><h2>Choix de la cotisation :</h2></label>
