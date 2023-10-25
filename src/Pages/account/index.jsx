@@ -22,7 +22,12 @@ const Account = () => {
     useEffect(() => {
         const fetchPayments = async() => {
             const getPay = await getPaymentsAsso(token)
-            setPayments(getPay)
+            const paymentDate1 = [...getPay].sort((a, b) => {
+                const date1 = new Date(a.payment_date)
+                const date2 = new Date(b.payment_date)
+                return date2 - date1
+            }) 
+            setPayments(paymentDate1)
         }
         fetchPayments()
     }, [isModalOpen, token])
@@ -30,7 +35,7 @@ const Account = () => {
     useEffect(() => {
         
         const fetchBalance = async() => {
-            const getBalance = await getBalanceAsso(token)
+            const getBalance = await getBalanceAsso(token); 
             setTotal(getBalance)    
         }
         fetchBalance()
@@ -78,7 +83,6 @@ const Account = () => {
             default: 
                 console.log("Il y a un problème")
         }     
-           console.log(payments)
     }
 
     const convertPaymentDate = (datefromDB) => {
