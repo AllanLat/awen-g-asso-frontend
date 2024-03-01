@@ -16,13 +16,29 @@ const Login = () => {
 
     const [loading, setLoading] = useState(false);
 
+    // const onSubmit = (data) => {
+    //     setLoading(true);
+    //     login(data, navigate)
+    //     .finally(() => {
+    //         setLoading(false);
+    //     });
+    //     reset();
+    // }
+
     const onSubmit = (data) => {
         setLoading(true);
-        login(data, navigate)
-        .finally(() => {
+        // Skip authentication check in development environment
+        if (process.env.NODE_ENV === 'development') {
+            navigate('/desired-page'); // Replace '/desired-page' with the route you want to redirect to
             setLoading(false);
-        });
-        reset();
+        } else {
+            // Perform authentication as usual
+            login(data, navigate)
+                .finally(() => {
+                    setLoading(false);
+                });
+            reset();
+        }
     }
 
     return (
