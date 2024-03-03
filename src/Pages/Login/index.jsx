@@ -16,30 +16,30 @@ const Login = () => {
 
     const [loading, setLoading] = useState(false);
 
-    // const onSubmit = (data) => {
-    //     setLoading(true);
-    //     login(data, navigate)
-    //     .finally(() => {
-    //         setLoading(false);
-    //     });
-    //     reset();
-    // }
-
     const onSubmit = (data) => {
         setLoading(true);
-        // Skip authentication check in development environment
-        if (process.env.NODE_ENV === 'development') {
-            navigate('/desired-page'); // Replace '/desired-page' with the route you want to redirect to
+        login(data, navigate)
+        .finally(() => {
             setLoading(false);
-        } else {
-            // Perform authentication as usual
-            login(data, navigate)
-                .finally(() => {
-                    setLoading(false);
-                });
-            reset();
-        }
+        });
+        reset();
     }
+
+    // const onSubmit = (data) => {
+    //     setLoading(true);
+    //     // Skip authentication check in development environment
+    //     if (process.env.NODE_ENV === 'development') {
+    //         navigate('/desired-page'); // Replace '/desired-page' with the route you want to redirect to
+    //         setLoading(false);
+    //     } else {
+    //         // Perform authentication as usual
+    //         login(data, navigate)
+    //             .finally(() => {
+    //                 setLoading(false);
+    //             });
+    //         reset();
+    //     }
+    // }
 
     return (
         <div className="login-page">
