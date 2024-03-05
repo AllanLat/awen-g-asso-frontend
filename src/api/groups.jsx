@@ -17,7 +17,7 @@ const getGroupsByDayId = async (token, dayId) => {
         console.log(error);
     }
 }
-
+// commentaire test
 const getGroups = async (token) => {
 
     try {
